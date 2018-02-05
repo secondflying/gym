@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect">
+	<!-- <diskStore path="java.io.tmpdir" /> -->
+	<diskStore path="cachetmpdir" />
+	<!-- 问题缓存 -->
+	<cache name="questions" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+	<cache name="questionResponse" maxEntriesLocalHeap="10000"
+		eternal="false" overflowToDisk="false" diskSpoolBufferSizeMB="10"
+		timeToLiveSeconds="86400" memoryStoreEvictionPolicy="LRU">
+	</cache>
+	<cache name="questionAttachment" maxEntriesLocalHeap="10000"
+		eternal="false" overflowToDisk="false" diskSpoolBufferSizeMB="10"
+		timeToLiveSeconds="86400" memoryStoreEvictionPolicy="LRU">
+	</cache>
+
+	<!-- 农艺圈缓存 -->
+	<cache name="quans" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+	<cache name="quanComment" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+	<cache name="quanAttachment" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+
+
+	<cache name="agrotechnicalAttachment" maxEntriesLocalHeap="10000"
+		eternal="false" overflowToDisk="false" diskSpoolBufferSizeMB="10"
+		timeToLiveSeconds="86400" memoryStoreEvictionPolicy="LRU">
+	</cache>
+
+
+	<cache name="follows" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+
+	<!-- 疾病缓存 -->
+	<cache name="disease" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+	<cache name="diseaseAttachment" maxEntriesLocalHeap="10000"
+		eternal="false" overflowToDisk="false" diskSpoolBufferSizeMB="10"
+		timeToLiveSeconds="86400" memoryStoreEvictionPolicy="LRU">
+	</cache>
+
+	<cache name="usercrops" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+
+
+	<cache name="blacklist" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+	
+	
+	<cache name="suser" maxEntriesLocalHeap="10000" eternal="false"
+		overflowToDisk="false" diskSpoolBufferSizeMB="10" timeToLiveSeconds="86400"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+</ehcache>    
