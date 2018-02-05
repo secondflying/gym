@@ -1,0 +1,121 @@
+.jcarousel-skin-tango .jcarousel-container
+{
+	height:100%;
+}
+
+.jcarousel-skin-tango .jcarousel-direction-rtl
+{
+	direction: rtl;
+}
+
+.jcarousel-skin-tango .jcarousel-container-horizontal
+{
+	width: 100%;
+	padding: 0px;
+}
+
+
+.jcarousel-skin-tango .jcarousel-clip
+{
+	overflow: hidden;
+}
+
+.jcarousel-skin-tango .jcarousel-clip-horizontal
+{
+	width: 100%;
+	height: 100%;
+}
+
+
+.jcarousel-skin-tango .jcarousel-item
+{
+	width: 100%;
+	height: 100%;
+	position:relative;
+	text-align:center;
+}
+
+.jcarousel-skin-tango .jcarousel-item-horizontal
+{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-item-horizontal
+{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+
+.jcarousel-skin-tango .jcarousel-item-placeholder
+{
+	background: #fff;
+	color: #000;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-skin-tango .jcarousel-next-horizontal
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 58px;
+	height: 100%;
+	cursor: pointer;
+	background: transparent url(arr_right_1.png) no-repeat center center;
+	z-index:3000;
+}
+
+
+.jcarousel-skin-tango .jcarousel-next-horizontal:hover, .jcarousel-skin-tango .jcarousel-next-horizontal:focus
+{
+	background: transparent url(arr_right_2.png) no-repeat center center;
+	z-index:3000;
+}
+
+.jcarousel-skin-tango .jcarousel-next-horizontal:active
+{
+	background: transparent url(arr_right_2.png) no-repeat center center;
+	z-index:3000;
+}
+
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal, .jcarousel-skin-tango .jcarousel-next-disabled-horizontal:hover, .jcarousel-skin-tango .jcarousel-next-disabled-horizontal:focus, .jcarousel-skin-tango .jcarousel-next-disabled-horizontal:active
+{
+	cursor: default;
+	background: transparent url(arr_right_1.png) no-repeat center center;
+	z-index:3000;
+}
+
+.jcarousel-skin-tango .jcarousel-prev-horizontal
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 58px;
+	height: 100%;
+	cursor: pointer;
+	background: transparent url(arr_left_1.png) no-repeat center center;
+	z-index:3000;
+}
+
+.jcarousel-skin-tango .jcarousel-prev-horizontal:hover, .jcarousel-skin-tango .jcarousel-prev-horizontal:focus
+{
+	background: transparent url(arr_left_2.png) no-repeat center center;
+	z-index:3000;
+}
+
+.jcarousel-skin-tango .jcarousel-prev-horizontal:active
+{
+	background: transparent url(arr_left_2.png) no-repeat center center;
+	z-index:3000;
+}
+
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal, .jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:hover, .jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:focus, .jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:active
+{
+	cursor: default;
+	background: transparent url(arr_left_1.png) no-repeat center center;
+	z-index:3000;
+}
