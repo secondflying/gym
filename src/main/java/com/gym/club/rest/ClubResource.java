@@ -38,7 +38,6 @@ public class ClubResource {
 	public BaseResponse near(@RequestParam(required = true) double x, @RequestParam(required = true) double y,
 			@RequestParam(required = false, defaultValue = "0") int page,
 			@RequestParam(required = false, defaultValue = "20") int size) {
-
 		try {
 			List<Club> results = service.getNearAt(x, y, page, size);
 			int count = service.getCount();

@@ -1,0 +1,148 @@
+/**头部样式*/
+.header{
+	height: 100%;
+	width: 100%;
+	background: url("../images/top/topbg.png") repeat-x;
+}
+.headerLogin {
+	position: absolute;
+	right: 40px;
+	top: 10px;
+	text-align: right;
+	line-height: 30px;
+	height: 30px;
+	color: #fbfbfb;
+}
+.headerLogin ul {
+	list-style: none;
+	float: right;
+}
+.headerLogin ul li {
+	float: left;
+	text-align: center;
+	margin-right: 15px;
+}
+.headerLogin ul li a {
+	color: #fbfbfb;
+}
+.icon-user{
+	width: 14px;
+	height: 15px;
+	background: url(../images/top/user-icon.png) no-repeat;
+    display: inline-block;
+    float: left;
+    margin: 8px 8px 0 0;
+}
+.header-l{
+	height: 88px;
+	width: 289px;
+	background: url("../images/top/topl.png") no-repeat;
+	float: left;
+}
+.header-r{
+	height: 88px;
+	width: 167px;
+	background: url("../images/top/topright.png") no-repeat;
+	float: right;
+}
+.logo{
+	float: left;
+	height: 88px;
+	line-height: 90px;
+	color: #fbfbfb;
+	font-weight: bolder;
+	font-size: 26px;
+	margin-left: 30px;
+	letter-spacing: 3px;
+}
+.header-menu{
+	position: absolute;
+	left: 430px;
+	top:12px;
+}
+.header-menu ul li{
+	width: 60px;
+	height: 76px;
+	float: left;
+	margin: 0 15px;
+	cursor: pointer;
+}
+.header-menu .li1 .menu_bg{
+	width: 45px;
+	height: 45px;
+	background-image: url("../images/top/icon_home.png");
+}
+.header-menu .menu-txt{
+	color: #fff;
+	font-size: 12px;
+	width: 50px;
+	margin-top: 6px;
+	text-align: center;
+}
+.header-menu .li2 .menu_bg{
+	width: 45px;
+	height: 45px;
+	background-image: url("../images/top/btn2.png");
+}
+.header-menu .li3 .menu_bg{
+	width: 45px;
+	height: 45px;
+	background-image: url("../images/top/btn3.png");
+}
+.header-menu .li4 .menu_bg{
+	width: 45px;
+	height: 45px;
+	background-image: url("../images/top/btn7.png");
+}
+.header-menu .li5 .menu_bg{
+	width: 45px;
+	height: 45px;
+	background-image: url("../images/top/icon_stat.png");
+}
+.header-menu .li6 .menu_bg{
+	width: 45px;
+	height: 45px;
+	background-image: url("../images/top/icon_trand.png");
+}
+.header-menu .li7 .menu_bg{
+	width: 45px;
+	height: 45px;
+	background-image: url("../images/top/ico_history.png");
+}
+
+/**左侧菜单*/
+.l-title{
+	height: 40px;
+	background-color: #3c96ca;
+	line-height: 40px;
+	width: 100%;
+	font-size: 14px;
+	color: #f8f8f8;
+	padding-left: 30px;
+	font-weight: bolder;
+	position: relative;
+}
+.l-title i{background: url("../images/top/l-home.png") no-repeat;width: 24px;height: 24px;position: absolute;left: 8px;top: 12px;}
+
+.sortList{ width:100%; background:#f0f9fe;}
+.sortItem{ margin:0; padding:0;border-bottom: 1px solid #c8cfd5;}
+.sortItem a {cursor:pointer;}
+.sortItem span{padding:0 10px;}
+.sortItem h3{ position:relative; height: 34px;font-size:12px;line-height:34px;border-bottom: 1px solid #c8cfd5;background-color: #d4e6f0;}
+.sortItem h3 b{ width: 4px; height: 11px; display: inline-block; background: #3c96ca; position: absolute; top: 12px; left: 18px;}
+.sortItem h3 a{ display:block; padding:0 10px 0 30px;cursor: default;}
+.sortItem h3 a.selected{font-weight:bold;}
+.sortItem h3 i{ position:absolute; top:12px; right:10px; display:block; width:9px; height:5px; background:url(../images/nav/left-menu-arrow.png) no-repeat;}
+.sortItem ul li{position: relative;}
+.sortItem ul li:hover{background-color: #eee;}
+.sortItem ul li.selected{background-color: #eee;}
+.sortItem ul li.selected a{color:#3e7cc2;}
+.sortItem ul li a{ display:block; line-height:30px; padding:0 10px 0 42px;}
+.sortItem ul li a:hover{color:#3e7cc2;}
+.sortItem .subi{width: 4px;height: 7px;background: url("../images/top/l-icon.png") no-repeat;position: absolute;left: 30px;top: 12px;}
+
+/**中心区域头部*/
+.c-header{width: 100%;height: 40px;background-color: #EDF6FB;border-bottom: 1px solid #c8cfd5;line-height: 40px;font-size: 14px;}
+.ch-position{float: left;font-weight: bolder;margin-left: 16px;}
+.ch-txt{float: left;margin-left: 4px;}
+.ch-txt i{background: url("../images/center/ch-icon.png") no-repeat;width: 12px;height: 12px;margin: 0 3px;}

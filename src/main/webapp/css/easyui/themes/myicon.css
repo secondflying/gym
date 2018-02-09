@@ -1,0 +1,82 @@
+
+/* daidd add */
+.icon-my-folder{
+	background:url('myicons/folder16.png') no-repeat center center;
+}
+
+.icon-my-layer{
+	background:url('myicons/layer16.png') no-repeat center center;
+}
+
+.icon-add-folder16{
+	background:url('myicons/add-folder16.png') no-repeat center center;
+}
+
+.icon-add-folder24{
+	background:url('myicons/add-folder24.png') no-repeat center center;
+}
+
+.icon-add-service16{
+	background:url('myicons/add-service16.png') no-repeat center center;
+}
+
+.icon-add-service24{
+	background:url('myicons/add-service24.png') no-repeat center center;
+}
+
+.icon-view{
+	background:url('myicons/view16.png') no-repeat center center;
+}
+
+.icon-handler{
+	background:url('myicons/handler16.png') no-repeat center center;
+}	
+
+.icon-config{
+	background:url('myicons/config16.png') no-repeat center center;
+}
+
+.icon-check{
+	background:url('myicons/check16.png') no-repeat center center;
+}
+
+.icon-combine{
+	background:url('myicons/combine16.png') no-repeat center center;
+}
+
+.icon-add{
+	background:url('myicons/add16.png') no-repeat center center;
+}
+
+.icon-start{
+	background:url('myicons/start16.png') no-repeat center center;
+}
+
+.icon-stop{
+	background:url('myicons/stop16.png') no-repeat center center;
+}
+
+.icon-recovery{
+	background:url('myicons/recovery16.png') no-repeat center center;
+}
+
+.icon-cancels{
+	background:url('myicons/cancels16.png') no-repeat center center;
+}
+
+.icon-preview{
+	background:url('myicons/preview16.png') no-repeat center center;
+}
+
+.icon-save{
+	background:url('myicons/save16.png') no-repeat center center;
+}
+
+.icon-import
+{
+	background:url('myicons/add-folder16.png') no-repeat center center;
+}
+
+.icon-export{
+	background:url('myicons/view16.png') no-repeat center center;
+}

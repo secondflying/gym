@@ -21,6 +21,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.gym.common.entity.Image;
 
+/**
+ * 健身房
+ * 
+ * */
 @Entity
 @Table(name = "club")
 @JsonInclude(Include.NON_NULL)

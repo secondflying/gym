@@ -1,0 +1,28 @@
+ @charset "utf-8";
+/* CSS Document  覆盖Easyui datagrid选择行背景*/
+.datagrid-row-checked {
+    background:#edf3fb; 
+    color:#398DEE;
+}
+.datagrid-row-over{
+    background: #D8E4F4;
+}
+
+.datagrid-header-row{
+     background: #c0d8ff;
+     color: #fff;
+}
+
+.datagrid-cell,
+.datagrid-cell-group,
+.datagrid-header-rownumber,
+.datagrid-cell-rownumber {
+  height: 36px;
+  line-height: 32px;
+}
+/* .datagrid-htable, .datagrid-btable, .datagrid-ftable {
+    color: #444;
+} */
+	
+	
+	

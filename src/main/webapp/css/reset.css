@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0; box-sizing:border-box;}
+body{ color:#000b14; font:12px "微软雅黑"; /*background: #d4e6ff;*/}
+h2,h3,h4,p,div,ul,li,button,input,span{ margin:0; padding:0; list-style:none;}
+fieldset,img{ border:0;}
+input,button{ outline:none; border:0;}
+a{ color:#000b14; text-decoration:none;}
+i,em{ font-style:normal; display: inline-block;}
