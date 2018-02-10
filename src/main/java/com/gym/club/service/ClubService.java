@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gym.club.dao.ClubDao;
 import com.gym.club.entity.Club;
 import com.gym.common.dao.ImageDao;
+import com.gym.support.QueryParamUtil;
+import com.gym.support.QuerySpecification;
 import com.gym.util.PublicHelper;
 
 @Service
@@ -81,5 +84,11 @@ public class ClubService {
 			logger.error("新增健身房失败", e);
 			throw new RuntimeException("新增健身房失败", e);
 		}
+	}
+	
+	public Page<Club> queryListFilter(String filterParam, String sortParam, int start, int limit) {
+		Page<Club> results = dao.findAll(new QuerySpecification<Club>(filterParam),
+				new PageRequest(start, limit, QueryParamUtil.parseSortParams(sortParam)));
+		return results;
 	}
 }

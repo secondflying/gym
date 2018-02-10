@@ -7,14 +7,31 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <%@ include file="../common/css.jsp"%>
+    <%@ include file="../common/jslib.jsp"%>
+    <script type="text/javascript">
+	    $(document).ready(function(){
+	    	seajs.use("${pageContext.request.contextPath}/module/store/club/js/Main");
+	    });    
+    </script>
 </head>
-<body>
-	<div class="c-header">
+<body class="easyui-layout">
+	<div id="c-header" region="north" collapsible="false" border="false">
 		<div class="ch-position">位置：</div>
-		<div class="ch-txt">健身房<i></i>教练管理<i></i>列表</div>
+		<div class="ch-txt">店面管理<i></i>健身房<i></i>列表</div>
 	</div>
 	<div region="center" collapsible="false" border="false">
-    
+    	<div class="easyui-layout" fit="true">
+    		<!-- 
+            <div region="north"  collapsible="false" border="false" split="false">
+	            
+            </div>
+             -->
+            <div region="center" id="main-content" border="false" style="padding:0px;background:#eee;">
+				<table id="dataGrid" fit="true" >
+					
+				</table> 
+		    </div>
+       </div>
    	</div>
 </body>
 </html>

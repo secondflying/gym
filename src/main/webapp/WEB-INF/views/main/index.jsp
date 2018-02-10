@@ -28,9 +28,9 @@
 				</div>
 	     		<div class="header-menu">
 	     			<ul>
-	     				<li class="li2">
+	     				<li class="li1 selected">
 	     					<div class="menu_bg"></div>
-	     					<div class="menu-txt">健身房</div>
+	     					<div class="menu-txt">店面管理</div>
 	     				</li>
 	     				<li class="li3">
 	     					<div class="menu_bg"></div>
@@ -61,15 +61,15 @@
     
     <div region="west"  collapsible="false" border="false" style="width:200px;border-right: 1px solid #c8cfd5;">
         <div id="leftMenu" class="sortList">
-			<div class="l-title"><i></i>健身房</div>
+			<div class="l-title"><i></i>店面管理</div>
 			<div class="sortItem">
 				<h3>
-					<a href="javascript:void(0);">管理信息</a>
+					<a href="javascript:void(0);">健身房管理</a>
 					<b></b>
 				</h3>
 				<ul>
-					<li><i class="subi"></i><a id="" href="javascript:void(0);" >新闻公告</a></li>
-					<li><i class="subi"></i><a id="" href="javascript:void(0);" >新闻公告</a></li>
+					<li><i class="subi"></i><a id="" href="javascript:void(0);" >健身房</a></li>
+					<li><i class="subi"></i><a id="" href="javascript:void(0);" >教练管理</a></li>
 				</ul>
 			</div>
 			<div class="sortItem">

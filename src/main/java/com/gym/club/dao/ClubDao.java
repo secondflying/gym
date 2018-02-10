@@ -2,6 +2,7 @@ package com.gym.club.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,5 @@ public interface ClubDao extends CrudRepository<Club, Integer>, JpaSpecification
 
 	@Query("select count(u) from Club u  where u.status = 0")
 	public int getCount();
+	
 }
