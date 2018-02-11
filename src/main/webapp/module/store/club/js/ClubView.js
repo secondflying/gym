@@ -1,5 +1,5 @@
 /*
- *  健身房管理入口
+ *  健身房列表
  **/
 define(function(require, exports, module){
     'use strict';
@@ -7,6 +7,7 @@ define(function(require, exports, module){
     var BaseGridView = require('./../../../ext/baseGridView');
 	var ClubView = GYM.Class.create(BaseGridView, {
 		elemId:"dataGrid",
+		delUrl: GYM.ContextRoot + "/manager/club/delete",
 		initialize: function(option){
 			GYM.extend(this,option);
 			this.render();
@@ -41,18 +42,16 @@ define(function(require, exports, module){
 				    }}
 			    ]],
 				onLoadSuccess : function(data){
-					$(".mc-recommend").off("click");
-				    $(".mc-recommend").on("click",function(){
+					$(".o-edit").off("click");
+				    $(".o-edit").on("click",function(){
 						 var id = $(this).parent().attr("id");
-						 that.recommend(id);
+						 that.edit(id);
 					});
 				    
-				    $(".mc-view").off("click");
-				    $(".mc-view").on("click",function(){
+				    $(".o-delete").off("click");
+				    $(".o-delete").on("click",function(){
 						 var id = $(this).parent().attr("id");
-						 var svrType= $(this).parent().attr("svrType");
-						 that.view(id,svrType);
-					
+						 that.del(id);
 					});
 			    },
 			    toolbar:[{
@@ -101,8 +100,12 @@ define(function(require, exports, module){
 			this.setting = GYM.extend(defaultSetting,setting); 
 			$('#'+ this.elemId).datagrid(this.setting);
 			this.Message = {
-			    addSuccess:"保存成功",
-			    addFailue:"保存失败",
+			    addSuccess:"添加成功",
+			    addFailue:"添加失败",
+			    editSuccess:"保存成功",
+			    editFailue:"保存失败",
+			    delSuccess:"删除成功",
+			    delFailue:"删除失败"
 			}
 		}
 	});

@@ -3,6 +3,7 @@
 	height: 100%;
 	width: 100%;
 	background: url("../images/top/topbg.png") repeat-x;
+	overflow: hidden;
 }
 .headerLogin {
 	position: absolute;
@@ -61,6 +62,9 @@
 	top:12px;
 }
 .header-menu .selected{
+	border-bottom: 3px solid red;
+}
+.header-menu ul li:hover{
 	border-bottom: 3px solid red;
 }
 .header-menu ul li{
@@ -152,3 +156,7 @@
 
 .t-spit{width: 24px;height: 10px;display: inline-block;}
 .o-view{cursor: pointer;color: #398DEE;text-decoration: underline;margin: 0 5px;}
+
+.yw-search-wrap{width:200px;}
+.yw-search-wrap button{ color:#fff; width:72px; height:24px; line-height:24px; font-size:12px; text-align:center; border-radius:3px; background:#a0c4fe;cursor:pointer;margin-left:5px;}
+.yw-search-wrap button:hover{ background:#c4dafc;}

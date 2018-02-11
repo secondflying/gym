@@ -15,7 +15,4 @@
 
 <script type="text/javascript">
 	GYM.ContextRoot = "${pageContext.request.contextPath}";
-    $(document).ready(function(){
-    	
-    }); 
 </script>

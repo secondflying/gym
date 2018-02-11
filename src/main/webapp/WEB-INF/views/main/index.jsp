@@ -3,16 +3,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>健身管理平台</title>
-<link href="${pageContext.request.contextPath}/css/reset.css" rel="stylesheet" type="text/css"/>
-<link href="${pageContext.request.contextPath}/css/layout.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/easyui/themes/icon.css">
-
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>健身管理平台</title>
+	<%@ include file="../common/css.jsp"%>
+	<%@ include file="../common/jslib.jsp"%>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			seajs.use("${pageContext.request.contextPath}/module/menu/js/Menu");
+			
+			$("#headerMenu ul li").click(function(){
+				if($(this).hasClass("selected")){
+					return false;
+				}
+				$("#headerMenu ul li").removeClass("selected");
+				$(this).addClass("selected");
+				var index = $(this).index();
+				GYM.Event.trigger("menuView/render", index);
+			});
+	    }); 
+	</script>
 </head>
 <body class="easyui-layout">
     <div region="north" border="false" style="height:88px;width:100%;">
@@ -26,7 +35,7 @@
 				        <li><a href="${pageContext.request.contextPath}/login/logout.do">退出</a></li>
 				    </ul>
 				</div>
-	     		<div class="header-menu">
+	     		<div id="headerMenu" class="header-menu">
 	     			<ul>
 	     				<li class="li1 selected">
 	     					<div class="menu_bg"></div>
@@ -61,6 +70,7 @@
     
     <div region="west"  collapsible="false" border="false" style="width:200px;border-right: 1px solid #c8cfd5;">
         <div id="leftMenu" class="sortList">
+        	<!-- 
 			<div class="l-title"><i></i>店面管理</div>
 			<div class="sortItem">
 				<h3>
@@ -68,7 +78,7 @@
 					<b></b>
 				</h3>
 				<ul>
-					<li><i class="subi"></i><a id="" href="javascript:void(0);" >健身房</a></li>
+					<li class="selected"><i class="subi"></i><a id="" href="javascript:void(0);" >健身房</a></li>
 					<li><i class="subi"></i><a id="" href="javascript:void(0);" >教练管理</a></li>
 				</ul>
 			</div>
@@ -92,6 +102,7 @@
 					<li><i class="subi"></i><a id="" href="javascript:void(0);" >新闻公告</a></li>
 				</ul>
 			</div>
+			 -->
 		</div>
     </div>
     <div id="mainPanel"  region="center"  collapsible="false"  border="false">

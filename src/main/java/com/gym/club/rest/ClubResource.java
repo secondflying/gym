@@ -2,6 +2,7 @@ package com.gym.club.rest;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +50,12 @@ public class ClubResource {
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public BaseResponse detail(@RequestParam(required = true) int id) {
-
+	public BaseResponse detail(@RequestParam(required = true) String id) {
 		try {
-			Club result = service.getById(id);
+			if (StringUtils.isEmpty(id))
+				throw new IllegalArgumentException("参数id不得为空");
+			int cid = Integer.valueOf(id);
+			Club result = service.getById(cid);
 			return new BaseResultResponse(result);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);

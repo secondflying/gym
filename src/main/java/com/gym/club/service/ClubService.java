@@ -65,7 +65,7 @@ public class ClubService {
 		}
 	}
 
-	public void delete(Integer id) {
+	public void delete(int id) {
 		try {
 			Club club = dao.findOne(id);
 			club.setStatus(-1);
@@ -83,6 +83,16 @@ public class ClubService {
 		} catch (Exception e) {
 			logger.error("新增健身房失败", e);
 			throw new RuntimeException("新增健身房失败", e);
+		}
+	}
+	
+	public void edit(Club club) {
+		try {
+			club.setStatus(0);
+			dao.save(club);
+		} catch (Exception e) {
+			logger.error("编辑健身房失败", e);
+			throw new RuntimeException("编辑健身房失败", e);
 		}
 	}
 	

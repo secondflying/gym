@@ -14,7 +14,7 @@ define(function(require, exports, module){
 		afterCommit:null,
 		easyUIFields:[],
 		addURL: GYM.ContextRoot + "/manager/club/save",
-		editURL:GYM.ContextRoot + "/serviceManager/editServiceById.json",
+		editURL:GYM.ContextRoot + "/manager/club/detail",
 		initialize : function(containerId){
             
 			if(containerId){

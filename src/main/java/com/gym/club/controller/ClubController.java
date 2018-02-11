@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gym.club.entity.Club;
 import com.gym.club.service.ClubService;
 import com.gym.common.dto.BaseResponse;
+import com.gym.common.dto.BaseResultResponse;
 import com.gym.common.dto.EasyUIResponse;
 
 @Controller
@@ -35,15 +36,6 @@ public class ClubController {
 		return view;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String edit(Model model, @RequestParam(required = false) Integer id) {
-		// model.addAttribute("imageUrl", PublicConfig.getImageUrl() +
-		// "users/small");
-		// model.addAttribute("questions", questions);
-		// model.addAttribute("sumcount", sumcount);
-		return "club/edit";
-	}
-	
 	@RequestMapping(value = "/save", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public BaseResponse save(HttpServletRequest request, Club club) {
@@ -70,7 +62,7 @@ public class ClubController {
 			int limit = Integer.valueOf(rows);
 
 			if (StringUtils.isEmpty(filterParam))
-				filterParam = "";
+				filterParam = "Q_status_N_EQ=0";
 
 			if (StringUtils.isEmpty(sortParam))
 				sortParam = "";
@@ -85,6 +77,39 @@ public class ClubController {
 		}
 	}
 	
+	@RequestMapping(value = "/delete", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse delete(HttpServletRequest request, int ids) {
+		try {
+			service.delete(ids);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
 	
+	@RequestMapping(value = "/edit", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse edit(HttpServletRequest request, Club club) {
+		try {
+			service.edit(club);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
+	
+	@RequestMapping(value = "/detail", method = { RequestMethod.GET}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse detail(HttpServletRequest request, int id) {
+		try {
+			Club club = service.getById(id);
+			BaseResultResponse response = new BaseResultResponse();
+			response.setResult(club);
+			return response;
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
 
 }

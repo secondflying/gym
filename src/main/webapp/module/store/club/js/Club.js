@@ -7,4 +7,7 @@ define(function(require, exports, module){
     var ClubView = require('./ClubView');
     var clubView =  new ClubView();
     
+    var SearchView =  require('./SearchView');
+	var searchView = new SearchView(clubView);
+    
 });	

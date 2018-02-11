@@ -10,7 +10,7 @@
     <%@ include file="../common/jslib.jsp"%>
     <script type="text/javascript">
 	    $(document).ready(function(){
-	    	seajs.use("${pageContext.request.contextPath}/module/store/club/js/Main");
+	    	seajs.use("${pageContext.request.contextPath}/module/store/club/js/Club");
 	    });    
     </script>
 </head>
@@ -21,12 +21,33 @@
 	</div>
 	<div region="center" collapsible="false" border="false">
     	<div class="easyui-layout" fit="true">
-    		<!-- 
             <div region="north"  collapsible="false" border="false" split="false">
-	            
+	             <div style="position:relative;margin:0 10px;padding:10px;">
+		            <form id="seachContent" method="post">
+		                 <table class="searchContent">
+		                    <tr>
+								<td>
+									<label>名称：</label>
+								</td>
+								<td class="nr">
+									<input class="easyui-textbox" id="txtName" style="height:24px;width: 180px;">
+								</td>
+								<td>
+									<label style="margin-left: 20px;">地址：</label>
+								</td>
+								<td>
+									<input class="easyui-textbox" id="txtAddress" style="height:24px;width: 180px;">
+								</td>
+							</tr>
+		                 </table>
+		             </form>
+		             <div style="position:absolute;left:480px;top:12px;" class="yw-search-wrap">
+		                 <button id="btnSeach" >查 询</button>
+		                 <button id="btnReset" >重 置</button>
+		            </div>	            
+	             </div>
             </div>
-             -->
-            <div region="center" id="main-content" border="false" style="padding:10px 10px 5px 10px;">
+            <div region="center" id="main-content" border="false" style="padding:0 10px 5px 10px;">
 				<table id="dataGrid" fit="true" >
 					
 				</table> 

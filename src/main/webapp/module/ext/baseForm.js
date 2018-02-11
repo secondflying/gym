@@ -99,7 +99,7 @@ define(function(require, exports, module){
 	    	 var queryUrl =  that.editURL + "?id=" + id + "&dc=" + Math.random();
 	    	 $.getJSON(queryUrl, function (result) {
 				if (result.status.toLowerCase() == "ok") {
-					var data = result.data;
+					var data = result.result;
 					that.findData = data;
 					$("#" + that.formId).form("load",data);
 					that.afterRenderForm(data);

@@ -19,11 +19,11 @@ define(function(require, exports, module){
 		
 		initGrid:function(setting){
 		   this.toolbar = [{
-					iconCls: 'icon-add',
-					text:"新增",
-					handler: function(){
-						that.add();
-					}
+				iconCls: 'icon-add',
+				text:"新增",
+				handler: function(){
+					that.add();
+				}
 			}];
 			var that = this;
 			var defaultSetting = {
