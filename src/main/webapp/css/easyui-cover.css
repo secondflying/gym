@@ -1,7 +1,7 @@
  @charset "utf-8";
 /* CSS Document  覆盖Easyui datagrid选择行背景*/
 .datagrid-row-checked {
-    background:#edf3fb; 
+    background: #d4e6f0; 
     color:#398DEE;
 }
 .datagrid-row-over{
@@ -9,8 +9,9 @@
 }
 
 .datagrid-header-row{
-     background: #c0d8ff;
-     color: #fff;
+     background: #F0F5F8;
+     color: #000b14;
+     font-weight: bolder;
 }
 
 .datagrid-cell,

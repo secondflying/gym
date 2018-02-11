@@ -14,7 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/core/gym.event.js"></script>
 
 <script type="text/javascript">
-	IME.ContextRoot = "${pageContext.request.contextPath}";
+	GYM.ContextRoot = "${pageContext.request.contextPath}";
     $(document).ready(function(){
     	
     }); 

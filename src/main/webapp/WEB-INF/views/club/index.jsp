@@ -26,11 +26,12 @@
 	            
             </div>
              -->
-            <div region="center" id="main-content" border="false" style="padding:0px;background:#eee;">
+            <div region="center" id="main-content" border="false" style="padding:10px 10px 5px 10px;">
 				<table id="dataGrid" fit="true" >
 					
 				</table> 
 		    </div>
+		    <div id="clubDlgCon"></div> 
        </div>
    	</div>
 </body>

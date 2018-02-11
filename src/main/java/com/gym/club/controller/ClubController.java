@@ -84,5 +84,7 @@ public class ClubController {
 			return BaseResponse.buildErrorResponse(ex);
 		}
 	}
+	
+	
 
 }
