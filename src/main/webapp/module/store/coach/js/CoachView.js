@@ -5,40 +5,44 @@ define(function(require, exports, module){
     'use strict';
     
     var BaseGridView = require('./../../../ext/baseGridView');
-	var ClubView = GYM.Class.create(BaseGridView, {
+	var CoachView = GYM.Class.create(BaseGridView, {
 		elemId:"dataGrid",
-		delUrl: GYM.ContextRoot + "/manager/club/delete",
+		delUrl: GYM.ContextRoot + "/manager/coach/delete",
 		initialize: function(option){
 			GYM.extend(this,option);
 			this.render();
 		},
 		getForm:function(){
 			if(this.form == null){
-				 var ClubForm = require('./ClubForm'); 
-				 this.form = new ClubForm();
+				 var CoachForm = require('./CoachForm'); 
+				 this.form = new CoachForm();
 			}
 			return this.form;
 		},
 		render:function(){
 			var that = this;
 			var setting = {
-				url: GYM.ContextRoot + "/manager/club/list",
+				url: GYM.ContextRoot + "/manager/coach/list",
 				method:"GET",
 				queryParams:{},
 				columns:[[
 	                {field:'id',hidden:true},
 			        {field:'name',title:'名称',width:200,align:'center'},
-			        {field:'phone',title:'电话',width:200,align:'center'},
-					{field:'address',title:'地址',width:250,align:'center'},
-					{field:'description',title:'描述',width:300,align:'center',formatter:function(value,row,index){
-			        	
+			        {field:'phone',title:'联系电话',width:200,align:'center'},
+					{field:'age',title:'年龄',width:150,align:'center'},
+					{field:'sex',title:'性别',width:150,align:'center'},
+					{field:'weight',title:'体重',width:150,align:'center',formatter:function(value,row,index){
+						return value + "kg";
+			        }},
+					{field:'height',title:'身高',width:150,align:'center',formatter:function(value,row,index){
+						return value + "cm";
 			        }},
 			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';
 			        	html += '<span class="o-view o-edit">编辑</span>';
 			        	html += '<span class="o-view o-delete">删除</span>';
 			        	html += '</div>';
-					    return html;   		       		
+					    return html;
 				    }}
 			    ]],
 				onLoadSuccess : function(data){
@@ -109,5 +113,5 @@ define(function(require, exports, module){
 			}
 		}
 	});
-	module.exports =  ClubView;
+	module.exports =  CoachView;
 });	

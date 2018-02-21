@@ -1,0 +1,48 @@
+<div id="coachDlg" class="easyui-dialog" data-options="iconCls:'icon-save',closed:true" style="padding:5px;">
+	<form id="coachForm"  method="post" enctype="multipart/form-data">
+	    <input type="hidden" id="coachForm-id" name="id">
+	    <table class="dlgForm">
+            <tr>
+				<td>名称：</td>
+				<td><input class="easyui-textbox" name="name" data-options="required:true,validType:'length[1,50]'"></td>							                     
+				<td>电话：</td>
+				<td><input style="width: 190px;" class="easyui-textbox" name="phone"></td>
+            </tr>
+            <tr>
+				<td>年龄：</td>
+				<td><input class="easyui-textbox" class="easyui-numberbox" name="age"></td>							                     
+				<td>性别：</td>
+				<td>
+					<input name="sex" class="easyui-combobox" data-options="
+						valueField: 'label',
+						textField: 'value',
+						editable: false,
+						data: [{
+							label: '男',
+							value: '男'
+						},{
+							label: '女',
+							value: '女'
+						}]" style="width:190px;"/>
+				</td>
+            </tr>         
+            <tr >
+				<td valign="top">描述：</td>
+				<td colspan="3" ><input name="brief" class="easyui-textbox"  style="width:100%;" data-options="height:80,multiline:true,required:false,validType:'length[1,500]'"  ></td>
+			</tr>
+			<tr>
+				<td >身高：</td>
+				<td ><input name="height" class="easyui-numberbox" >kg</td>							                     
+				<td >体重：</td>
+				<td><input name="weight"  class="easyui-numberbox" >cm</td>							
+            </tr>
+            <!--
+            <tr>
+				 <td >图片：</td>
+				 <td colspan="3" ><input  id="serviceFile" type="text" name="imageFile"  style="width:100%;"></input></td>				 
+			</tr>
+			--> 
+        </table>
+   	</form>
+</div>
+

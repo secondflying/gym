@@ -58,6 +58,10 @@ public class Coach implements Serializable {
 	@Column(name = "status")
 	private int status;
 	
+	@XmlElement
+	@Column(name = "phone")
+	private String phone;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -120,6 +124,14 @@ public class Coach implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 }
