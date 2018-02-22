@@ -8,14 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gym.club.entity.Club;
 import com.gym.common.dto.BaseResponse;
 import com.gym.common.dto.BaseResultResponse;
 import com.gym.common.dto.EasyUIResponse;
@@ -95,6 +92,17 @@ public class CoachController {
 	public BaseResponse delete(HttpServletRequest request, int ids) {
 		try {
 			service.delete(ids);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
+	
+	@RequestMapping(value = "/coachsToClub", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse coachsToClub(HttpServletRequest request, int clubId, String coachIds) {
+		try {
+			service.coachsToClub(clubId, coachIds);
 			return BaseResponse.buildSuccessResponse();
 		} catch (Exception ex) {
 			return BaseResponse.buildErrorResponse(ex);

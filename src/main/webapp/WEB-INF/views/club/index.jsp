@@ -52,7 +52,8 @@
 					
 				</table> 
 		    </div>
-		    <div id="clubDlgCon"></div> 
+		    <div id="clubDlgCon"></div>
+		    <div id="bindCoachDlgCon"></div>
        </div>
    	</div>
 </body>

@@ -160,3 +160,14 @@
 .yw-search-wrap{width:200px;}
 .yw-search-wrap button{ color:#fff; width:72px; height:24px; line-height:24px; font-size:12px; text-align:center; border-radius:3px; background:#a0c4fe;cursor:pointer;margin-left:5px;}
 .yw-search-wrap button:hover{ background:#c4dafc;}
+/**健身房绑定教练界面**/
+.bc-left{float: left;width: 213px;height: 200px;}
+.bc-right{float: right;width: 213px;height: 200px;}
+.bc-center{float: left;width: 10px;border-left: 1px solid #ccc;border-right: 1px solid #ccc;height: 200px;}
+.bc-top{height: 30px;line-height: 30px;width: 100%;padding-left: 10px;background-color: #EDF6FB;border-bottom: 1px solid #c8cfd5;}
+.bc-content{padding: 0;overflow-x: hidden;overflow-y: auto;height: 169px;}
+.bc-content ul li{padding: 6px 12px;position: relative;}
+.bc-content ul li:hover{background-color: #ddd;}
+.bc-content ul li i{position: absolute;height: 24px;width: 24px;cursor: pointer;right: 10px;top: 2px;}
+.bc-add i{background: url("../images/center/add.png") center no-repeat;}
+.bc-del i{background: url("../images/center/remove.png") center no-repeat;}

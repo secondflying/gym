@@ -1,5 +1,7 @@
 package com.gym.club.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -27,7 +29,7 @@ public class ClubController {
 	
 	@Autowired
 	private ClubService service;
-
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView("/club/index");
@@ -109,5 +111,5 @@ public class ClubController {
 			return BaseResponse.buildErrorResponse(ex);
 		}
 	}
-
+	
 }

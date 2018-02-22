@@ -11,6 +11,7 @@ public class CoachCreate implements Serializable {
 	
 	private String name;
 	private int age;
+	private String phone;
 	private String sex;
 	private String brief;
 	private String height;
@@ -51,6 +52,12 @@ public class CoachCreate implements Serializable {
 	}
 	public void setWeight(String weight) {
 		this.weight = weight;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

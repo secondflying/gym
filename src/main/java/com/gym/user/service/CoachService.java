@@ -1,5 +1,7 @@
 package com.gym.user.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gym.club.entity.Club;
+import com.gym.common.dao.ImageDao;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
 import com.gym.user.dao.CoachDao;
@@ -24,11 +26,22 @@ public class CoachService {
 	@Autowired
 	private CoachDao dao;
 	
+	@Autowired
+	private ImageDao imagedao;
+
+	private static final String ImageCate = "coach";
+	
 	public Coach register(CoachCreate dto) {
 		try {
 			Coach coach = new Coach();
 			coach.setName(dto.getName());
+			coach.setAge(dto.getAge());
+			coach.setPhone(dto.getPhone());
+			coach.setHeight(dto.getHeight());
+			coach.setBrief(dto.getBrief());
+			coach.setSex(dto.getSex());
 			coach.setStatus(0);
+			coach.setClubid(-1);
 			return dao.save(coach);
 		} catch (Exception e) {
 			logger.error("注册教练失败", e);
@@ -39,16 +52,19 @@ public class CoachService {
 	public void save(Coach coach) {
 		try {
 			coach.setStatus(0);
+			coach.setClubid(-1);
 			dao.save(coach);
 		} catch (Exception e) {
-			logger.error("注册教练失败", e);
-			throw new RuntimeException("注册教练失败", e);
+			logger.error("新增教练失败", e);
+			throw new RuntimeException("新增教练失败", e);
 		}
 	}
 	
 	public Coach detail(int id) {
 		try {
-			return dao.findOne(id);
+			Coach coach = dao.findOne(id);
+			coach.setImages(imagedao.getOfImages(id, ImageCate));
+			return coach;
 		} catch (Exception e) {
 			logger.error("获取教练详情失败", e);
 			throw new RuntimeException("获取教练详情失败", e);
@@ -71,4 +87,23 @@ public class CoachService {
 			throw new RuntimeException("删除教练失败", e);
 		}
 	}
+	
+	public void coachsToClub(int clubId, String coachIds) {
+		List<Coach> list = dao.findByClubId(clubId);
+		for(Coach c: list) {
+			c.setClubid(-1);
+			dao.save(c);
+		}
+		if(coachIds != "") {
+			String[] arr = coachIds.split(",");
+			if(arr.length > 0) {
+				for(String coachId: arr) {
+					Coach coach = dao.findOne(Integer.parseInt(coachId));
+					coach.setClubid(clubId);
+					dao.save(coach);
+				}
+			}
+		}
+	}
+	
 }

@@ -62,6 +62,13 @@ public class Coach implements Serializable {
 	@Column(name = "phone")
 	private String phone;
 	
+	@XmlElement
+	@Column(name = "clubid")
+	private Integer clubid;
+	
+	@Transient
+	private List<Image> images;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -132,6 +139,22 @@ public class Coach implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+
+	public Integer getClubid() {
+		return clubid;
+	}
+
+	public void setClubid(Integer clubid) {
+		this.clubid = clubid;
 	}
 	
 }

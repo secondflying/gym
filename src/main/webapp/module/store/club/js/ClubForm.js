@@ -15,6 +15,8 @@ define(function(require, exports, module){
 		easyUIFields:[],
 		addURL: GYM.ContextRoot + "/manager/club/save",
 		editURL:GYM.ContextRoot + "/manager/club/detail",
+		coachsURL:GYM.ContextRoot + "/manager/coach/list",
+		coachsToClubYRL: GYM.ContextRoot + "/manager/coach/coachsToClub",
 		initialize : function(containerId){
             
 			if(containerId){
@@ -25,64 +27,35 @@ define(function(require, exports, module){
 			this.render(this.containerId,html,function(context){
 				that.initForm();
 			});
+			
+			var bindCoach = require("./../template/bindCoach.html");
+			$("#bindCoachDlgCon").html(bindCoach);
+			$.parser.parse("#bindCoachDlgCon");
+			
+			$("#bindCoachDlg").dialog({
+     	        closed:true,
+     	        width:450,
+     	        modal: true,
+     	        buttons:[{
+ 					text:'确定',
+ 					iconCls:'icon-ok',
+ 					handler:function(){
+ 						that.saveBc();
+ 						$("#bindCoachDlg").dialog('close');
+ 					}
+ 				},{
+ 					text:'取消',
+ 					iconCls:'icon-cancel',
+ 					handler:function(){
+ 						$("#bindCoachDlg").dialog('close');
+ 					}
+ 				}]
+			});
 		},
 		
 		initForm:function(){
 			 var that = this;
-			 $("#clubForm-level").combobox({
-        	    data:[{
-        	        "id":1,
-        	        "text":"1",
-        	        "selected":true
-        	    },{
-        	        "id":2,
-        	        "text":"2"
-        	    },{
-        	        "id":3,
-        	        "text":"3"
-        	    },{
-        	        "id":4,
-        	        "text":"4"
-        	    },{
-        	        "id":5,
-        	        "text":"5"
-        	    },{
-        	        "id":6,
-        	        "text":"6"
-        	    },{
-        	        "id":7,
-        	        "text":"7"
-        	    },{
-        	        "id":8,
-        	        "text":"8"
-        	    },{
-        	        "id":9,
-        	        "text":"9"
-        	    },{
-        	        "id":10,
-        	        "text":"10"
-        	    },{
-        	        "id":11,
-        	        "text":"11"
-        	    },{
-        	        "id":12,
-        	        "text":"12"
-        	    },{
-        	        "id":13,
-        	        "text":"13"
-        	    },{
-        	        "id":14,
-        	        "text":"14"
-        	    },{
-        	        "id":15,
-        	        "text":"15"
-        	    },{
-        	        "id":16,
-        	        "text":"16"
-        	    }],
-        	    editable:false,
-        	    value:"1"
-        	 });
+			 
 		},
 		isValidURL:function(url){
 			var validUrl = url.replace(/localhost/i,"127.0.0.1");
@@ -119,6 +92,122 @@ define(function(require, exports, module){
 		},
         afterRenderForm:function(data){
 	    	 
+	    },
+	    showBindCoachDlg: function(clubid){
+	    	$('#bindCoachDlg').dialog('setTitle',"教练管理");
+			$('#bindCoachDlg').dialog('open');
+			$("#clubId").val(clubid);
+			this.queryUnUseCoachs(clubid);
+			this.queryInUseCoachs(clubid);
+	    },
+	    queryUnUseCoachs: function(clubid){
+	    	var that = this;
+	    	$("#bcAddList").html("");
+	    	$.ajax({
+	             url: this.coachsURL,
+	             data: {filterParam: "Q_status_N_EQ=0;Q_clubid_N_EQ=-1", page: 1, rows: 999},
+	             dataType: "json",
+	             type:"GET",
+	             success: function(result){
+	            	 if(result.status == "ok"){	
+	         			var html = '';
+	         			for(var i=0;i<result.rows.length;i++){
+	         				var name = result.rows[i].name;
+	         				var oid = result.rows[i].id;
+	         				html += '<li oid="'+oid+'" name="'+name+'">'+name+'<i title="选择"></i></li>';
+	         			}
+	         			$("#bcAddList").html(html);
+	         			that.bindBcAddUI();
+	   				 }else{
+	   				   $.messager.show({
+	   				    	title:'提示',
+	   					    msg:"查询失败："+ result.message,
+	   					    timeout:3000
+	   				   }) 
+	   				 }
+	             }
+	        });
+	    },
+	    queryInUseCoachs: function(clubid){
+	    	var that = this;
+	    	$("#bcDelList").html("");
+	    	$.ajax({
+	             url: this.coachsURL,
+	             data: {filterParam: "Q_status_N_EQ=0;Q_clubid_N_EQ="+clubid, page: 1, rows: 999},
+	             dataType: "json",
+	             type:"GET",
+	             success: function(result){
+	            	 if(result.status == "ok"){	
+	         			var html = '';
+	         			for(var i=0;i<result.rows.length;i++){
+	         				var name = result.rows[i].name;
+	         				var oid = result.rows[i].id;
+	         				html += '<li oid="'+oid+'" name="'+name+'">'+name+'<i title="移除"></i></li>';
+	         			}
+	         			$("#bcDelList").html(html);
+	         			that.bindBcDelUI();
+	   				 }else{
+	   				   $.messager.show({
+	   				    	title:'提示',
+	   					    msg:"查询失败："+ result.message,
+	   					    timeout:3000
+	   				   }) 
+	   				 }
+	             }
+	        });
+	    },
+	    bindBcAddUI: function(){
+	    	var that = this;
+	    	$("#bcAddList").find("li i").unbind("click");
+ 			$("#bcAddList").find("li i").click(function(){
+ 				var name = $(this).parent().attr("name");
+ 				var oid = $(this).parent().attr("oid");
+ 				var addHtml = '<li oid="'+oid+'" name="'+name+'">'+name+'<i title="移除"></i></li>';
+ 				$("#bcDelList").append(addHtml);
+ 				$(this).parent().remove();
+ 				that.bindBcDelUI();
+ 			});
+	    },
+	    bindBcDelUI: function(){
+	    	var that = this;
+	    	$("#bcDelList").find("li i").unbind("click");
+ 			$("#bcDelList").find("li i").click(function(){
+ 				var name = $(this).parent().attr("name");
+ 				var oid = $(this).parent().attr("oid");
+ 				var delHtml = '<li oid="'+oid+'" name="'+name+'">'+name+'<i title="选择"></i></li>';
+ 				$("#bcAddList").append(delHtml);
+ 				$(this).parent().remove();
+ 				that.bindBcAddUI();
+ 			});
+	    },
+	    saveBc: function(){
+	    	var clubId = $("#clubId").val();
+	    	var coachIds = [];
+	    	$("#bcDelList li").each(function(){
+	    		var oid = $(this).attr("oid");
+	    		coachIds.push(oid);
+	    	});
+	    	$.ajax({
+	             url: this.coachsToClubYRL,
+	             data: {clubId: clubId, coachIds: coachIds.join(",")},
+	             dataType: "json",
+	             type:"POST",
+	             success: function(result){
+	            	 if(result.status == "ok"){	
+	            		 $.messager.show({
+	   				    	title:'提示',
+	   					    msg:"保存成功",
+	   					    timeout:3000
+		   				  }) 
+	   				 }else{
+	   				   $.messager.show({
+	   				    	title:'提示',
+	   					    msg:"保存失败："+ result.message,
+	   					    timeout:3000
+	   				   }) 
+	   				 }
+	             }
+	        });
 	    }
 	});
 

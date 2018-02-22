@@ -30,11 +30,12 @@ define(function(require, exports, module){
 			        {field:'name',title:'名称',width:200,align:'center'},
 			        {field:'phone',title:'电话',width:200,align:'center'},
 					{field:'address',title:'地址',width:250,align:'center'},
-					{field:'description',title:'描述',width:300,align:'center',formatter:function(value,row,index){
+					{field:'description',title:'简介',width:300,align:'center',formatter:function(value,row,index){
 			        	
 			        }},
 			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';
+			        	html += '<span class="o-view o-coach">教练管理</span>';
 			        	html += '<span class="o-view o-edit">编辑</span>';
 			        	html += '<span class="o-view o-delete">删除</span>';
 			        	html += '</div>';
@@ -53,6 +54,12 @@ define(function(require, exports, module){
 						 var id = $(this).parent().attr("id");
 						 that.del(id);
 					});
+				    
+				    $(".o-coach").off("click");
+				    $(".o-coach").on("click",function(){
+						 var id = $(this).parent().attr("id");
+						 that.bindCoach(id);
+					});
 			    },
 			    toolbar:[{
 			    	id:'btnreload',
@@ -68,14 +75,6 @@ define(function(require, exports, module){
 			    	iconCls:'icon-add',
 			    	handler:function(){
 			    		that.add();
-			    	}
-			    },
-			    {
-			    	id:'btnview',
-			    	text:'编辑',
-			    	iconCls:'icon-edit',
-			    	handler:function(){
-			    		
 			    	}
 			    }]
 		    }		   
@@ -107,6 +106,9 @@ define(function(require, exports, module){
 			    delSuccess:"删除成功",
 			    delFailue:"删除失败"
 			}
+		},
+		bindCoach: function(id){
+			this.getForm().showBindCoachDlg(id);
 		}
 	});
 	module.exports =  ClubView;

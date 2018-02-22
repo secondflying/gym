@@ -14,12 +14,33 @@
 			</tr>
                      
             <tr >
-				<td valign="top">描述：</td>
+				<td valign="top">简介：</td>
 				<td colspan="3" ><input name="description" class="easyui-textbox"  style="width:100%;" data-options="height:80,multiline:true,required:false,validType:'length[1,500]'"  ></td>
 			</tr>
 			<tr>
 				<td >级别：</td>
-				<td colspan="3" ><input id="clubForm-level" style="width:100%;"  name="level"  class="easyui-textbox" data-options="required:false"></td>	
+				<td colspan="3" >
+					<input style="width:100%;"  name="level" class="easyui-combobox" data-options="
+						valueField: 'label',
+						textField: 'value',
+						editable: false,
+						data: [{
+							label: '1',
+							value: '1'
+						},{
+							label: '2',
+							value: '2'
+						},{
+							label: '3',
+							value: '3'
+						},{
+							label: '4',
+							value: '4'
+						},{
+							label: '5',
+							value: '5'
+						}]" />
+				</td>	
 			</tr>
 			<tr>
 				<td >经度：</td>
