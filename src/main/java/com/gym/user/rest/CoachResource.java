@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gym.common.dto.BaseResponse;
 import com.gym.common.dto.BaseResultResponse;
-import com.gym.user.dto.CoachCreate;
+import com.gym.user.dto.CoachDto;
 import com.gym.user.entity.Coach;
 import com.gym.user.service.CoachService;
 
@@ -27,7 +27,7 @@ public class CoachResource {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8", consumes = "application/json")
 	@ResponseBody
-	public BaseResponse register(@RequestBody CoachCreate dto) throws IllegalStateException, IOException,
+	public BaseResponse register(@RequestBody CoachDto dto) throws IllegalStateException, IOException,
 			ServletException {
 		try {
 			Coach result = service.register(dto);

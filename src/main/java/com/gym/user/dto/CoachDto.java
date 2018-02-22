@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CoachCreate implements Serializable {
+public class CoachDto implements Serializable {
 
 	private static final long serialVersionUID = 1265408577787405624L;
 	

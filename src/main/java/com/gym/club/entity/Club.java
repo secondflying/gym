@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.gym.common.entity.Image;
+import com.gym.user.dto.CoachDto;
+import com.gym.user.entity.Coach;
 
 /**
  * 健身房
@@ -66,6 +68,9 @@ public class Club implements Serializable {
 
 	@Transient
 	private List<Image> images;
+	
+	@Transient
+	private List<CoachDto> coachs;
 	
 	@Transient
 	private Double distance;
@@ -164,6 +169,14 @@ public class Club implements Serializable {
 
 	public void setDistance(Double distance) {
 		this.distance = distance;
+	}
+
+	public List<CoachDto> getCoachs() {
+		return coachs;
+	}
+
+	public void setCoachs(List<CoachDto> coachs) {
+		this.coachs = coachs;
 	}
 
 }

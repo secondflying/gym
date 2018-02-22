@@ -8,11 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.gym.club.entity.Club;
 import com.gym.common.entity.Image;
 
 /**
@@ -64,7 +69,12 @@ public class Coach implements Serializable {
 	
 	@XmlElement
 	@Column(name = "clubid")
-	private Integer clubid;
+	private int clubid;
+	
+	@ManyToOne()
+	@JoinColumn(name = "clubid", insertable = false, updatable = false)
+	@NotFound(action = NotFoundAction.IGNORE)
+	private Club club;
 	
 	@Transient
 	private List<Image> images;
@@ -149,12 +159,20 @@ public class Coach implements Serializable {
 		this.images = images;
 	}
 
-	public Integer getClubid() {
+	public int getClubid() {
 		return clubid;
 	}
 
-	public void setClubid(Integer clubid) {
+	public void setClubid(int clubid) {
 		this.clubid = clubid;
+	}
+
+	public Club getClub() {
+		return club;
+	}
+
+	public void setClub(Club club) {
+		this.club = club;
 	}
 	
 }

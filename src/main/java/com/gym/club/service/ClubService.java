@@ -1,5 +1,6 @@
 package com.gym.club.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +16,9 @@ import com.gym.club.entity.Club;
 import com.gym.common.dao.ImageDao;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
+import com.gym.user.dao.CoachDao;
+import com.gym.user.dto.CoachDto;
+import com.gym.user.entity.Coach;
 import com.gym.util.PublicHelper;
 
 @Service
@@ -28,6 +32,9 @@ public class ClubService {
 
 	@Autowired
 	private ImageDao imagedao;
+	
+	@Autowired
+	private CoachDao coachDao;
 
 	private static final String ImageCate = "club";
 
@@ -58,6 +65,20 @@ public class ClubService {
 		try {
 			Club club = dao.findOne(id);
 			club.setImages(imagedao.getOfImages(id, ImageCate));
+			List<Coach> list = coachDao.findByClubId(id);
+			List<CoachDto> coachs = new ArrayList<CoachDto>();
+			for(Coach coach: list) {
+				CoachDto coachDto = new CoachDto();
+				coachDto.setAge(coach.getAge());
+				coachDto.setBrief(coach.getBrief());
+				coachDto.setHeight(coach.getHeight());
+				coachDto.setName(coach.getName());
+				coachDto.setPhone(coach.getPhone());
+				coachDto.setSex(coach.getSex());
+				coachDto.setWeight(coach.getWeight());
+				coachs.add(coachDto);
+			}
+			club.setCoachs(coachs);
 			return club;
 		} catch (Exception e) {
 			logger.error("获取健身房详情失败", e);

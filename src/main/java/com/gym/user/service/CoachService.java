@@ -10,11 +10,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gym.club.dao.ClubDao;
 import com.gym.common.dao.ImageDao;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
 import com.gym.user.dao.CoachDao;
-import com.gym.user.dto.CoachCreate;
+import com.gym.user.dto.CoachDto;
 import com.gym.user.entity.Coach;
 
 @Service
@@ -28,10 +29,13 @@ public class CoachService {
 	
 	@Autowired
 	private ImageDao imagedao;
+	
+	@Autowired
+	private ClubDao clubDao;
 
 	private static final String ImageCate = "coach";
 	
-	public Coach register(CoachCreate dto) {
+	public Coach register(CoachDto dto) {
 		try {
 			Coach coach = new Coach();
 			coach.setName(dto.getName());
@@ -64,6 +68,7 @@ public class CoachService {
 		try {
 			Coach coach = dao.findOne(id);
 			coach.setImages(imagedao.getOfImages(id, ImageCate));
+			coach.setClub(clubDao.findOne(coach.getClubid()));
 			return coach;
 		} catch (Exception e) {
 			logger.error("获取教练详情失败", e);
