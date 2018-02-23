@@ -29,7 +29,8 @@ public class ClubResource {
 	/**
 	 * 获取附近的健身房
 	 * 
-	 * @param model
+	 * @param x
+	 * @param y
 	 * @param page
 	 * @param size
 	 * @return

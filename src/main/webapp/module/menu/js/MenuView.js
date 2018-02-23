@@ -33,6 +33,8 @@ define(function(require, exports, module){
 		    		url = GYM.ContextRoot + "/manager/club/index";
 		    	}else if(sort == "store/coach"){
 		    		url = GYM.ContextRoot + "/manager/coach/index";
+		    	}else if(sort == "store/course"){
+		    		url = GYM.ContextRoot + "/manager/course/index";
 		    	}
 		    	$("#linkPage").attr("src", url);
 		    });

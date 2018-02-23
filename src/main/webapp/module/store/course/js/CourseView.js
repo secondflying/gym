@@ -1,56 +1,43 @@
 /*
- *  健身房列表
+ *  课程列表
  **/
 define(function(require, exports, module){
     'use strict';
     
     var BaseGridView = require('./../../../ext/baseGridView');
-	var CoachView = GYM.Class.create(BaseGridView, {
+	var CourseView = GYM.Class.create(BaseGridView, {
 		elemId:"dataGrid",
-		delUrl: GYM.ContextRoot + "/manager/coach/delete",
-		detailUrl:GYM.ContextRoot + "/manager/coach/detail",
+		delUrl: GYM.ContextRoot + "/manager/course/delete",
 		initialize: function(option){
 			GYM.extend(this,option);
 			this.render();
 		},
 		getForm:function(){
 			if(this.form == null){
-				 var CoachForm = require('./CoachForm'); 
-				 this.form = new CoachForm();
+				 var CourseForm = require('./CourseForm'); 
+				 this.form = new CourseForm();
 			}
 			return this.form;
 		},
 		render:function(){
 			var that = this;
 			var setting = {
-				url: GYM.ContextRoot + "/manager/coach/list",
+				url: GYM.ContextRoot + "/manager/course/list",
 				method:"GET",
 				queryParams:{},
 				columns:[[
 	                {field:'id',hidden:true},
-			        {field:'name',title:'名称',width:200,align:'center'},
-			        {field:'phone',title:'联系电话',width:200,align:'center'},
-					{field:'age',title:'年龄',width:100,align:'center'},
-					{field:'sex',title:'性别',width:100,align:'center'},
-					{field:'weight',title:'体重',width:100,align:'center',formatter:function(value,row,index){
-						return value + "kg";
-			        }},
-					{field:'height',title:'身高',width:100,align:'center',formatter:function(value,row,index){
-						return value + "cm";
-			        }},
-			        {field:'clubid',title:'所属健身房',width:150,align:'center',formatter:function(value,row,index){
-						if(row.club != null){
-							return row.club.name;
-						}else{
-							return "--"
-						}
+			        {field:'name',title:'课程名称',width:200,align:'center'},
+			        {field:'type',title:'课程类型',width:200,align:'center'},
+					{field:'description',title:'课程描述',width:300,align:'center',formatter:function(value,row,index){
+			        	
 			        }},
 			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';
 			        	html += '<span class="o-view o-edit">编辑</span>';
 			        	html += '<span class="o-view o-delete">删除</span>';
 			        	html += '</div>';
-					    return html;
+					    return html;   		       		
 				    }}
 			    ]],
 				onLoadSuccess : function(data){
@@ -82,7 +69,7 @@ define(function(require, exports, module){
 			    		that.add();
 			    	}
 			    }]
-		    }
+		    }		   
 		    this.initGrid(setting); 
 	    },
 	    initGrid:function(setting){
@@ -111,20 +98,7 @@ define(function(require, exports, module){
 			    delSuccess:"删除成功",
 			    delFailue:"删除失败"
 			}
-		},
-		getDetail: function(id){
-			$.ajax({
-	             url: that.detailUrl,
-	             data: {id: row.id},
-	             dataType: "json",
-	             type:"GET",
-	             success: function(result){
-	            	 if(result.status == "ok"){	
-	         			
-	   				 }
-	             }
-	        });
 		}
 	});
-	module.exports =  CoachView;
+	module.exports =  CourseView;
 });	

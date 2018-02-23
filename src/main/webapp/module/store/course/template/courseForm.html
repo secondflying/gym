@@ -1,0 +1,27 @@
+<div id="courseDlg" class="easyui-dialog" data-options="iconCls:'icon-save',closed:true" style="padding:5px;">
+	<form id="courseForm"  method="post" enctype="multipart/form-data">
+	    <input type="hidden" id="courseForm-id" name="id">
+	    <table class="dlgForm">
+            <tr>
+				<td>名称：</td>
+				<td><input class="easyui-textbox" name="name" data-options="required:true,validType:'length[1,50]'"></td>							                     
+				<td>类型：</td>
+				<td><input class="easyui-textbox" name="type"></td>
+            </tr>
+			<tr>
+				<td>描述：</td>
+				<td colspan="3"><input style="width:100%;" class="easyui-textbox" name="address" ></td>	
+			</tr>
+            <!--
+            <tr>
+				 <td >图片：</td>
+				 <td colspan="3" ><input  id="serviceFile" type="text" name="imageFile"  style="width:100%;"></input></td>				 
+			</tr>
+			--> 
+        </table>
+   	</form>
+<!--    	<div style="text-align:center;padding:5px;">    	 -->
+<!-- 	   <img id="image-svr" style="border:0;width:300px;height:150px;" > -->
+<!--     </div>  -->
+</div>
+
