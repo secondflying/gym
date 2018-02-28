@@ -30,12 +30,10 @@ define(function(require, exports, module){
 			        {field:'name',title:'名称',width:200,align:'center'},
 			        {field:'phone',title:'电话',width:200,align:'center'},
 					{field:'address',title:'地址',width:250,align:'center'},
-					{field:'description',title:'简介',width:300,align:'center',formatter:function(value,row,index){
-			        	
-			        }},
-			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
+			        {field:'op',title:'操作',width:400,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';
 			        	html += '<span class="o-view o-coach">教练管理</span>';
+			        	html += '<span class="o-view o-img">照片管理</span>';
 			        	html += '<span class="o-view o-edit">编辑</span>';
 			        	html += '<span class="o-view o-delete">删除</span>';
 			        	html += '</div>';
@@ -59,6 +57,12 @@ define(function(require, exports, module){
 				    $(".o-coach").on("click",function(){
 						 var id = $(this).parent().attr("id");
 						 that.bindCoach(id);
+					});
+				    
+				    $(".o-img").off("click");
+				    $(".o-img").on("click",function(){
+						 var id = $(this).parent().attr("id");
+						 that.imageForm(id);
 					});
 			    },
 			    toolbar:[{
@@ -109,6 +113,9 @@ define(function(require, exports, module){
 		},
 		bindCoach: function(id){
 			this.getForm().showBindCoachDlg(id);
+		},
+		imageForm: function(id){
+			this.getForm().showImageFormDlg(id);
 		}
 	});
 	module.exports =  ClubView;

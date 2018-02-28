@@ -17,6 +17,9 @@ define(function(require, exports, module){
 		editURL:GYM.ContextRoot + "/manager/club/detail",
 		coachsURL:GYM.ContextRoot + "/manager/coach/list",
 		coachsToClubYRL: GYM.ContextRoot + "/manager/coach/coachsToClub",
+		uploadImgUrl: GYM.ContextRoot + "/manager/file/upload",
+		saveImgUrl: GYM.ContextRoot + "/manager/file/saveimg",
+		cate: "club",
 		initialize : function(containerId){
             
 			if(containerId){
@@ -26,6 +29,24 @@ define(function(require, exports, module){
 			var that = this;
 			this.render(this.containerId,html,function(context){
 				that.initForm();
+			});
+			
+			var imageForm = require("./../template/imageForm.html");
+			$("#imageDlgCon").html(imageForm);
+			$.parser.parse("#imageDlgCon");
+			
+			$("#imageFormDlg").dialog({
+     	        closed:true,
+     	        width:650,
+     	        height: 400,
+     	        modal: true,
+     	        buttons:[{
+ 					text:'取消',
+ 					iconCls:'icon-cancel',
+ 					handler:function(){
+ 						$("#imageFormDlg").dialog('close');
+ 					}
+ 				}]
 			});
 			
 			var bindCoach = require("./../template/bindCoach.html");
@@ -51,6 +72,11 @@ define(function(require, exports, module){
  					}
  				}]
 			});
+			
+			$('#serviceFile').filebox({
+	            buttonText: '选择图片',
+	            validType: 'picture'
+	        })
 		},
 		
 		initForm:function(){
@@ -208,7 +234,80 @@ define(function(require, exports, module){
 	   				 }
 	             }
 	        });
-	    }
+	    },
+	    /*图片管理*/
+	    showImageFormDlg: function(clubid){
+	    	$('#imageFormDlg').dialog('setTitle',"图片管理");
+			$('#imageFormDlg').dialog('open');
+			$("#image-clubId").val(clubid);
+			$(".fancybox-effects-b").fancybox({
+				openEffect  : 'none',
+				closeEffect	: 'none',
+				helpers : {
+					title : {
+						type : 'over'
+					}
+				}
+			});
+			var that = this;
+			$("#imageFormBtn").unbind("click");
+			$("#imageFormBtn").click(function(){
+				that.uploadImg(clubid);
+			});
+	    },
+	    //图片上传到OSS服务器
+	    uploadImg: function(clubid){
+	    	var that = this;
+	    	$("#imageForm").form('submit',{
+	 			url:that.uploadImgUrl,
+	 			onSubmit:function(param){
+	 				
+	 			},
+	 			success:function(data){
+	 				var result = $.parseJSON(data);
+	 				if(result.status == "ok"){
+	 					//返回图片名，再将图片关联信息存入图片表
+	 					var img = {
+ 							cate: that.cate,
+ 							url: result.result,
+ 							cid: clubid
+	 					}
+	 					that.saveImage(img);
+	 				}else{
+	 					$.messager.show({
+	   				    	title:'提示',
+	   					    msg:"上传失败："+ result.message,
+	   					    timeout:3000
+	   				   }) 
+	 				}
+	 			}
+	    	});
+		},
+		saveImage: function(img){
+			var that = this;
+			$.ajax({
+	             url: that.saveImgUrl,
+	             data: img,
+	             dataType: "json",
+	             type:"POST",
+	             success: function(result){
+	            	 if(result.status == "ok"){	
+	            		 $.messager.show({
+	   				    	title:'提示',
+	   					    msg:"保存成功",
+	   					    timeout:3000
+		   				  }) 
+		   				  
+	   				 }else{
+	   				   $.messager.show({
+	   				    	title:'提示',
+	   					    msg:"保存失败："+ result.message,
+	   					    timeout:3000
+	   				   }) 
+	   				 }
+	             }
+	        });
+		}
 	});
 
 	module.exports =  ClubForm;

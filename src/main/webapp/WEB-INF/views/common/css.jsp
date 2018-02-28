@@ -4,3 +4,4 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/easyui/themes/myicon.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/easyui-cover.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/lib/jquery/fancybox/jquery.fancybox.css" />

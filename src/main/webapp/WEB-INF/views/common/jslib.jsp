@@ -8,6 +8,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/seajs/seajs-style.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/artTemplate/template.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/artTemplate/extensions/template-syntax.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery/fancybox/jquery.fancybox.js"></script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/core/gym.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/core/gym.class.js"></script>

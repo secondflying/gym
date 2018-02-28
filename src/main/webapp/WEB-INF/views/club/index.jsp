@@ -54,6 +54,7 @@
 		    </div>
 		    <div id="clubDlgCon"></div>
 		    <div id="bindCoachDlgCon"></div>
+		    <div id="imageDlgCon"></div>
        </div>
    	</div>
 </body>
