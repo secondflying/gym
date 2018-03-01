@@ -38,6 +38,15 @@ define(function(require, exports, module){
 					{field:'height',title:'身高',width:100,align:'center',formatter:function(value,row,index){
 						return value + "cm";
 			        }},
+			        {field:'state',title:'审核状态',width:100,align:'center',formatter:function(value,row,index){
+						if(value == 0){
+							return "未审核";
+						}else if(value == 1){
+							return "审核通过";
+						}else if(value == -1){
+							return "审核不通过";
+						}
+			        }},
 			        {field:'clubid',title:'所属健身房',width:150,align:'center',formatter:function(value,row,index){
 						if(row.club != null){
 							return row.club.name;
@@ -47,6 +56,7 @@ define(function(require, exports, module){
 			        }},
 			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';
+			        	html += '<span class="o-view o-check">审核</span>';
 			        	html += '<span class="o-view o-edit">编辑</span>';
 			        	html += '<span class="o-view o-delete">删除</span>';
 			        	html += '</div>';
@@ -73,15 +83,16 @@ define(function(require, exports, module){
 			    	handler:function(){
 				    	that.reload();
 			    	}
-			    },
-			    {
-			    	id:'btnview',
-			    	text:'新增',
-			    	iconCls:'icon-add',
-			    	handler:function(){
-			    		that.add();
-			    	}
-			    }]
+			    }
+//			    {
+//			    	id:'btnview',
+//			    	text:'新增',
+//			    	iconCls:'icon-add',
+//			    	handler:function(){
+//			    		that.add();
+//			    	}
+//			    }
+			    ]
 		    }
 		    this.initGrid(setting); 
 	    },

@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlElement;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gym.club.entity.Club;
 import com.gym.common.entity.Image;
 
@@ -61,6 +62,7 @@ public class Coach implements Serializable {
 	
 	@XmlElement
 	@Column(name = "status")
+	@JsonIgnore
 	private int status;
 	
 	@XmlElement
@@ -75,6 +77,14 @@ public class Coach implements Serializable {
 	@JoinColumn(name = "clubid", insertable = false, updatable = false)
 	@NotFound(action = NotFoundAction.IGNORE)
 	private Club club;
+	
+	@XmlElement
+	@Column(name = "state")
+	private int state;
+	
+	@XmlElement
+	@Column(name = "reason")
+	private String reason;
 	
 	@Transient
 	private List<Image> images;
@@ -173,6 +183,22 @@ public class Coach implements Serializable {
 
 	public void setClub(Club club) {
 		this.club = club;
+	}
+	
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 	
 }

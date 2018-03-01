@@ -51,4 +51,15 @@ public class FileController {
 			return BaseResponse.buildErrorResponse(ex);
 		}
 	}
+	
+	@RequestMapping(value = "/delete", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse delimg(HttpServletRequest request, String url) {
+		try {
+			service.deleteByUrl(url);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
 }

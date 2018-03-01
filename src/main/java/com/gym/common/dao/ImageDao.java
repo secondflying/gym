@@ -19,4 +19,8 @@ public interface ImageDao extends CrudRepository<Image, Integer>, JpaSpecificati
 	@Query("delete from Image as u where u.cid = ?1 and u.cate=?2")
 	@Modifying()
 	public int deleteByClub(Integer aid, String cate);
+	
+	@Query("select u from Image u where u.url=?1")
+	public Image findByUrl(String url);
+	
 }

@@ -26,4 +26,15 @@ public class ImageService {
 			throw new RuntimeException("新增图片失败", e);
 		}
 	}
+	
+	public void deleteByUrl(String url) {
+		try {
+			Image image = imageDao.findByUrl(url);
+			imageDao.delete(image);
+		} catch (Exception e) {
+			logger.error("删除图片失败", e);
+			throw new RuntimeException("新增图片失败", e);
+		}
+	}
+	
 }

@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gym.common.entity.Image;
 
 /**
@@ -59,7 +60,12 @@ public class User implements Serializable {
 	
 	@XmlElement
 	@Column(name = "status")
+	@JsonIgnore
 	private int status;
+	
+	//用户头像
+	@Transient
+	private Image image;
 
 	public Integer getId() {
 		return id;
@@ -131,6 +137,14 @@ public class User implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
 }
