@@ -83,15 +83,15 @@ define(function(require, exports, module){
 			    	handler:function(){
 				    	that.reload();
 			    	}
+			    },
+			    {
+			    	id:'btnview',
+			    	text:'新增',
+			    	iconCls:'icon-add',
+			    	handler:function(){
+			    		that.add();
+			    	}
 			    }
-//			    {
-//			    	id:'btnview',
-//			    	text:'新增',
-//			    	iconCls:'icon-add',
-//			    	handler:function(){
-//			    		that.add();
-//			    	}
-//			    }
 			    ]
 		    }
 		    this.initGrid(setting); 

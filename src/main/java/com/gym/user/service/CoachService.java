@@ -46,6 +46,7 @@ public class CoachService {
 			coach.setSex(dto.getSex());
 			coach.setStatus(0);
 			coach.setClubid(-1);
+			coach.setState(0);
 			return dao.save(coach);
 		} catch (Exception e) {
 			logger.error("注册教练失败", e);
@@ -56,6 +57,7 @@ public class CoachService {
 	public void save(Coach coach) {
 		try {
 			coach.setStatus(0);
+			coach.setState(0);
 			coach.setClubid(-1);
 			dao.save(coach);
 		} catch (Exception e) {

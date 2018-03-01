@@ -132,7 +132,7 @@ define(function(require, exports, module){
 	    	$("#bcAddList").html("");
 	    	$.ajax({
 	             url: this.coachsURL,
-	             data: {filterParam: "Q_status_N_EQ=0;Q_clubid_N_EQ=-1", page: 1, rows: 999},
+	             data: {filterParam: "Q_status_N_EQ=0;Q_state_N_EQ=1;Q_clubid_N_EQ=-1", page: 1, rows: 999},
 	             dataType: "json",
 	             type:"GET",
 	             success: function(result){
@@ -160,7 +160,7 @@ define(function(require, exports, module){
 	    	$("#bcDelList").html("");
 	    	$.ajax({
 	             url: this.coachsURL,
-	             data: {filterParam: "Q_status_N_EQ=0;Q_clubid_N_EQ="+clubid, page: 1, rows: 999},
+	             data: {filterParam: "Q_status_N_EQ=0;Q_state_N_EQ=1;Q_clubid_N_EQ="+clubid, page: 1, rows: 999},
 	             dataType: "json",
 	             type:"GET",
 	             success: function(result){
