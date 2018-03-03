@@ -8,7 +8,6 @@ define(function(require, exports, module){
 	var CoachView = GYM.Class.create(BaseGridView, {
 		elemId:"dataGrid",
 		delUrl: GYM.ContextRoot + "/manager/coach/delete",
-		detailUrl:GYM.ContextRoot + "/manager/coach/detail",
 		initialize: function(option){
 			GYM.extend(this,option);
 			this.render();
@@ -56,7 +55,9 @@ define(function(require, exports, module){
 			        }},
 			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';
-			        	html += '<span class="o-view o-check">审核</span>';
+			        	if(row.state == 0){
+			        		html += '<span class="o-view o-check">审核</span>';
+			        	}
 			        	html += '<span class="o-view o-edit">编辑</span>';
 			        	html += '<span class="o-view o-delete">删除</span>';
 			        	html += '</div>';
@@ -75,6 +76,13 @@ define(function(require, exports, module){
 						 var id = $(this).parent().attr("id");
 						 that.del(id);
 					});
+				    
+				    $(".o-check").off("click");
+				    $(".o-check").on("click",function(){
+						 var id = $(this).parent().attr("id");
+						 that.check(id);
+					});
+				    
 			    },
 			    toolbar:[{
 			    	id:'btnreload',
@@ -123,18 +131,12 @@ define(function(require, exports, module){
 			    delFailue:"删除失败"
 			}
 		},
-		getDetail: function(id){
-			$.ajax({
-	             url: that.detailUrl,
-	             data: {id: row.id},
-	             dataType: "json",
-	             type:"GET",
-	             success: function(result){
-	            	 if(result.status == "ok"){	
-	         			
-	   				 }
-	             }
-	        });
+		check: function(id){
+			var that = this;
+			var checkCommit = function(){
+				that.reload();
+			};
+			this.getForm().showCheckDlg(id, checkCommit);
 		}
 	});
 	module.exports =  CoachView;

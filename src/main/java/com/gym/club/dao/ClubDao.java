@@ -2,7 +2,6 @@ package com.gym.club.dao;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +15,9 @@ public interface ClubDao extends CrudRepository<Club, Integer>, JpaSpecification
 
 	@Query("select u from Club as u  where u.status = 0  order by GETDISTANCE(?2,?1,u.y,u.x) asc")
 	public List<Club> getNearAt(Pageable pageable, double x, double y);
+	
+	@Query("select u from Club as u  where u.status = 0  order by u.level desc")
+	public List<Club> getNearByLevel(Pageable pageable, double x, double y);
 
 	@Query("select u from Club as u  where u.status = 0  order by time desc")
 	public List<Club> getByPage(Pageable pageable);

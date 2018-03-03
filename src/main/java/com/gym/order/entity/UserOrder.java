@@ -28,9 +28,17 @@ public class UserOrder implements Serializable {
 	@Column(name = "userid")
 	private Integer userId;
 	
-	@Column(name = "time")
+	@Column(name = "createtime")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date time;
+	
+	@Column(name = "starttime")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date startTime;
+	
+	@Column(name = "endtime")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date endTime;
 	
 	@XmlElement
 	@Column(name = "coachid")
@@ -90,6 +98,22 @@ public class UserOrder implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 	
 }

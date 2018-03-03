@@ -1,6 +1,7 @@
 package com.gym.user.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,9 +18,11 @@ import javax.xml.bind.annotation.XmlElement;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gym.club.entity.Club;
 import com.gym.common.entity.Image;
+import com.gym.user.dto.TimeSlot;
 
 /**
  * 教练表
@@ -60,6 +63,10 @@ public class Coach implements Serializable {
 	@Column(name = "weight")
 	private String weight;
 	
+	@Column(name = "time")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date time;
+	
 	@XmlElement
 	@Column(name = "status")
 	@JsonIgnore
@@ -88,6 +95,12 @@ public class Coach implements Serializable {
 	
 	@Transient
 	private List<Image> images;
+	
+	@Transient
+	private TimeSlot today;
+	
+	@Transient
+	private TimeSlot tomorrow;
 	
 	public Integer getId() {
 		return id;
@@ -199,6 +212,30 @@ public class Coach implements Serializable {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public TimeSlot getToday() {
+		return today;
+	}
+
+	public void setToday(TimeSlot today) {
+		this.today = today;
+	}
+
+	public TimeSlot getTomorrow() {
+		return tomorrow;
+	}
+
+	public void setTomorrow(TimeSlot tomorrow) {
+		this.tomorrow = tomorrow;
 	}
 	
 }

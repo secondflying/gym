@@ -15,6 +15,7 @@ define(function(require, exports, module){
 		easyUIFields:[],
 		addURL: GYM.ContextRoot + "/manager/coach/save",
 		editURL:GYM.ContextRoot + "/manager/coach/detail",
+		checkURL: GYM.ContextRoot + "/manager/coach/check",
 		initialize : function(containerId){
             
 			if(containerId){
@@ -24,6 +25,30 @@ define(function(require, exports, module){
 			var that = this;
 			this.render(this.containerId,html,function(context){
 				that.initForm();
+			});
+			
+			var checkForm = require("./../template/checkForm.html");
+			$("#checkDlgCon").html(checkForm);
+			$.parser.parse("#checkDlgCon");
+			
+			$("#checkDlg").dialog({
+     	        closed:true,
+     	        width:360,
+     	        modal: true,
+     	        buttons:[{
+ 					text:'确定',
+ 					iconCls:'icon-ok',
+ 					handler:function(){
+ 						that.saveCheck();
+ 						$("#checkDlg").dialog('close');
+ 					}
+ 				},{
+ 					text:'取消',
+ 					iconCls:'icon-cancel',
+ 					handler:function(){
+ 						$("#checkDlg").dialog('close');
+ 					}
+ 				}]
 			});
 		},
 		
@@ -66,6 +91,40 @@ define(function(require, exports, module){
 		},
         afterRenderForm:function(data){
 	    	 
+	    },
+	    showCheckDlg: function(coachid, checkCommit){
+	    	$("#checkForm").form("reset");
+	    	this.checkCommit = checkCommit;
+	    	$('#checkDlg').dialog('setTitle',"教练审核");
+			$('#checkDlg').dialog('open');
+			$("#checkForm-id").val(coachid);
+	    },
+	    saveCheck: function(){
+	    	var that = this;
+	    	$("#checkForm").form('submit',{
+	 			url:that.checkURL,
+	 			onSubmit:function(param){
+	 				var flag = $(this).form('validate');
+	 				return  flag;
+	 			},
+	 			success:function(data){
+	 				var result = $.parseJSON(data);
+	 				if(result.status == "ok"){	
+	            		 $.messager.show({
+	   				    	title:'提示',
+	   					    msg:"审核成功",
+	   					    timeout:3000
+		   				  });
+	            		 that.checkCommit();
+	   				 }else{
+	   				   $.messager.show({
+	   				    	title:'提示',
+	   					    msg:"审核失败："+ result.message,
+	   					    timeout:3000
+	   				   }) 
+	   				 }
+	 			}
+	 		});
 	    }
 	});
 

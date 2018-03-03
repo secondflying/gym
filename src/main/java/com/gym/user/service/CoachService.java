@@ -32,6 +32,8 @@ public class CoachService {
 	
 	@Autowired
 	private ClubDao clubDao;
+	
+	
 
 	private static final String ImageCate = "coach";
 	
@@ -57,7 +59,7 @@ public class CoachService {
 	public void save(Coach coach) {
 		try {
 			coach.setStatus(0);
-			coach.setState(0);
+			coach.setState(1);
 			coach.setClubid(-1);
 			dao.save(coach);
 		} catch (Exception e) {
@@ -71,6 +73,7 @@ public class CoachService {
 			Coach coach = dao.findOne(id);
 			coach.setImages(imagedao.getOfImages(id, ImageCate));
 			coach.setClub(clubDao.findOne(coach.getClubid()));
+			
 			return coach;
 		} catch (Exception e) {
 			logger.error("获取教练详情失败", e);
@@ -96,20 +99,37 @@ public class CoachService {
 	}
 	
 	public void coachsToClub(int clubId, String coachIds) {
-		List<Coach> list = dao.findByClubId(clubId);
-		for(Coach c: list) {
-			c.setClubid(-1);
-			dao.save(c);
-		}
-		if(coachIds != "") {
-			String[] arr = coachIds.split(",");
-			if(arr.length > 0) {
-				for(String coachId: arr) {
-					Coach coach = dao.findOne(Integer.parseInt(coachId));
-					coach.setClubid(clubId);
-					dao.save(coach);
+		try {
+			List<Coach> list = dao.findByClubId(clubId);
+			for(Coach c: list) {
+				c.setClubid(-1);
+				dao.save(c);
+			}
+			if(coachIds != "") {
+				String[] arr = coachIds.split(",");
+				if(arr.length > 0) {
+					for(String coachId: arr) {
+						Coach coach = dao.findOne(Integer.parseInt(coachId));
+						coach.setClubid(clubId);
+						dao.save(coach);
+					}
 				}
 			}
+		} catch (NumberFormatException e) {
+			logger.error("分配教练到健身房失败", e);
+			throw new RuntimeException("分配教练到健身房失败", e);
+		}
+	}
+	
+	public void check(int coachId, int state, String reason) {
+		try {
+			Coach coach = dao.findOne(coachId);
+			coach.setState(state);
+			coach.setReason(reason);
+			dao.save(coach);
+		} catch (Exception e) {
+			logger.error("审核教练失败", e);
+			throw new RuntimeException("审核教练失败", e);
 		}
 	}
 	

@@ -19,6 +19,13 @@ define(function(require, exports, module){
 			}
 			return this.form;
 		},
+		getImageForm: function(){
+			if(this.imageForm == null){
+				 var ImageForm = require('./ImageForm'); 
+				 this.imageForm = new ImageForm();
+			}
+			return this.imageForm;
+		},
 		render:function(){
 			var that = this;
 			var setting = {
@@ -62,7 +69,7 @@ define(function(require, exports, module){
 				    $(".o-img").off("click");
 				    $(".o-img").on("click",function(){
 						 var id = $(this).parent().attr("id");
-						 that.imageForm(id);
+						 that.showImageManager(id);
 					});
 			    },
 			    toolbar:[{
@@ -114,8 +121,8 @@ define(function(require, exports, module){
 		bindCoach: function(id){
 			this.getForm().showBindCoachDlg(id);
 		},
-		imageForm: function(id){
-			this.getForm().showImageFormDlg(id);
+		showImageManager: function(id){
+			this.getImageForm().showImageFormDlg(id);
 		}
 	});
 	module.exports =  ClubView;

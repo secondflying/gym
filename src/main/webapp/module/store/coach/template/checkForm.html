@@ -1,0 +1,29 @@
+<div id="checkDlg" class="easyui-dialog" data-options="iconCls:'icon-save',closed:true" style="padding:5px;">
+	<form id="checkForm"  method="post" enctype="multipart/form-data">
+	    <input type="hidden" id="checkForm-id" name="coachId">
+	    <table class="dlgForm">
+            <tr>
+				<td>审核状态：</td>
+				<td>
+					<input name="state" class="easyui-combobox" data-options="
+						valueField: 'label',
+						textField: 'value',
+						editable: false,
+						required: true,
+						data: [{
+							label: '1',
+							value: '审核通过'
+						},{
+							label: '-1',
+							value: '审核不通过'
+						}]" style="width:260px;"/>
+				</td>
+            </tr>         
+            <tr >
+				<td valign="top">原因：</td>
+				<td><input name="reason" class="easyui-textbox"  style="width:100%;" data-options="height:80,multiline:true,required:false,validType:'length[1,500]'"  ></td>
+			</tr>
+        </table>
+   	</form>
+</div>
+

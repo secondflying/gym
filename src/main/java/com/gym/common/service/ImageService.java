@@ -1,5 +1,7 @@
 package com.gym.common.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,10 @@ public class ImageService {
 	
 	public void deleteByUrl(String url) {
 		try {
-			Image image = imageDao.findByUrl(url);
-			imageDao.delete(image);
+			List<Image> images = imageDao.findByUrl(url);
+			if(images.size() > 0) {
+				imageDao.delete(images.get(0));
+			}
 		} catch (Exception e) {
 			logger.error("删除图片失败", e);
 			throw new RuntimeException("新增图片失败", e);

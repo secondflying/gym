@@ -109,4 +109,15 @@ public class CoachController {
 		}
 	}
 	
+	@RequestMapping(value = "/check", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse check(HttpServletRequest request, int coachId, int state, String reason) {
+		try {
+			service.check(coachId, state, reason);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
+	
 }

@@ -52,7 +52,7 @@ public class FileController {
 		}
 	}
 	
-	@RequestMapping(value = "/delete", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@RequestMapping(value = "/delimg", method = { RequestMethod.POST, RequestMethod.GET}, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public BaseResponse delimg(HttpServletRequest request, String url) {
 		try {

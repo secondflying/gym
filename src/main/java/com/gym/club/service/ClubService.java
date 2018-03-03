@@ -38,9 +38,14 @@ public class ClubService {
 
 	private static final String ImageCate = "club";
 
-	public List<Club> getNearAt(double x, double y, int page, Integer size) {
+	public List<Club> getNearAt(double x, double y, int page, Integer size, String sort) {
 		try {
-			List<Club> aList = dao.getNearAt(new PageRequest(page, size), x, y);
+			List<Club> aList = new ArrayList<Club>();
+			if(sort.equals("level")) { //按星级排序
+				aList = dao.getNearByLevel(new PageRequest(page, size), x, y);
+			}else { //按距离排序
+				aList = dao.getNearAt(new PageRequest(page, size), x, y);
+			}
 			for (Club club : aList) {
 				double dis1 = PublicHelper.distance(x, y, club.getX(), club.getY());
 				club.setDistance(dis1);
