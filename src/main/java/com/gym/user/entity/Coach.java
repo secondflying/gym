@@ -97,10 +97,10 @@ public class Coach implements Serializable {
 	private List<Image> images;
 	
 	@Transient
-	private TimeSlot today;
+	private List<TimeSlot> today;
 	
 	@Transient
-	private TimeSlot tomorrow;
+	private List<TimeSlot> tomorrow;
 	
 	public Integer getId() {
 		return id;
@@ -222,20 +222,21 @@ public class Coach implements Serializable {
 		this.time = time;
 	}
 
-	public TimeSlot getToday() {
+	public List<TimeSlot> getToday() {
 		return today;
 	}
 
-	public void setToday(TimeSlot today) {
+	public void setToday(List<TimeSlot> today) {
 		this.today = today;
 	}
 
-	public TimeSlot getTomorrow() {
+	public List<TimeSlot> getTomorrow() {
 		return tomorrow;
 	}
 
-	public void setTomorrow(TimeSlot tomorrow) {
+	public void setTomorrow(List<TimeSlot> tomorrow) {
 		this.tomorrow = tomorrow;
 	}
+
 	
 }
