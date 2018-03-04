@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,9 +40,12 @@ public class CoachResource {
 	
 	@RequestMapping(value = "detail", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public BaseResponse detail(@RequestParam(required = true) int id) {	
+	public BaseResponse detail(@RequestParam(required = true) String id) {	
 		try {
-			Coach result = service.detail(id);
+			if (StringUtils.isEmpty(id))
+				throw new IllegalArgumentException("参数id不得为空");
+			int cid = Integer.valueOf(id);
+			Coach result = service.detail(cid);
 			return new BaseResultResponse(result);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
