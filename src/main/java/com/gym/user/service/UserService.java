@@ -6,12 +6,17 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gym.common.dao.ImageDao;
+import com.gym.support.QueryParamUtil;
+import com.gym.support.QuerySpecification;
 import com.gym.user.dao.UserDao;
 import com.gym.user.dto.UserDto;
+import com.gym.user.entity.Coach;
 import com.gym.user.entity.User;
 
 @Service
@@ -72,4 +77,20 @@ public class UserService {
 		}
 	}
 	
+	public Page<User> queryListFilter(String filterParam, String sortParam, int start, int limit) {
+		Page<User> results = dao.findAll(new QuerySpecification<User>(filterParam),
+				new PageRequest(start, limit, QueryParamUtil.parseSortParams(sortParam)));
+		return results;
+	}
+	
+	public void delete(int id) {
+		try {
+			User user = dao.findOne(id);
+			user.setStatus(-1);
+			dao.save(user);
+		} catch (Exception e) {
+			logger.error("删除用户失败", e);
+			throw new RuntimeException("删除用户失败", e);
+		}
+	}
 }

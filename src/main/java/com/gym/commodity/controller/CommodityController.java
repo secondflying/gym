@@ -1,4 +1,4 @@
-package com.gym.user.controller;
+package com.gym.commodity.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,25 +13,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gym.commodity.entity.Commodity;
+import com.gym.commodity.service.CommodityService;
 import com.gym.common.dto.BaseResponse;
+import com.gym.common.dto.BaseResultResponse;
 import com.gym.common.dto.EasyUIResponse;
-import com.gym.user.entity.Coach;
-import com.gym.user.entity.User;
-import com.gym.user.service.UserService;
 
+/**
+ * 商品管理类
+ * 
+ * */
 @Controller
-@RequestMapping("/manager/user")
-public class UserController {
+@RequestMapping("/manager/commodity")
+public class CommodityController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private UserService service;
+	private CommodityService service;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
-		ModelAndView view = new ModelAndView("/user/index");
+		ModelAndView view = new ModelAndView("/commodity/index");
 		return view;
+	}
+	
+	@RequestMapping(value = "/save", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse save(HttpServletRequest request, Commodity commodity) {
+		try {
+			service.save(commodity);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
 	}
 	
 	@RequestMapping(value = "/list", method = { RequestMethod.GET}, produces = { "application/json;charset=UTF-8" })
@@ -54,7 +69,7 @@ public class UserController {
 			if (StringUtils.isEmpty(sortParam))
 				sortParam = "";
 			
-			Page<User> pager = service.queryListFilter(filterParam, sortParam, start, limit);
+			Page<Commodity> pager = service.queryListFilter(filterParam, sortParam, start, limit);
 			EasyUIResponse response = new EasyUIResponse();
 			response.setTotal(pager.getTotalElements());
 			response.setRows(pager.getContent());
@@ -64,17 +79,17 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/delete", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@RequestMapping(value = "/detail", method = { RequestMethod.GET}, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public BaseResponse delete(HttpServletRequest request, int ids) {
+	public BaseResponse detail(HttpServletRequest request, int id) {
 		try {
-			service.delete(ids);
-			return BaseResponse.buildSuccessResponse();
+			Commodity commodity = service.getById(id);
+			BaseResultResponse response = new BaseResultResponse();
+			response.setResult(commodity);
+			return response;
 		} catch (Exception ex) {
 			return BaseResponse.buildErrorResponse(ex);
 		}
 	}
-	
-	
 	
 }

@@ -1,0 +1,39 @@
+<div id="commodityDlg" class="easyui-dialog" data-options="iconCls:'icon-save',closed:true" style="padding:5px;">
+	<form id="commodityForm"  method="post" enctype="multipart/form-data">
+	    <input type="hidden" id="commodityForm-id" name="id">
+	    <table class="dlgForm">
+            <tr>
+				<td>名称：</td>
+				<td><input class="easyui-textbox" name="name" data-options="required:true,validType:'length[1,50]'"></td>							                     
+				<td>类型：</td>
+				<td>
+					<input style="width:100%;"  name="type" class="easyui-combobox" data-options="
+						valueField: 'label',
+						textField: 'value',
+						editable: false,
+						data: [{
+							label: '1',
+							value: '跑步机'
+						},{
+							label: '2',
+							value: '健身车'
+						},{
+							label: '3',
+							value: '腹肌板'
+						}]" />
+				</td>
+            </tr>
+            <tr >
+				<td valign="top">描述：</td>
+				<td colspan="3" ><input name="description" class="easyui-textbox"  style="width:100%;" data-options="height:80,multiline:true,required:false,validType:'length[1,500]'"  ></td>
+			</tr>
+			<tr>
+				<td >原价：</td>
+				<td ><input name="price" class="easyui-numberbox"  data-options="precision:2"></td>							                     
+				<td >现价：</td>
+				<td><input name="nowprice"  class="easyui-numberbox"  data-options="precision:2"></td>							
+            </tr>
+        </table>
+   	</form>
+</div>
+

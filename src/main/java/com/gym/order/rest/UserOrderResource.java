@@ -26,7 +26,7 @@ public class UserOrderResource {
 	@Autowired
 	private UserOrderService service;
 	
-	@RequestMapping(value = "/neworder", method = { RequestMethod.GET}, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/neworder", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public BaseResponse neworder(@RequestParam(required = true) int userId, @RequestParam(required = true) int coachId,
 			@RequestParam(required = true) String startTime, @RequestParam(required = true) String endTime,
