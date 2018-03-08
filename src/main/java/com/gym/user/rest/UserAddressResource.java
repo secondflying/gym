@@ -35,10 +35,10 @@ public class UserAddressResource {
 	
 	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public BaseResponse add(@RequestParam(required = true) int userId, 
-			@RequestParam(required = true) String address){
+	public BaseResponse add(@RequestParam(required = true) int userId, @RequestParam(required = true) String receiveName,
+			@RequestParam(required = true) String address, @RequestParam(required = true) String receivePhone){
 		try {
-			service.save(userId, address);
+			service.save(userId, receiveName, receivePhone, address);
 			return BaseResponse.buildSuccessResponse();
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
@@ -47,10 +47,10 @@ public class UserAddressResource {
 	
 	@RequestMapping(value = "/update", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public BaseResponse update(@RequestParam(required = true) int id, 
-			@RequestParam(required = true) String address){
+	public BaseResponse update(@RequestParam(required = true) int id, @RequestParam(required = true) String receiveName,
+			@RequestParam(required = true) String address, @RequestParam(required = true) String receivePhone){
 		try {
-			service.update(id, address);
+			service.update(id, receiveName, receivePhone, address);
 			return BaseResponse.buildSuccessResponse();
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);

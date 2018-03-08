@@ -11,9 +11,8 @@ import com.gym.user.entity.User;
 
 @Repository
 public interface UserDao extends CrudRepository<User, Integer>, JpaSpecificationExecutor<User> {
-
 	
-	@Query("select u from User as u  where u.phone = ?1")
+	@Query("select u from User as u  where u.phone = ?1 and u.status = 0  order by time desc")
 	public List<User> findByPhone(String phone);
 	
 }

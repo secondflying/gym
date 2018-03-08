@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 用户表地址表
@@ -42,6 +43,19 @@ public class UserAddress implements Serializable {
 	@Column(name = "time")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date time;
+	
+	@XmlElement
+	@Column(name = "receivephone")
+	private String receivePhone;
+	
+	@XmlElement
+	@Column(name = "receivename")
+	private String receiveName;
+	
+	@XmlElement
+	@Column(name = "status")
+	@JsonIgnore
+	private int status;
 
 	public Integer getId() {
 		return id;
@@ -73,6 +87,30 @@ public class UserAddress implements Serializable {
 
 	public void setTime(Date time) {
 		this.time = time;
+	}
+
+	public String getReceivePhone() {
+		return receivePhone;
+	}
+
+	public void setReceivePhone(String receivePhone) {
+		this.receivePhone = receivePhone;
+	}
+
+	public String getReceiveName() {
+		return receiveName;
+	}
+
+	public void setReceiveName(String receiveName) {
+		this.receiveName = receiveName;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }

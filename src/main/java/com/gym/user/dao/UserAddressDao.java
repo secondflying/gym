@@ -12,7 +12,7 @@ import com.gym.user.entity.UserAddress;
 @Repository
 public interface UserAddressDao extends CrudRepository<UserAddress, Integer>, JpaSpecificationExecutor<UserAddress> {
 
-	@Query("select u from UserAddress as u  where u.userId = ?1")
+	@Query("select u from UserAddress as u  where u.userId = ?1 and u.status = 0  order by time desc")
 	public List<UserAddress> findByUserId(int userId);
 	
 }

@@ -31,12 +31,15 @@ public class UserAddressService {
 		}
 	}
 	
-	public void save(int userId, String address) {
+	public void save(int userId, String receiveName, String receivePhone, String address) {
 		try {
 			UserAddress userAddress = new UserAddress();
 			userAddress.setUserId(userId);
 			userAddress.setAddress(address);
+			userAddress.setReceiveName(receiveName);
+			userAddress.setReceivePhone(receivePhone);
 			userAddress.setTime(new Date());
+			userAddress.setStatus(0);
 			dao.save(userAddress);
 		} catch (Exception e) {
 			logger.error("新增用户地址失败", e);
@@ -44,10 +47,12 @@ public class UserAddressService {
 		}
 	}
 	
-	public void update(int id, String address) {
+	public void update(int id, String receiveName, String receivePhone, String address) {
 		try {
 			UserAddress userAddress = dao.findOne(id);
 			userAddress.setAddress(address);
+			userAddress.setReceiveName(receiveName);
+			userAddress.setReceivePhone(receivePhone);
 			userAddress.setTime(new Date());
 			dao.save(userAddress);
 		} catch (Exception e) {
@@ -58,7 +63,9 @@ public class UserAddressService {
 	
 	public void delete(int id) {
 		try {
-			dao.delete(id);
+			UserAddress userAddress = dao.findOne(id);
+			userAddress.setStatus(-1);
+			dao.save(userAddress);
 		} catch (Exception e) {
 			logger.error("删除用户地址失败", e);
 			throw new RuntimeException("删除用户地址失败", e);
