@@ -58,6 +58,9 @@ public class Commodity implements Serializable {
 	
 	@Transient
 	private List<Image> images;
+	
+	@Transient
+	private List<CommodityOrder> orders;
 
 	public Integer getId() {
 		return id;
@@ -131,4 +134,12 @@ public class Commodity implements Serializable {
 		this.images = images;
 	}
 
+	public List<CommodityOrder> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<CommodityOrder> orders) {
+		this.orders = orders;
+	}
+	
 }

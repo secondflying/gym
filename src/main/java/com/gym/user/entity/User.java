@@ -76,6 +76,9 @@ public class User implements Serializable {
 	//用户头像
 	@Transient
 	private List<Image> images;
+	
+	//用户地址
+	private List<UserAddress> addresses;
 
 	public Integer getId() {
 		return id;
@@ -171,6 +174,14 @@ public class User implements Serializable {
 
 	public void setTime(Date time) {
 		this.time = time;
+	}
+
+	public List<UserAddress> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<UserAddress> addresses) {
+		this.addresses = addresses;
 	}
 	
 }

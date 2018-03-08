@@ -49,6 +49,9 @@ public class CommodityOrder implements Serializable {
 	@Column(name = "status")
 	@JsonIgnore
 	private int status;
+	
+	@Column(name = "state")
+	private int state;
 
 	public Integer getId() {
 		return id;
@@ -96,6 +99,14 @@ public class CommodityOrder implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 	
 }

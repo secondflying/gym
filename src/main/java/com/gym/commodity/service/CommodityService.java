@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gym.commodity.dao.CommodityDao;
+import com.gym.commodity.dao.CommodityOrderDao;
 import com.gym.commodity.entity.Commodity;
+import com.gym.commodity.entity.CommodityOrder;
 import com.gym.common.dao.ImageDao;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
@@ -25,6 +27,9 @@ public class CommodityService {
 	
 	@Autowired
 	private CommodityDao dao;
+	
+	@Autowired
+	private CommodityOrderDao orderDao;
 
 	@Autowired
 	private ImageDao imagedao;
@@ -62,6 +67,8 @@ public class CommodityService {
 	public Commodity detail(int id) {
 		try {
 			Commodity commodity = dao.findOne(id);
+			List<CommodityOrder> list = orderDao.findByCommodityId(id);
+			commodity.setOrders(list);
 			commodity.setImages(imagedao.getOfImages(id, ImageCate));
 			return commodity;
 		} catch (Exception e) {

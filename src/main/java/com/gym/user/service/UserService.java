@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gym.common.dao.ImageDao;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
+import com.gym.user.dao.UserAddressDao;
 import com.gym.user.dao.UserDao;
 import com.gym.user.dto.UserDto;
 import com.gym.user.entity.Coach;
@@ -27,6 +28,9 @@ public class UserService {
 	
 	@Autowired
 	private UserDao dao;
+	
+	@Autowired
+	private UserAddressDao addressDao;
 	
 	@Autowired
 	private ImageDao imagedao;
@@ -69,6 +73,7 @@ public class UserService {
 			}else {
 				User user = users.get(0);
 				user.setImages(imagedao.getOfImages(user.getId(), ImageCate));
+				user.setAddresses(addressDao.findByUserId(user.getId()));
 				return user;
 			}
 		} catch (Exception e) {
