@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "userorder")
@@ -50,7 +51,16 @@ public class UserOrder implements Serializable {
 	
 	@XmlElement
 	@Column(name = "status")
+	@JsonIgnore
 	private Integer status;
+	
+	@XmlElement
+	@Column(name = "comment")
+	private String comment;
+	
+	@XmlElement
+	@Column(name = "level")
+	private int level;
 
 	public Integer getId() {
 		return id;
@@ -114,6 +124,22 @@ public class UserOrder implements Serializable {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	
 }

@@ -9,6 +9,7 @@ public class CoachDto implements Serializable {
 
 	private static final long serialVersionUID = 1265408577787405624L;
 	
+	private int id;
 	private String name;
 	private int age;
 	private String phone;
@@ -16,6 +17,7 @@ public class CoachDto implements Serializable {
 	private String brief;
 	private String height;
 	private String weight;
+	private String hourcost;
 	
 	public String getName() {
 		return name;
@@ -58,6 +60,18 @@ public class CoachDto implements Serializable {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getHourcost() {
+		return hourcost;
+	}
+	public void setHourcost(String hourcost) {
+		this.hourcost = hourcost;
 	}
 
 }

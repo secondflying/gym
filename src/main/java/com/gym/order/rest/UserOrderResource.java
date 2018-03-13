@@ -39,5 +39,15 @@ public class UserOrderResource {
 		}
 	}
 	
-	
+	@RequestMapping(value = "/comment", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse comment(@RequestParam(required = true) int id, @RequestParam(required = true) String comment, 
+			@RequestParam(required = true, defaultValue = "1") int level){
+		try {
+			service.commentOrder(id, comment, level);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
 }

@@ -54,9 +54,11 @@ public class CoachService {
 			coach.setHeight(dto.getHeight());
 			coach.setBrief(dto.getBrief());
 			coach.setSex(dto.getSex());
+			coach.setHourcost(dto.getHourcost());
 			coach.setStatus(0);
 			coach.setClubid(-1);
 			coach.setState(0);
+			coach.setTime(new Date());
 			return dao.save(coach);
 		} catch (Exception e) {
 			logger.error("注册教练失败", e);
@@ -69,6 +71,7 @@ public class CoachService {
 			coach.setStatus(0);
 			coach.setState(1);
 			coach.setClubid(-1);
+			coach.setTime(new Date());
 			dao.save(coach);
 		} catch (Exception e) {
 			logger.error("新增教练失败", e);
@@ -85,6 +88,8 @@ public class CoachService {
 			List<TimeSlot> tomorrow = this.tomorrowOrder(id);
 			coach.setToday(today);
 			coach.setTomorrow(tomorrow);
+			List<UserOrder> orders = this.userOrderDao.findOrderHasComment(id);
+			coach.setOrders(orders);
 			return coach;
 		} catch (Exception e) {
 			logger.error("获取教练详情失败", e);

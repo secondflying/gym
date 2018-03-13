@@ -14,6 +14,9 @@ import com.gym.order.entity.UserOrder;
 public interface UserOrderDao  extends CrudRepository<UserOrder, Integer>, JpaSpecificationExecutor<UserOrder> {
 
 	@Query("select u from UserOrder as u where u.coachId = ?1 and u.startTime > ?2 and u.startTime < ?3")
-	public List<UserOrder> findOrderByTime(int id, Date start, Date end);
+	public List<UserOrder> findOrderByTime(int coachId, Date start, Date end);
+	
+	@Query("select u from UserOrder as u where u.coachId = ?1 and u.comment <> null and u.status = 0  order by createtime desc")
+	public List<UserOrder> findOrderHasComment(int coachId);
 	
 }

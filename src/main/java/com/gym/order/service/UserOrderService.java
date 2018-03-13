@@ -43,4 +43,16 @@ public class UserOrderService {
 		}
 	}
 	
+	public void commentOrder(int id, String comment, int level) {
+		try {
+			UserOrder userOrder = dao.findOne(id);
+			userOrder.setComment(comment);
+			userOrder.setLevel(level);
+			dao.save(userOrder);
+		} catch (Exception e) {
+			logger.error("评价订单失败", e);
+			throw new RuntimeException("评价订单失败", e);
+		}
+	}
+	
 }

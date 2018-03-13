@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gym.club.entity.Club;
 import com.gym.common.entity.Image;
+import com.gym.order.entity.UserOrder;
 import com.gym.user.dto.TimeSlot;
 
 /**
@@ -93,6 +94,10 @@ public class Coach implements Serializable {
 	@Column(name = "reason")
 	private String reason;
 	
+	@XmlElement
+	@Column(name = "hourcost")
+	private String hourcost;
+	
 	@Transient
 	private List<Image> images;
 	
@@ -101,6 +106,9 @@ public class Coach implements Serializable {
 	
 	@Transient
 	private List<TimeSlot> tomorrow;
+	
+	@Transient
+	private List<UserOrder> orders;
 	
 	public Integer getId() {
 		return id;
@@ -238,5 +246,20 @@ public class Coach implements Serializable {
 		this.tomorrow = tomorrow;
 	}
 
+	public String getHourcost() {
+		return hourcost;
+	}
+
+	public void setHourcost(String hourcost) {
+		this.hourcost = hourcost;
+	}
+
+	public List<UserOrder> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<UserOrder> orders) {
+		this.orders = orders;
+	}
 	
 }

@@ -74,6 +74,7 @@ public class ClubService {
 			List<CoachDto> coachs = new ArrayList<CoachDto>();
 			for(Coach coach: list) {
 				CoachDto coachDto = new CoachDto();
+				coachDto.setId(coach.getId());
 				coachDto.setAge(coach.getAge());
 				coachDto.setBrief(coach.getBrief());
 				coachDto.setHeight(coach.getHeight());
@@ -81,6 +82,7 @@ public class ClubService {
 				coachDto.setPhone(coach.getPhone());
 				coachDto.setSex(coach.getSex());
 				coachDto.setWeight(coach.getWeight());
+				coachDto.setHourcost(coach.getHourcost());
 				coachs.add(coachDto);
 			}
 			club.setCoachs(coachs);
