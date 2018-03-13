@@ -23,10 +23,21 @@ public class CommodityOrderResource {
 	
 	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public BaseResponse add(@RequestParam(required = true) int userId, @RequestParam(required = true) int cid,
-			@RequestParam(required = false) String comment){
+	public BaseResponse add(@RequestParam(required = true) int userId, @RequestParam(required = true) int cid){
 		try {
-			service.addOrder(userId, cid, comment);
+			service.addOrder(userId, cid);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	@RequestMapping(value = "/comment", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse comment(@RequestParam(required = true) int id, @RequestParam(required = true) String comment, 
+			@RequestParam(required = true, defaultValue = "1") int level){
+		try {
+			service.commentOrder(id, comment, level);
 			return BaseResponse.buildSuccessResponse();
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);

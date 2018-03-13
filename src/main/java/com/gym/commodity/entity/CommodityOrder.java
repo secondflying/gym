@@ -8,12 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.gym.user.entity.User;
 
 /**
  * 商品订单表
@@ -36,8 +42,18 @@ public class CommodityOrder implements Serializable {
 	@Column(name = "userid")
 	private int userId;
 	
+	@OneToOne()
+	@JoinColumn(name = "userid", insertable = false, updatable = false)
+	@NotFound(action = NotFoundAction.IGNORE)
+	private User user;
+	
 	@Column(name = "cid")
 	private int cid;
+	
+	@OneToOne()
+	@JoinColumn(name = "cid", insertable = false, updatable = false)
+	@NotFound(action = NotFoundAction.IGNORE)
+	private Commodity commodity;
 	
 	@Column(name = "time")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -45,6 +61,9 @@ public class CommodityOrder implements Serializable {
 	
 	@Column(name = "comment")
 	private String comment;
+	
+	@Column(name = "level")
+	private int level;
 	
 	@Column(name = "status")
 	@JsonIgnore
@@ -107,6 +126,30 @@ public class CommodityOrder implements Serializable {
 
 	public void setState(int state) {
 		this.state = state;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Commodity getCommodity() {
+		return commodity;
+	}
+
+	public void setCommodity(Commodity commodity) {
+		this.commodity = commodity;
 	}
 	
 }

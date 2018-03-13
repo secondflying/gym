@@ -65,6 +65,9 @@ define(function(require, exports, module){
 		beforeShowDlg:function(id){
 			//$("#avalPass").attr("checked",true);
 		},
+		afterShowDlg:function(id){
+			//$("#avalPass").attr("checked",true);
+		},
 		resetDlgForm:function(){
 			//$("#" + this.formId).form("clear");
 			$("#" + this.formId).form("reset");
@@ -91,6 +94,7 @@ define(function(require, exports, module){
 			}
 			$('#'+  that.dlgId).dialog('center');
 			$('#'+ that.dlgId).dialog('open'); 
+			this.afterShowDlg(id);
 		},
 		
 		renderForm:function(id){

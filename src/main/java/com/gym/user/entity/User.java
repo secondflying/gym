@@ -78,6 +78,7 @@ public class User implements Serializable {
 	private List<Image> images;
 	
 	//用户地址
+	@Transient
 	private List<UserAddress> addresses;
 
 	public Integer getId() {

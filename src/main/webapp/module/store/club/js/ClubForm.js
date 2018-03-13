@@ -38,7 +38,7 @@ define(function(require, exports, module){
 			
 			$("#bindCoachDlg").dialog({
      	        closed:true,
-     	        width:450,
+     	        width:670,
      	        modal: true,
      	        buttons:[{
  					text:'确定',
@@ -69,10 +69,29 @@ define(function(require, exports, module){
 			return  flag;
 		},
 		beforeShowDlg:function(id){
-//			var showId = id ? id:0;
-//			 $("#image-svr").attr("src",MyGeoway.ContextRoot + "/serviceManager/getImage.do?id=" + showId + "&dc=" + Math.random());
-//			 $("#serverForm-imageUrl").val("");
 			
+		},
+		afterShowDlg: function(id){
+			var x = 116.400244;
+			var y = 39.92556;
+			var map = new BMap.Map("mapContainer");
+			var point = new BMap.Point(x,y);
+			map.centerAndZoom(point, 10);
+			map.enableScrollWheelZoom();
+			map.addControl(new BMap.NavigationControl());
+			
+			var marker = new BMap.Marker(point);
+			map.addOverlay(marker);
+			marker.enableDragging();
+			
+			$("#clubX").numberbox('setValue',x);
+			$("#clubY").numberbox('setValue',y);
+			
+			//拖拽地图时触发事件
+			marker.addEventListener("dragend", function(e) {
+				$("#clubX").numberbox('setValue',e.point.lng);
+				$("#clubY").numberbox('setValue',e.point.lat);
+			});
 		},
 		submit:function(){
 		   var that = this;

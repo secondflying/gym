@@ -8,17 +8,16 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <%@ include file="../common/css.jsp"%>
     <%@ include file="../common/jslib.jsp"%>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
     <script type="text/javascript">
 	    $(document).ready(function(){
-	    	seajs.use("${pageContext.request.contextPath}/module/store/club/js/Club");
+	    	seajs.use("${pageContext.request.contextPath}/module/store/commodityorder/js/CommodityOrder");
 	    });    
     </script>
 </head>
 <body class="easyui-layout">
 	<div id="c-header" region="north" collapsible="false" border="false">
 		<div class="ch-position">位置：</div>
-		<div class="ch-txt">店面管理<i></i>健身房<i></i>列表</div>
+		<div class="ch-txt">店面管理<i></i>商品订单管理<i></i>列表</div>
 	</div>
 	<div region="center" collapsible="false" border="false">
     	<div class="easyui-layout" fit="true">
@@ -33,16 +32,10 @@
 								<td class="nr">
 									<input class="easyui-textbox" id="txtName" style="height:24px;width: 180px;">
 								</td>
-								<td>
-									<label style="margin-left: 20px;">地址：</label>
-								</td>
-								<td>
-									<input class="easyui-textbox" id="txtAddress" style="height:24px;width: 180px;">
-								</td>
 							</tr>
 		                 </table>
 		             </form>
-		             <div style="position:absolute;left:480px;top:12px;" class="yw-search-wrap">
+		             <div style="position:absolute;left:240px;top:12px;" class="yw-search-wrap">
 		                 <button id="btnSeach" >查 询</button>
 		                 <button id="btnReset" >重 置</button>
 		            </div>	            
@@ -53,9 +46,7 @@
 					
 				</table> 
 		    </div>
-		    <div id="clubDlgCon"></div>
-		    <div id="bindCoachDlgCon"></div>
-		    <div id="imageDlgCon"></div>
+		    <div id="coDlgCon"></div>
        </div>
    	</div>
 </body>

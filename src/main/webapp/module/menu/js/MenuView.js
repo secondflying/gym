@@ -39,6 +39,8 @@ define(function(require, exports, module){
 		    		url = GYM.ContextRoot + "/manager/user/index";
 		    	}else if(sort == "store/commodity"){
 		    		url = GYM.ContextRoot + "/manager/commodity/index";
+		    	}else if(sort == "store/commodityOrder"){
+		    		url = GYM.ContextRoot + "/manager/commodityOrder/index";
 		    	}
 		    	$("#linkPage").attr("src", url);
 		    });

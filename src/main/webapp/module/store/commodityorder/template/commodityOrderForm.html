@@ -1,0 +1,30 @@
+<div id="coDlg" class="easyui-dialog" data-options="iconCls:'icon-save',closed:true" style="padding:5px;">
+	<form id="coForm"  method="post" enctype="multipart/form-data">
+	    <input type="hidden" id="coForm-id" name="id">
+	    <table class="dlgForm">
+            <tr>
+				<td>订单状态：</td>
+				<td colspan="3">
+					<input name="state" class="easyui-combobox" data-options="
+						valueField: 'label',
+						textField: 'value',
+						editable: false,
+						data: [{
+							label: '1',
+							value: '正在发货'
+						},{
+							label: '2',
+							value: '已发货'
+						},{
+							label: '3',
+							value: '完成'
+						},{
+							label: '4',
+							value: '退货'
+						}]" style="width:190px;"/>
+				</td>
+            </tr>         
+        </table>
+   	</form>
+</div>
+
