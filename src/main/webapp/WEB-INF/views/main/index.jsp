@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,8 +33,8 @@
 	     		<div class="headerLogin">
 					<ul>
 						<li><span class="headtime" id="headtime">2018年2月6日</span></li>
-				        <li><i class="icon-user"></i><a href="javascript:void(0);">管理员</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/logout.do">退出</a></li>
+				        <li><i class="icon-user"></i><a href="javascript:void(0);"><sec:authentication property="principal.name" /></a></li>
+				        <li><a href="${pageContext.request.contextPath}/manager/j_spring_security_logout">退出</a></li>
 				    </ul>
 				</div>
 	     		<div id="headerMenu" class="header-menu">

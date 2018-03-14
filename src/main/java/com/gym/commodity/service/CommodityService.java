@@ -1,5 +1,7 @@
 package com.gym.commodity.service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gym.commodity.dao.CommodityDao;
 import com.gym.commodity.dao.CommodityOrderDao;
+import com.gym.commodity.dto.COrderDto;
 import com.gym.commodity.entity.Commodity;
 import com.gym.commodity.entity.CommodityOrder;
 import com.gym.common.dao.ImageDao;
@@ -66,9 +69,22 @@ public class CommodityService {
 	
 	public Commodity detail(int id) {
 		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Commodity commodity = dao.findOne(id);
 			List<CommodityOrder> list = orderDao.findByCommodityId(id);
-			commodity.setOrders(list);
+			List<COrderDto> clist = new ArrayList<COrderDto>();
+			for(CommodityOrder c: list) {
+				COrderDto corder = new COrderDto();
+				corder.setId(c.getId());
+				corder.setCid(c.getCid());
+				corder.setComment(c.getComment());
+				corder.setLevel(c.getLevel());
+				corder.setUserId(c.getUserId());
+				corder.setState(c.getState());
+				corder.setTime(formatter.format(c.getTime()));
+				clist.add(corder);
+			}
+			commodity.setOrders(clist);
 			commodity.setImages(imagedao.getOfImages(id, ImageCate));
 			return commodity;
 		} catch (Exception e) {

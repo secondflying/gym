@@ -39,7 +39,7 @@
 		<access-denied-handler error-page="/errors/403" />
 		<form-login login-page="/login" login-processing-url="/manager/j_spring_security_check"
 			username-parameter="username" password-parameter="password"
-			authentication-failure-url="/login/?error" default-target-url="/manager/club/index" />
+			authentication-failure-url="/login/?error" default-target-url="/manager/index" />
 
 		<logout logout-url="/manager/j_spring_security_logout"
 			logout-success-url="/login?logout" />

@@ -1,8 +1,11 @@
 package com.gym.user.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.gym.common.entity.Image;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CoachDto implements Serializable {
@@ -18,6 +21,7 @@ public class CoachDto implements Serializable {
 	private String height;
 	private String weight;
 	private String hourcost;
+	private List<Image> images;
 	
 	public String getName() {
 		return name;
@@ -72,6 +76,12 @@ public class CoachDto implements Serializable {
 	}
 	public void setHourcost(String hourcost) {
 		this.hourcost = hourcost;
+	}
+	public List<Image> getImages() {
+		return images;
+	}
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 }

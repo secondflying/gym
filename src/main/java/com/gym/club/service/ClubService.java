@@ -48,6 +48,7 @@ public class ClubService {
 			}
 			for (Club club : aList) {
 				double dis1 = PublicHelper.distance(x, y, club.getX(), club.getY());
+				club.setImages(imagedao.getOfImages(club.getId(), ImageCate));
 				club.setDistance(dis1);
 			}
 			return aList;
@@ -83,6 +84,7 @@ public class ClubService {
 				coachDto.setSex(coach.getSex());
 				coachDto.setWeight(coach.getWeight());
 				coachDto.setHourcost(coach.getHourcost());
+				coachDto.setImages(imagedao.getOfImages(coach.getId(), "coach"));
 				coachs.add(coachDto);
 			}
 			club.setCoachs(coachs);

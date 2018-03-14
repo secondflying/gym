@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.gym.commodity.dto.COrderDto;
 import com.gym.common.entity.Image;
 
 /**
@@ -60,7 +61,7 @@ public class Commodity implements Serializable {
 	private List<Image> images;
 	
 	@Transient
-	private List<CommodityOrder> orders;
+	private List<COrderDto> orders;
 
 	public Integer getId() {
 		return id;
@@ -134,11 +135,11 @@ public class Commodity implements Serializable {
 		this.images = images;
 	}
 
-	public List<CommodityOrder> getOrders() {
+	public List<COrderDto> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<CommodityOrder> orders) {
+	public void setOrders(List<COrderDto> orders) {
 		this.orders = orders;
 	}
 	
