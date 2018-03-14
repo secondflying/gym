@@ -8,11 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gym.user.entity.UserInfo;
 
 @Entity
 @Table(name = "userorder")
@@ -28,6 +34,11 @@ public class UserOrder implements Serializable {
 	@XmlElement
 	@Column(name = "userid")
 	private Integer userId;
+	
+	@OneToOne()
+	@JoinColumn(name = "userId", insertable = false, updatable = false)
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UserInfo user;
 	
 	@Column(name = "createtime")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -140,6 +151,14 @@ public class UserOrder implements Serializable {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
 	}
 	
 }
