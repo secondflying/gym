@@ -2,6 +2,7 @@ package com.gym.user.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gym.common.entity.Image;
 
 /**
  * 普通用户表
@@ -66,6 +69,10 @@ public class UserInfo implements Serializable {
 	@Column(name = "time")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date time;
+	
+	//用户头像
+	@Transient
+	private List<Image> images;
 
 	public Integer getId() {
 		return id;
@@ -145,6 +152,14 @@ public class UserInfo implements Serializable {
 
 	public void setTime(Date time) {
 		this.time = time;
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 	
 }

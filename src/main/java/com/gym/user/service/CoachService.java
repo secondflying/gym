@@ -23,6 +23,7 @@ import com.gym.user.dao.CoachDao;
 import com.gym.user.dto.CoachDto;
 import com.gym.user.dto.TimeSlot;
 import com.gym.user.entity.Coach;
+import com.gym.user.entity.UserInfo;
 import com.gym.util.DateUtil;
 
 @Service
@@ -89,6 +90,10 @@ public class CoachService {
 			coach.setToday(today);
 			coach.setTomorrow(tomorrow);
 			List<UserOrder> orders = this.userOrderDao.findOrderHasComment(id);
+			for(UserOrder uo : orders) {
+				UserInfo user = uo.getUser();
+				user.setImages(imagedao.getOfImages(user.getId(), "user"));
+			}
 			coach.setOrders(orders);
 			return coach;
 		} catch (Exception e) {

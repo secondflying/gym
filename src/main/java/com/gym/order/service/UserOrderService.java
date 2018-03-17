@@ -1,5 +1,6 @@
 package com.gym.order.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -26,20 +27,21 @@ public class UserOrderService {
 	 * */
 	public void neworder(int userId, int coachId, String startTime, String endTime, String content) {
 		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			UserOrder userOrder = new UserOrder();
 			userOrder.setUserId(userId);
 			userOrder.setCoachId(coachId);
 			userOrder.setContent(content);
-			long start = Long.parseLong(startTime);
-			long end = Long.parseLong(endTime);
-			userOrder.setStartTime(new Date(start));
-			userOrder.setEndTime(new Date(end));
+			Date start = formatter.parse(startTime);
+			Date end = formatter.parse(endTime);
+			userOrder.setStartTime(start);
+			userOrder.setEndTime(end);
 			userOrder.setTime(new Date());
 			userOrder.setStatus(0);
 			dao.save(userOrder);
 		} catch (Exception e) {
 			logger.error("新增订单失败", e);
-			throw new RuntimeException("新增订单失败", e);
+			throw new RuntimeException(e.getMessage(), e);
 		}
 	}
 	
