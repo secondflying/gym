@@ -26,9 +26,9 @@ public class UserResource {
 	@Autowired
 	private UserService service;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8", consumes = "application/json")
+	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8", consumes = "application/json")
 	@ResponseBody
-	public BaseResponse login(@RequestBody UserDto dto) throws IllegalStateException, IOException,
+	public BaseResponse add(@RequestBody UserDto dto) throws IllegalStateException, IOException,
 			ServletException {
 		try {
 			if(StringUtils.isEmpty(dto.getName())) {
@@ -42,6 +42,32 @@ public class UserResource {
 			}
 			User result = service.login(dto);
 			return new BaseResultResponse(result);
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	@RequestMapping(value = "code", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse code(@RequestParam(required = true) String phone) {
+		try {
+			
+			return new BaseResultResponse();
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse login(@RequestParam(required = true) String phone, @RequestParam(required = true) String code) {
+		try {
+			if (StringUtils.isEmpty(phone))
+				throw new IllegalArgumentException("参数phone不得为空");
+			if (StringUtils.isEmpty(phone))
+				throw new IllegalArgumentException("参数code不得为空");
+			//User result = service.login(phone, code);
+			return new BaseResultResponse();
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
 		}

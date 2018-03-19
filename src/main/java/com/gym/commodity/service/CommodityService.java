@@ -21,6 +21,8 @@ import com.gym.commodity.entity.CommodityOrder;
 import com.gym.common.dao.ImageDao;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
+import com.gym.user.dao.UserDao;
+import com.gym.user.entity.User;
 
 @Service
 @Transactional
@@ -33,6 +35,9 @@ public class CommodityService {
 	
 	@Autowired
 	private CommodityOrderDao orderDao;
+	
+	@Autowired
+	private UserDao userDao;
 
 	@Autowired
 	private ImageDao imagedao;
@@ -82,6 +87,10 @@ public class CommodityService {
 				corder.setUserId(c.getUserId());
 				corder.setState(c.getState());
 				corder.setTime(formatter.format(c.getTime()));
+				corder.setNum(c.getNum());
+				User user = userDao.findOne(c.getUserId());
+				user.setImages(imagedao.getOfImages(c.getUserId(), "user"));
+				corder.setUser(user);
 				clist.add(corder);
 			}
 			commodity.setOrders(clist);

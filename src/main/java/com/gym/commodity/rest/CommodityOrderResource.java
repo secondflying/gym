@@ -23,9 +23,10 @@ public class CommodityOrderResource {
 	
 	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public BaseResponse add(@RequestParam(required = true) int userId, @RequestParam(required = true) int cid){
+	public BaseResponse add(@RequestParam(required = true) int userId, @RequestParam(required = true) int cid,
+			@RequestParam(required = true, defaultValue = "1") int num){
 		try {
-			service.addOrder(userId, cid);
+			service.addOrder(userId, cid, num);
 			return BaseResponse.buildSuccessResponse();
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);

@@ -24,13 +24,14 @@ public class CommodityOrderService {
 	@Autowired
 	private CommodityOrderDao dao;
 	
-	public void addOrder(int userId, int cid) {
+	public void addOrder(int userId, int cid, int num) {
 		try {
 			CommodityOrder commodityOrder = new CommodityOrder();
 			commodityOrder.setUserId(userId);
 			commodityOrder.setCid(cid);
 			commodityOrder.setTime(new Date());
 			commodityOrder.setStatus(0);
+			commodityOrder.setNum(num);
 			dao.save(commodityOrder);
 		} catch (Exception e) {
 			logger.error("新增商品订单失败", e);

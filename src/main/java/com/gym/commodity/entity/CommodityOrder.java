@@ -71,6 +71,9 @@ public class CommodityOrder implements Serializable {
 	
 	@Column(name = "state")
 	private int state;
+	
+	@Column(name = "num")
+	private int num;
 
 	public Integer getId() {
 		return id;
@@ -150,6 +153,14 @@ public class CommodityOrder implements Serializable {
 
 	public void setCommodity(Commodity commodity) {
 		this.commodity = commodity;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
 	}
 	
 }
