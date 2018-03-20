@@ -38,7 +38,7 @@ define(function(require, exports, module){
 			
 			$("#bindCoachDlg").dialog({
      	        closed:true,
-     	        width:670,
+     	        width:450,
      	        modal: true,
      	        buttons:[{
  					text:'确定',

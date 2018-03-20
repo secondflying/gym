@@ -26,9 +26,9 @@ public class UserResource {
 	@Autowired
 	private UserService service;
 	
-	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8", consumes = "application/json")
+	@RequestMapping(value = "/addinfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8", consumes = "application/json")
 	@ResponseBody
-	public BaseResponse add(@RequestBody UserDto dto) throws IllegalStateException, IOException,
+	public BaseResponse addinfo(@RequestBody UserDto dto) throws IllegalStateException, IOException,
 			ServletException {
 		try {
 			if(StringUtils.isEmpty(dto.getName())) {
@@ -40,24 +40,35 @@ public class UserResource {
 			if(StringUtils.isEmpty(dto.getPhone())) {
 				throw new IllegalArgumentException("参数phone不得为空");
 			}
-			User result = service.login(dto);
+			User result = service.addinfo(dto);
 			return new BaseResultResponse(result);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
 		}
 	}
 	
-	@RequestMapping(value = "code", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
+	/**
+	 * 获取验证码，应向手机发送验证码短信（暂未实现）
+	 * 并将手机号和验证码存在表中
+	 * 
+	 * */
+	@RequestMapping(value = "sendcode", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public BaseResponse code(@RequestParam(required = true) String phone) {
+	public BaseResponse sendcode(@RequestParam(required = true) String phone) {
 		try {
-			
+			//生成验证码
+			String code = "6666";
+			service.saveCode(phone, code);
 			return new BaseResultResponse();
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
 		}
 	}
 	
+	/**
+	 * 用户登录,登录后返回用户资料
+	 * 
+	 * */
 	@RequestMapping(value = "login", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public BaseResponse login(@RequestParam(required = true) String phone, @RequestParam(required = true) String code) {
@@ -66,8 +77,11 @@ public class UserResource {
 				throw new IllegalArgumentException("参数phone不得为空");
 			if (StringUtils.isEmpty(phone))
 				throw new IllegalArgumentException("参数code不得为空");
-			//User result = service.login(phone, code);
-			return new BaseResultResponse();
+			if(!service.checkCode(phone, code)) {
+				throw new IllegalArgumentException("输入的验证码不正确或已过期");
+			}
+			User user = service.getByPhone(phone);
+			return new BaseResultResponse(user);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
 		}
@@ -75,11 +89,9 @@ public class UserResource {
 	
 	@RequestMapping(value = "detail", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public BaseResponse detail(@RequestParam(required = true) String phone) {
+	public BaseResponse detail(@RequestParam(required = true) int id) {
 		try {
-			if (StringUtils.isEmpty(phone))
-				throw new IllegalArgumentException("参数phone不得为空");
-			User result = service.findByPhone(phone);
+			User result = service.detail(id);
 			return new BaseResultResponse(result);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);

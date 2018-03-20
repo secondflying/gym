@@ -12,7 +12,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			seajs.use("${pageContext.request.contextPath}/module/menu/js/Menu");
-			
+			/*
 			$("#headerMenu ul li").click(function(){
 				if($(this).hasClass("selected")){
 					return false;
@@ -22,6 +22,7 @@
 				var index = $(this).index();
 				GYM.Event.trigger("menuView/render", index);
 			});
+			*/
 	    }); 
 	</script>
 </head>
@@ -37,6 +38,7 @@
 				        <li><a href="${pageContext.request.contextPath}/manager/j_spring_security_logout">退出</a></li>
 				    </ul>
 				</div>
+				<!-- 
 	     		<div id="headerMenu" class="header-menu">
 	     			<ul>
 	     				<li class="li1 selected">
@@ -65,6 +67,7 @@
 	     				</li>
 	     			</ul>
 	     		</div>
+	     		 -->
 	     	</div>
 	     	<div class="header-r"></div>
 		</div>

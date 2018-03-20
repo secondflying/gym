@@ -4,8 +4,8 @@
 define(function(require, exports, module){
     'use strict';
     
-    var index = $("#headerMenu ul li").index($("#headerMenu ul li.selected"));
+    //var index = $("#headerMenu ul li").index($("#headerMenu ul li.selected"));
     var MenuView = require('./MenuView');
-    var menuView =  new MenuView({index: index});
+    var menuView =  new MenuView({index: 0});
     
 });

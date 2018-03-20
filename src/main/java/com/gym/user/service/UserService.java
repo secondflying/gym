@@ -1,5 +1,7 @@
 package com.gym.user.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +19,6 @@ import com.gym.support.QuerySpecification;
 import com.gym.user.dao.UserAddressDao;
 import com.gym.user.dao.UserDao;
 import com.gym.user.dto.UserDto;
-import com.gym.user.entity.Coach;
 import com.gym.user.entity.User;
 
 @Service
@@ -37,45 +38,87 @@ public class UserService {
 	
 	private static final String ImageCate = "user";
 	
-	public User login(UserDto dto) {
+	public void saveCode(String phone, String code) {
+		List<User> users = dao.findByPhone(phone);
+		if(users.size() == 0) { //未登陆过
+			User user = new User();
+			user.setCreateTime(new Date());
+			user.setTime(new Date());
+			user.setCode(code);
+			user.setPhone(phone);
+			dao.save(user);
+		}else {
+			User user = users.get(0);
+			user.setTime(new Date());
+			user.setCode(code);
+			dao.save(user);
+		}
+	}
+	
+	/**
+	 * 查验证码是否正确和过期，五分钟时间限制
+	 * 
+	 * */
+	public boolean checkCode(String phone, String code) {
 		try {
-			List<User> users = dao.findByPhone(dto.getPhone());
-			if(users.size() == 0) { //未登陆过
-				User user = new User();
-				user.setAge(dto.getAge());
-				user.setBrief(dto.getBrief());
-				user.setHeight(dto.getHeight());
-				user.setName(dto.getName());
-				user.setNickname(dto.getNickname());
-				user.setPhone(dto.getPhone());
-				user.setSex(dto.getSex());
-				user.setStatus(0);
-				user.setTime(new Date());
-				dao.save(user);
-				return user;
-			}else {
-				User user = users.get(0);
-				user.setTime(new Date());
-				dao.save(user);
-				return user;
+			boolean status = true;
+			List<User> users = dao.findByPhone(phone);
+			User user = users.get(0);
+			if(!user.getCode().equals(code)) {
+				status = false;
+			}else{
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date d = new Date();
+				String currentTime = df.format(d);
+				Date time = user.getTime();
+				String codeTime = df.format(time);
+				long time1 = df.parse(currentTime).getTime();  
+				long time2 = df.parse(codeTime).getTime();
+				int minutes = (int) ((time1 - time2)/(1000 * 60)); 
+				if(minutes > 5) {
+					status = false;
+				}
 			}
+			return status;
 		} catch (Exception e) {
 			logger.error("用户登录异常", e);
 			throw new RuntimeException("用户登录异常", e);
 		}
 	}
 	
-	public User findByPhone(String phone) {
+	public User getByPhone(String phone) {
+		List<User> users = dao.findByPhone(phone);
+		User user = users.get(0);
+		user.setImages(imagedao.getOfImages(user.getId(), ImageCate));
+		user.setAddresses(addressDao.findByUserId(user.getId()));
+		return user;
+	}
+	
+	public User addinfo(UserDto dto) {
 		try {
-			List<User> users = dao.findByPhone(phone);
-			if(users.size() == 0) {
-				return null;
-			}else {
-				User user = users.get(0);
-				user.setImages(imagedao.getOfImages(user.getId(), ImageCate));
-				user.setAddresses(addressDao.findByUserId(user.getId()));
-				return user;
-			}
+			User user = dao.findOne(dto.getId());
+			user.setAge(dto.getAge());
+			user.setBrief(dto.getBrief());
+			user.setHeight(dto.getHeight());
+			user.setName(dto.getName());
+			user.setNickname(dto.getNickname());
+			user.setPhone(dto.getPhone());
+			user.setSex(dto.getSex());
+			user.setStatus(0);
+			dao.save(user);
+			return user;
+		} catch (Exception e) {
+			logger.error("保存用户资料异常", e);
+			throw new RuntimeException("保存用户资料异常", e);
+		}
+	}
+	
+	public User detail(int id) {
+		try {
+			User user = dao.findOne(id);
+			user.setImages(imagedao.getOfImages(user.getId(), ImageCate));
+			user.setAddresses(addressDao.findByUserId(user.getId()));
+			return user;
 		} catch (Exception e) {
 			logger.error("获取用户详情失败", e);
 			throw new RuntimeException("获取用户详情失败", e);

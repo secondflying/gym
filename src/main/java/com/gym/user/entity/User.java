@@ -67,9 +67,25 @@ public class User implements Serializable {
 	@Column(name = "phone")
 	private String phone;
 	
+	/**
+	 * 验证码
+	 * 
+	 * */
+	@XmlElement
+	@Column(name = "code")
+	@JsonIgnore
+	private String code;
+	
+	/*当前发送验证码的时间*/
 	@Column(name = "time")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonIgnore
 	private Date time;
+	
+	/*记录创建的时间*/
+	@Column(name = "createtime")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date createTime;
 	
 	@XmlElement
 	@Column(name = "status")
@@ -186,6 +202,22 @@ public class User implements Serializable {
 
 	public void setAddresses(List<UserAddress> addresses) {
 		this.addresses = addresses;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 }

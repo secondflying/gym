@@ -31,6 +31,7 @@ public class CommodityOrderService {
 			commodityOrder.setCid(cid);
 			commodityOrder.setTime(new Date());
 			commodityOrder.setStatus(0);
+			commodityOrder.setState(1);
 			commodityOrder.setNum(num);
 			dao.save(commodityOrder);
 		} catch (Exception e) {
