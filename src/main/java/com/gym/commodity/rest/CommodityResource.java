@@ -29,12 +29,14 @@ public class CommodityResource {
 	
 	@RequestMapping(value = "listOfType", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public BaseResponse listOfType(@RequestParam(required = true) String type) {
+	public BaseResponse listOfType(@RequestParam(required = true) String type,
+			@RequestParam(required = false, defaultValue = "0") int page,
+			@RequestParam(required = false, defaultValue = "20") int size) {
 		try {
 			if (StringUtils.isEmpty(type))
 				throw new IllegalArgumentException("参数type不得为空");
 			int t = Integer.valueOf(type);
-			List<Commodity> results = service.getByType(t);
+			List<Commodity> results = service.getByType(t, page, size);
 			int count = service.getCount();
 			return new BaseResultsResponse(count, results);
 		} catch (Exception e) {

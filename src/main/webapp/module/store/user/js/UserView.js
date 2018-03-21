@@ -27,16 +27,49 @@ define(function(require, exports, module){
 				queryParams:{},
 				columns:[[
 	                {field:'id',hidden:true},
-			        {field:'name',title:'姓名',width:200,align:'center'},
-			        {field:'nickname',title:'昵称',width:200,align:'center'},
+			        {field:'name',title:'姓名',width:200,align:'center',formatter:function(value,row,index){
+						if(!value){
+							return "--"
+						}else{
+							return value
+						}
+			        }},
+			        {field:'nickname',title:'昵称',width:200,align:'center',formatter:function(value,row,index){
+			        	if(!value){
+							return "--"
+						}else{
+							return value
+						}
+			        }},
 			        {field:'phone',title:'联系电话',width:200,align:'center'},
-					{field:'age',title:'年龄',width:100,align:'center'},
-					{field:'sex',title:'性别',width:100,align:'center'},
+					{field:'age',title:'年龄',width:100,align:'center',formatter:function(value,row,index){
+						if(value == 0){
+							return "--"
+						}else{
+							return value
+						}
+			        }},
+					{field:'sex',title:'性别',width:100,align:'center',formatter:function(value,row,index){
+						if(!value){
+							return "--"
+						}else{
+							return value
+						}
+			        }},
 					{field:'weight',title:'体重',width:100,align:'center',formatter:function(value,row,index){
-						return value + "kg";
+						if(!value){
+							return "--"
+						}else{
+							return value + "kg";
+						}
 			        }},
 					{field:'height',title:'身高',width:100,align:'center',formatter:function(value,row,index){
-						return value + "cm";
+						if(!value){
+							return "--"
+						}else{
+							return value + "cm";
+						}
+						
 			        }},
 			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';

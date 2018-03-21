@@ -111,8 +111,8 @@ public class CommodityService {
 		}
 	}
 	
-	public List<Commodity> getByType(int type){
-		List<Commodity> list = dao.getByType(type);
+	public List<Commodity> getByType(int type, int page, int size){
+		List<Commodity> list = dao.getByType(new PageRequest(page, size), type);
 		for(Commodity commodity: list) {
 			commodity.setImages(imagedao.getOfImages(commodity.getId(), ImageCate));
 		}
