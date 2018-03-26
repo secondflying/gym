@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gym.common.dto.BaseResponse;
 import com.gym.common.dto.BaseResultResponse;
 import com.gym.common.entity.Image;
+import com.gym.common.service.ApkService;
 import com.gym.common.service.ImageService;
+import com.gym.util.FileUpload;
 import com.gym.util.PublicHelper;
 
 @Controller
@@ -26,6 +28,9 @@ public class FileController {
 	
 	@Autowired
 	private ImageService service;
+	
+	@Autowired
+	private ApkService apkService;
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
@@ -62,4 +67,30 @@ public class FileController {
 			return BaseResponse.buildErrorResponse(ex);
 		}
 	}
+	
+	@RequestMapping(value = "/apk/upload", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseResponse uploadApk(@RequestParam("file") MultipartFile file, HttpServletRequest request,
+			HttpServletResponse response) throws IllegalStateException, IOException, ServletException {
+		try {
+			String apkName = file.getOriginalFilename();
+			String format = apkName.substring(apkName.lastIndexOf(".") + 1);
+			String saveName = FileUpload.saveAPKFile(file.getInputStream(), format);
+			return new BaseResultResponse(saveName);
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	@RequestMapping(value = "/apk/update", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse apkUpdate(HttpServletRequest request, String url, String version) {
+		try {
+			apkService.update(url, version);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
+	
 }
