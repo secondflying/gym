@@ -69,6 +69,11 @@ public class CommodityOrder implements Serializable {
 	@JsonIgnore
 	private int status;
 	
+	/**
+	 * 订单状态
+	 * 1正在发货、2已发货、3已完成、4已退货、5未支付、6已支付
+	 * 
+	 * */
 	@Column(name = "state")
 	private int state;
 	

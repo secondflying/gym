@@ -23,6 +23,15 @@
 				GYM.Event.trigger("menuView/render", index);
 			});
 			*/
+			
+			var dateTime=new Date(); 
+			
+			var yy=dateTime.getFullYear();
+			var MM=dateTime.getMonth()+1;
+			var dd=dateTime.getDate(); 
+			var week=dateTime.getDay(); 
+			var showTime = yy+"年"+MM+"月"+dd+"日";
+		    $("#headtime").html(showTime);
 	    }); 
 	</script>
 </head>
@@ -33,7 +42,7 @@
 	     		<div class="logo">GYM运维管理平台</div>
 	     		<div class="headerLogin">
 					<ul>
-						<li><span class="headtime" id="headtime">2018年2月6日</span></li>
+						<li><span class="headtime" id="headtime"></span></li>
 				        <li><i class="icon-user"></i><a href="javascript:void(0);"><sec:authentication property="principal.name" /></a></li>
 				        <li><a href="${pageContext.request.contextPath}/manager/j_spring_security_logout">退出</a></li>
 				    </ul>

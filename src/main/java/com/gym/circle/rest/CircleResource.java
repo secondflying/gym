@@ -46,8 +46,8 @@ public class CircleResource {
 	public BaseResponse publish(@RequestParam(required = true) int userId, @RequestParam(required = false) String content,
 			@RequestParam(required = false) Double lng, @RequestParam(required = false) Double lat){
 		try {
-			service.publish(userId, content, lng, lat);
-			return BaseResponse.buildSuccessResponse();
+			Circle circle = service.publish(userId, content, lng, lat);
+			return new BaseResultResponse(circle);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
 		}

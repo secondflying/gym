@@ -1,0 +1,24 @@
+<div id="apkDlg" style="padding: 0 ;" data-options="iconCls:'icon-save'">
+	<form method="post" id="fileForm" enctype="multipart/form-data">
+		<div class="img-upload">
+			选取文件：<input id="apkFile" name="file" style="width:200px;">
+			<button type="button" id="fileFormBtn" style="">上传</button>
+		</div>
+	</form>
+	
+	<form id="apkForm" method="post" enctype="multipart/form-data">
+		<div style="margin-left: 8px;">
+		    <input type="hidden" id="apkForm-id" name="id">
+		    <table class="dlgForm">
+	            <tr>
+					<td>文件名称：</td>
+					<td colspan="3"><input id="apkUrl" style="width: 262px;" class="easyui-textbox" name="url" readonly="readonly"></td>							                     
+	            </tr>
+	            <tr>
+					<td>文件版本：</td>
+					<td colspan="3"><input style="width: 262px;" class="easyui-textbox" name="version"></td>							                     
+	            </tr>         
+	        </table>
+		</div>
+   	</form>
+</div>

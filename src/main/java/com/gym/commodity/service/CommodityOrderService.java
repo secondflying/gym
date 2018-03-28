@@ -1,7 +1,9 @@
 package com.gym.commodity.service;
 
 import java.util.Date;
+import java.util.List;
 
+import org.jsoup.helper.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.gym.commodity.dao.CommodityOrderDao;
 import com.gym.commodity.entity.CommodityOrder;
+import com.gym.common.dao.ImageDao;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
+import com.gym.user.entity.User;
 
 @Service
 @Transactional
@@ -24,6 +29,9 @@ public class CommodityOrderService {
 	@Autowired
 	private CommodityOrderDao dao;
 	
+	@Autowired
+	private ImageDao imagedao;
+	
 	public void addOrder(int userId, int cid, int num) {
 		try {
 			CommodityOrder commodityOrder = new CommodityOrder();
@@ -31,7 +39,7 @@ public class CommodityOrderService {
 			commodityOrder.setCid(cid);
 			commodityOrder.setTime(new Date());
 			commodityOrder.setStatus(0);
-			commodityOrder.setState(1);
+			commodityOrder.setState(5);
 			commodityOrder.setNum(num);
 			dao.save(commodityOrder);
 		} catch (Exception e) {
@@ -83,5 +91,60 @@ public class CommodityOrderService {
 			logger.error("删除商品订单失败", e);
 			throw new RuntimeException("删除商品订单失败", e);
 		}
+	}
+	
+	public List<CommodityOrder> payList(int userId, int page, int size, int state){
+		List<CommodityOrder> list = dao.payList(new PageRequest(page, size), userId, state);
+		for(CommodityOrder co : list) {
+			User user = co.getUser();
+			user.setImages(imagedao.getOfImages(user.getId(), "user"));
+			co.setUser(user);
+		}
+		return list;
+	}
+	
+	public int payCount(int userId, int state) {
+		return dao.payCount(userId, state);
+	}
+	
+	public List<CommodityOrder> unpayList(int userId, int page, int size, int state){
+		List<CommodityOrder> list = dao.unpayList(new PageRequest(page, size), userId, state);
+		for(CommodityOrder co : list) {
+			User user = co.getUser();
+			user.setImages(imagedao.getOfImages(user.getId(), "user"));
+			co.setUser(user);
+		}
+		return list;
+	}
+	
+	public int unpayCount(int userId, int state) {
+		return dao.unpayCount(userId, state);
+	}
+	
+	public List<CommodityOrder> commentedList(String userId, int page, int size){
+		List<CommodityOrder> list = null;
+		if(StringUtils.isEmpty(userId)) {
+			list = dao.commentedList(new PageRequest(page, size));
+		}else {
+			int user = Integer.valueOf(userId);
+			list = dao.commentedListByUser(new PageRequest(page, size), user);
+		}
+		for(CommodityOrder co : list) {
+			User user = co.getUser();
+			user.setImages(imagedao.getOfImages(user.getId(), "user"));
+			co.setUser(user);
+		}
+		return list;
+	}
+	
+	public int commentedCount(String userId){
+		int count = 0;
+		if(StringUtils.isEmpty(userId)) {
+			count = dao.commentedCount();
+		}else {
+			int user = Integer.valueOf(userId);
+			count = dao.commentedCountByUser(user);
+		}
+		return count;
 	}
 }

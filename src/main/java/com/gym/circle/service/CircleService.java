@@ -49,7 +49,7 @@ public class CircleService {
 	
 	private static final String ImageCate = "circle";
 	
-	public void publish(int userId, String content, Double lng, Double lat) {
+	public Circle publish(int userId, String content, Double lng, Double lat) {
 		try {
 			Circle circle = new Circle();
 			circle.setStatus(0);
@@ -58,7 +58,8 @@ public class CircleService {
 			circle.setContent(content);
 			circle.setLng(lng);
 			circle.setLat(lat);
-			dao.save(circle);
+			circle = dao.save(circle);
+			return circle;
 		} catch (Exception e) {
 			logger.error("发布圈子失败", e);
 			throw new RuntimeException("发布圈子失败", e);

@@ -41,6 +41,8 @@ define(function(require, exports, module){
 		    		url = GYM.ContextRoot + "/manager/commodity/index";
 		    	}else if(sort == "store/commodityOrder"){
 		    		url = GYM.ContextRoot + "/manager/commodityOrder/index";
+		    	}else if(sort == "store/apk"){
+		    		url = GYM.ContextRoot + "/manager/apk/index";
 		    	}
 		    	$("#linkPage").attr("src", url);
 		    });

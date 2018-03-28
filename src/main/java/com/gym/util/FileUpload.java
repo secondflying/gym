@@ -1,17 +1,14 @@
 package com.gym.util;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.UUID;
 
-import javax.imageio.ImageIO;
-
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
@@ -25,57 +22,43 @@ public class FileUpload {
 	
 	static Logger logger = Logger.getLogger(FileUpload.class.getName());
 	
-	public static String saveAPKFile(InputStream file, String format) throws IOException {
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		int nRead;
-		byte[] data = new byte[16384];
-		while ((nRead = file.read(data, 0, data.length)) != -1) {
-			buffer.write(data, 0, nRead);
+	public static String saveAPKFile(MultipartFile file, String format) throws IOException {
+		
+		String fileName = UUID.randomUUID().toString();
+		String ending = "apk";
+		if (format != null && format.equalsIgnoreCase("apk")) {
+			ending = "apk";
 		}
-		buffer.flush();
-		byte[] bs = buffer.toByteArray();
-
-		if (bs.length > 0) {
-
-			String ending = "apk";
-			if (format != null && format.equalsIgnoreCase("apk")) {
-				ending = "apk";
-			}
-
-			BufferedImage bi = ImageIO.read(new ByteArrayInputStream(bs));
-
-			String id = UUID.randomUUID().toString();
-			String fileName = id + "." + ending;
-
-			String tmpPath;
-			tmpPath = System.getProperty("java.io.tmpdir");
-
-			File originFile = new File(tmpPath + fileName);
-			if (originFile.isDirectory()) {
-				ImageIO.write(bi, ending, originFile);
-			} else {
-				originFile.mkdirs();
-				ImageIO.write(bi, ending, originFile);
-			}
-			File apkFile = new File(PublicConfig.getImagePath() + "apk" + File.separator, fileName);
-			try {
-				if (StringUtils.isNotBlank(PublicConfig.getOSSEndpoint())) {
-					OSSClient ossClient = new OSSClient(PublicConfig.getOSSEndpoint(),
-							PublicConfig.getOSSAccessKeyId(), PublicConfig.getOSSAccessKeySecret());
-
-					ossClient.putObject(PublicConfig.getOSSBucket(), "apk/" + fileName, apkFile);
-
-					ossClient.shutdown();
-				}
-			} catch (OSSException e) {
-				logger.error("上传oss出错", e);
-			} catch (ClientException e) {
-				logger.error("上传oss出错", e);
-			}
-
-			return fileName;
+		String tmpPath = System.getProperty("java.io.tmpdir");
+		File dir = new File(tmpPath);
+		if (!dir.exists()) {
+			dir.mkdirs();
 		}
-		return null;
+		File inputFile = File.createTempFile(fileName, "." + ending, dir);
+
+		FileOutputStream outputStream = new FileOutputStream(inputFile);
+		IOUtils.copy(file.getInputStream(), outputStream);
+		outputStream.close();
+		
+		String fullName = fileName + "." + ending;
+		File apkFile = new File(PublicConfig.getImagePath() + "apk" + File.separator, fullName);
+		inputFile.renameTo(apkFile);
+		
+		try {
+			if (StringUtils.isNotBlank(PublicConfig.getOSSEndpoint())) {
+				OSSClient ossClient = new OSSClient(PublicConfig.getOSSEndpoint(),
+						PublicConfig.getOSSAccessKeyId(), PublicConfig.getOSSAccessKeySecret());
+	
+				ossClient.putObject(PublicConfig.getOSSBucket(), "apk/" + fullName, apkFile);
+	
+				ossClient.shutdown();
+			}
+		} catch (OSSException e) {
+			logger.error("上传oss出错", e);
+		} catch (ClientException e) {
+			logger.error("上传oss出错", e);
+		}
+		return fullName;
 	}
 	
 }

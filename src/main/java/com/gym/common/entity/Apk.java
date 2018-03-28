@@ -21,7 +21,6 @@ public class Apk implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private Integer id;
 
 	@Column(name = "url")

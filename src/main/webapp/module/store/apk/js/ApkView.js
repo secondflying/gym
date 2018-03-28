@@ -1,59 +1,59 @@
 /*
- *  商品订单列表
+ *  Apk列表
  **/
 define(function(require, exports, module){
     'use strict';
     
     var BaseGridView = require('./../../../ext/baseGridView');
-	var commodityOrderView = GYM.Class.create(BaseGridView, {
+	var ApkView = GYM.Class.create(BaseGridView, {
 		elemId:"dataGrid",
-		delUrl: GYM.ContextRoot + "/manager/commodityOrder/delete",
 		initialize: function(option){
 			GYM.extend(this,option);
 			this.render();
 		},
 		getForm:function(){
 			if(this.form == null){
-				 var CommodityOrderForm = require('./CommodityOrderForm'); 
-				 this.form = new CommodityOrderForm();
+				 var ApkForm = require('./ApkForm'); 
+				 this.form = new ApkForm();
 			}
 			return this.form;
 		},
 		render:function(){
 			var that = this;
 			var setting = {
-				url: GYM.ContextRoot + "/manager/commodityOrder/list",
+				url: GYM.ContextRoot + "/manager/apk/list",
 				method:"GET",
 				queryParams:{},
 				columns:[[
 	                {field:'id',hidden:true},
-			        {field:'commodity',title:'商品名称',width:200,align:'center',formatter:function(value,row,index){
-						return row.commodity.name;
+			        {field:'url',title:'文件名',width:200,align:'center',formatter:function(value,row,index){
+			        	if(!value){
+							return "--"
+						}else{
+							return value
+						}
 			        }},
-			        {field:'user',title:'用户',width:200,align:'center',formatter:function(value,row,index){
-			        	return row.user.name;
+			        {field:'version',title:'版本',width:200,align:'center',formatter:function(value,row,index){
+			        	if(!value){
+							return "--"
+						}else{
+							return value
+						}
 			        }},
-			        {field:'num',title:'订单数量',width:200,align:'center'},
-					{field:'time',title:'创建时间',width:200,align:'center'},
-					{field:'state',title:'订单状态',width:100,align:'center',formatter:function(value,row,index){
-						if(value == 1){
-							return "正在发货";
-						}else if(value == 2){
-							return "已发货";
-						}else if(value == 3){
-							return "已完成";
-						}else if(value == 4){
-							return "已退货";
-						}else if(value == 5){
-							return "未支付";
-						}else if(value == 6){
-							return "已支付";
+					{field:'time',title:'更新时间',width:100,align:'center',formatter:function(value,row,index){
+			        	if(!value){
+							return "--"
+						}else{
+							return value
 						}
 			        }},
 			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';
-			        	html += '<span class="o-view o-edit">编辑</span>';
-			        	html += '<span class="o-view o-delete">删除</span>';
+			        	html += '<span class="o-view o-edit">更新文件</span>';
+			        	if(row.url){
+			        		var downUrl = "http://image2.gebanban.com/apk/" + row.url;
+			        		html += '<a class="o-view" href="'+downUrl+'" target="_blank">下载</span>';
+			        	}
 			        	html += '</div>';
 					    return html;
 				    }}
@@ -63,12 +63,6 @@ define(function(require, exports, module){
 				    $(".o-edit").on("click",function(){
 						 var id = $(this).parent().attr("id");
 						 that.edit(id);
-					});
-				    
-				    $(".o-delete").off("click");
-				    $(".o-delete").on("click",function(){
-						 var id = $(this).parent().attr("id");
-						 that.del(id);
 					});
 			    },
 			    toolbar:[{
@@ -110,5 +104,5 @@ define(function(require, exports, module){
 			}
 		}
 	});
-	module.exports =  commodityOrderView;
+	module.exports =  ApkView;
 });	
