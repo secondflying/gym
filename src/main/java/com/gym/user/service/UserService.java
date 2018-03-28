@@ -1,6 +1,5 @@
 package com.gym.user.service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gym.common.dao.ImageDao;
+import com.gym.common.entity.Image;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
 import com.gym.user.dao.UserAddressDao;
@@ -106,6 +106,17 @@ public class UserService {
 			user.setSex(dto.getSex());
 			user.setStatus(0);
 			dao.save(user);
+			
+			if(dto.getUrls() != null) {
+				String[] arr = dto.getUrls().split(",");
+				for(int i=0;i<arr.length;i++) {
+					Image image = new Image();
+					image.setCid(user.getId());
+					image.setUrl(arr[i]);
+					image.setCate(ImageCate);
+					imagedao.save(image);
+				}
+			}
 			return user;
 		} catch (Exception e) {
 			logger.error("保存用户资料异常", e);

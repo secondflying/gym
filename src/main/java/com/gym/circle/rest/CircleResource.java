@@ -16,7 +16,6 @@ import com.gym.circle.entity.Circle;
 import com.gym.circle.entity.CircleInfo;
 import com.gym.circle.service.CircleService;
 import com.gym.circle.service.CommentService;
-import com.gym.circle.service.FollowService;
 import com.gym.circle.service.ThumbsupService;
 import com.gym.common.dto.BaseResponse;
 import com.gym.common.dto.BaseResultResponse;
@@ -44,9 +43,10 @@ public class CircleResource {
 	@RequestMapping(value = "/publish", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public BaseResponse publish(@RequestParam(required = true) int userId, @RequestParam(required = false) String content,
-			@RequestParam(required = false) Double lng, @RequestParam(required = false) Double lat){
+			@RequestParam(required = false) Double lng, @RequestParam(required = false) Double lat,
+			@RequestParam(required = false) String urls){
 		try {
-			Circle circle = service.publish(userId, content, lng, lat);
+			Circle circle = service.publish(userId, content, lng, lat, urls);
 			return new BaseResultResponse(circle);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
@@ -62,7 +62,7 @@ public class CircleResource {
 	public BaseResponse list(@RequestParam(required = false, defaultValue = "0") int page,
 			@RequestParam(required = false, defaultValue = "20") int size){
 		try {
-			List<Circle> results = service.list(page, size);
+			List<CircleInfo> results = service.list(page, size);
 			int count = service.getCount();
 			return new BaseResultsResponse(count, results);
 		} catch (Exception e) {
@@ -80,6 +80,21 @@ public class CircleResource {
 		try {
 			CircleInfo result = service.detail(id);
 			return new BaseResultResponse(result);
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	/**
+	 * 圈子删除
+	 * 
+	 * */
+	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse delete(@RequestParam(required = true) int id){
+		try {
+			service.delete(id);
+			return BaseResponse.buildSuccessResponse();
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
 		}

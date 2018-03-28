@@ -18,6 +18,7 @@ public class UserDto implements Serializable {
 	private String height;
 	private String weight;
 	private String phone;
+	private String urls;
 	
 	public int getId() {
 		return id;
@@ -72,6 +73,12 @@ public class UserDto implements Serializable {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public String getUrls() {
+		return urls;
+	}
+	public void setUrls(String urls) {
+		this.urls = urls;
 	}
 	
 }
