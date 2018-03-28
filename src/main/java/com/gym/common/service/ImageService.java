@@ -29,6 +29,22 @@ public class ImageService {
 		}
 	}
 	
+	public void saveimgs(int cid, String cate, String urls) {
+		try {
+			String[] arr = urls.split(",");
+			for(int i=0;i<arr.length;i++) {
+				Image image = new Image();
+				image.setCid(cid);
+				image.setUrl(arr[i]);
+				image.setCate(cate);
+				imageDao.save(image);
+			}
+		} catch (Exception e) {
+			logger.error("新增图片失败", e);
+			throw new RuntimeException("新增图片失败", e);
+		}
+	}
+	
 	public void deleteByUrl(String url) {
 		try {
 			List<Image> images = imageDao.findByUrl(url);

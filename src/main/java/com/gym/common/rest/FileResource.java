@@ -54,6 +54,22 @@ public class FileResource {
 		}
 	}
 	
+	@RequestMapping(value = "/saveimgs", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse saveimgs(HttpServletRequest request, @RequestParam(required = true) int cid,
+			@RequestParam(required = true) String cate, @RequestParam(required = true) String urls){
+		try {
+			if (StringUtils.isEmpty(cate))
+				throw new IllegalArgumentException("参数cate不得为空");
+			if (StringUtils.isEmpty(urls))
+				throw new IllegalArgumentException("参数urls不得为空");
+			service.saveimgs(cid, cate, urls);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
 	@RequestMapping(value = "/delimg", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public BaseResponse delimg(HttpServletRequest request, String url){
