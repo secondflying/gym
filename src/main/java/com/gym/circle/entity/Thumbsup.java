@@ -39,7 +39,7 @@ public class Thumbsup implements Serializable {
 	private int userId;
 	
 	@Column(name = "time")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date time;
 	
 	@Transient

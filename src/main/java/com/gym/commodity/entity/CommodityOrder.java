@@ -56,7 +56,7 @@ public class CommodityOrder implements Serializable {
 	private Commodity commodity;
 	
 	@Column(name = "time")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date time;
 	
 	@Column(name = "comment")

@@ -41,15 +41,15 @@ public class UserOrder implements Serializable {
 	private UserInfo user;
 	
 	@Column(name = "createtime")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date time;
 	
 	@Column(name = "starttime")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date startTime;
 	
 	@Column(name = "endtime")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date endTime;
 	
 	@XmlElement

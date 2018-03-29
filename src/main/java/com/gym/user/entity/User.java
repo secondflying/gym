@@ -78,13 +78,13 @@ public class User implements Serializable {
 	
 	/*当前发送验证码的时间*/
 	@Column(name = "time")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@JsonIgnore
 	private Date time;
 	
 	/*记录创建的时间*/
 	@Column(name = "createtime")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
 	
 	@XmlElement

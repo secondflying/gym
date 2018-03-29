@@ -41,7 +41,7 @@ public class UserAddress implements Serializable {
 	private String address;
 	
 	@Column(name = "time")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date time;
 	
 	@XmlElement
