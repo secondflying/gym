@@ -69,24 +69,31 @@ define(function(require, exports, module){
         afterRenderForm:function(data){
 	    	 
 	    },
+	    loadShow: function(){
+	    	$("<div class=\"datagrid-mask\" style='z-index:99999;'></div>").css({ display: "block", width: "100%", height: $(window).height() }).appendTo("body");  
+	        $("<div class=\"datagrid-mask-msg\" style='z-index:99999;height:40px;'></div>").html("文件上传中，请稍后......").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 300) / 2 }); 
+	    },
+	    loadHide: function(){
+	    	$(".datagrid-mask").remove();  
+	        $(".datagrid-mask-msg").remove();  
+	    },
 	    upLoadApk: function(){
 	    	var that = this;
 	    	$("#fileForm").form('submit',{
 	 			url:that.uploadUrl,
 	 			onSubmit:function(param){
 	 				var flag = $(this).form('validate');
+	 				if(flag){
+	 					that.loadShow();
+	 				}
 	 				return  flag;
 	 			},
 	 			success:function(data){
+	 				that.loadHide();
 	 				var result = $.parseJSON(data);
 	 				if(result.status == "ok"){
 	 					var url = result.result;
 	 					$("#apkUrl").textbox("setValue", url);
-	 					$.messager.show({
-	   				    	title:'提示',
-	   					    msg:"上传成功，请保存！",
-	   					    timeout:3000
-	   				   }) 
 	 				}else{
 	 					$.messager.show({
 	   				    	title:'提示',

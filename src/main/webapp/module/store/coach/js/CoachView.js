@@ -53,6 +53,13 @@ define(function(require, exports, module){
 							return "--"
 						}
 			        }},
+			        {field:'level',title:'星级',width:150,align:'center',formatter:function(value,row,index){
+						if(row.level != 0){
+							return row.level + "星";
+						}else{
+							return "--"
+						}
+			        }},
 			        {field:'op',title:'操作',width:200,align:'center',formatter:function(value,row,index){
 			        	var html  = '<div id="'+ row.id +'">';
 			        	if(row.state == 0){

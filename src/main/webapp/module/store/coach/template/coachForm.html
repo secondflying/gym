@@ -36,6 +36,31 @@
 				<td >体重：</td>
 				<td><input name="weight"  class="easyui-numberbox" >kg</td>							
             </tr>
+            <tr >
+				<td valign="top">星级：</td>
+				<td colspan="3" >
+					<input name="level" class="easyui-combobox" data-options="
+						valueField: 'label',
+						textField: 'value',
+						editable: false,
+						data: [{
+							label: '1',
+							value: '1星'
+						},{
+							label: '2',
+							value: '2星'
+						},{
+							label: '3',
+							value: '3星'
+						},{
+							label: '4',
+							value: '4星'
+						},{
+							label: '5',
+							value: '5星'
+						}]" style="width:170px;"/>
+				</td>
+			</tr>
         </table>
    	</form>
 </div>

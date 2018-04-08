@@ -108,6 +108,9 @@ public class Coach implements Serializable {
 	private List<TimeSlot> tomorrow;
 	
 	@Transient
+	private List<TimeSlot> after;
+	
+	@Transient
 	private List<UserOrder> orders;
 	
 	public Integer getId() {
@@ -260,6 +263,14 @@ public class Coach implements Serializable {
 
 	public void setOrders(List<UserOrder> orders) {
 		this.orders = orders;
+	}
+
+	public List<TimeSlot> getAfter() {
+		return after;
+	}
+
+	public void setAfter(List<TimeSlot> after) {
+		this.after = after;
 	}
 	
 }

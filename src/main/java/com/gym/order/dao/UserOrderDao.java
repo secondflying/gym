@@ -13,8 +13,12 @@ import com.gym.order.entity.UserOrder;
 @Repository
 public interface UserOrderDao  extends CrudRepository<UserOrder, Integer>, JpaSpecificationExecutor<UserOrder> {
 
-	@Query("select u from UserOrder as u where u.coachId = ?1 and u.startTime > ?2 and u.startTime < ?3")
+	@Query("select u from UserOrder as u where u.coachId = ?1 and u.startTime > ?2 and u.endTime < ?3")
 	public List<UserOrder> findOrderByTime(int coachId, Date start, Date end);
+	
+	/*时间段交集*/
+	@Query("select u from UserOrder as u where u.coachId = ?1 and ((u.startTime >= ?2 and u.startTime <= ?3) or (u.startTime <= ?2 and u.endTime >= ?3) or (u.endTime >= ?2 and u.endTime <= ?3))")
+	public List<UserOrder> intersectTime(int coachId, Date start, Date end);
 	
 	@Query("select u from UserOrder as u where u.coachId = ?1 and u.comment <> null and u.status = 0  order by createtime desc")
 	public List<UserOrder> findOrderHasComment(int coachId);
