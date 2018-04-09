@@ -4,6 +4,7 @@ package com.gym.order.rest;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +24,8 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.gym.common.dto.BaseResponse;
+import com.gym.common.dto.BaseResultsResponse;
+import com.gym.order.entity.UserOrder;
 import com.gym.order.service.UserOrderService;
 
 @Controller
@@ -33,6 +36,21 @@ public class UserOrderResource {
 	
 	@Autowired
 	private UserOrderService service;
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse list(@RequestParam(required = true) int userId,
+			@RequestParam(required = false,defaultValue = "0") int state,
+			@RequestParam(required = false, defaultValue = "0") int page,
+			@RequestParam(required = false, defaultValue = "20") int size){
+		try {
+			List<UserOrder> results = service.list(userId, state ,page, size);
+			int count = service.getCount(userId, state);
+			return new BaseResultsResponse(count, results);
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
 	
 	@RequestMapping(value = "/neworder", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	@ResponseBody

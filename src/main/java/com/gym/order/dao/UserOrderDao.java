@@ -36,4 +36,10 @@ public interface UserOrderDao  extends CrudRepository<UserOrder, Integer>, JpaSp
 	@Query("select count(u) from UserOrder u  where u.coachId = ?1 and u.status = 0")
 	public int countByCid(int coachId);
 	
+	@Query("select u from UserOrder as u where u.userId = ?1 and u.state = ?2 and u.status = 0  order by createtime desc")
+	public List<UserOrder> findOrderByUserId(Pageable pageable, int userId, int state);
+	
+	@Query("select count(u) from UserOrder u  where u.userId = ?1 and u.state = ?2 and u.status = 0")
+	public int countByUserId(int userId, int state);
+	
 }

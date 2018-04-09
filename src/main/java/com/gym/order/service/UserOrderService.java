@@ -2,10 +2,12 @@ package com.gym.order.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,6 +69,14 @@ public class UserOrderService {
 			logger.error("确认订单失败", e);
 			throw new RuntimeException("确认订单失败", e);
 		}
+	}
+	
+	public List<UserOrder> list(int userId, int state, int page, int size){
+		return dao.findOrderByUserId(new PageRequest(page, size), userId, state);
+	}
+	
+	public int getCount(int userId, int state) {
+		return dao.countByUserId(userId, state);
 	}
 	
 }
