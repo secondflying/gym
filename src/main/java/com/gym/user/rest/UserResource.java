@@ -56,6 +56,9 @@ public class UserResource {
 	@ResponseBody
 	public BaseResponse sendcode(@RequestParam(required = true) String phone) {
 		try {
+			if(StringUtils.isEmpty(phone)) {
+				throw new IllegalArgumentException("手机号码不得为空");
+			}
 			//生成验证码
 			String code = "6666";
 			service.saveCode(phone, code);

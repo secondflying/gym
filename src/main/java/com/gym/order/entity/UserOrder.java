@@ -72,6 +72,16 @@ public class UserOrder implements Serializable {
 	@XmlElement
 	@Column(name = "level")
 	private int level;
+	
+	/**
+	 * 订单状态
+	 * 0订单未执行，1订单已执行
+	 * 
+	 * */
+	@XmlElement
+	@Column(name = "state")
+	@JsonIgnore
+	private Integer state;
 
 	public Integer getId() {
 		return id;
@@ -159,6 +169,14 @@ public class UserOrder implements Serializable {
 
 	public void setUser(UserInfo user) {
 		this.user = user;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 	
 }

@@ -38,6 +38,7 @@ public class UserOrderService {
 			userOrder.setEndTime(end);
 			userOrder.setTime(new Date());
 			userOrder.setStatus(0);
+			userOrder.setState(0);
 			dao.save(userOrder);
 		} catch (Exception e) {
 			logger.error("新增订单失败", e);
@@ -54,6 +55,17 @@ public class UserOrderService {
 		} catch (Exception e) {
 			logger.error("评价订单失败", e);
 			throw new RuntimeException("评价订单失败", e);
+		}
+	}
+	
+	public void start(int id) {
+		try {
+			UserOrder userOrder = dao.findOne(id);
+			userOrder.setState(1);
+			dao.save(userOrder);
+		} catch (Exception e) {
+			logger.error("确认订单失败", e);
+			throw new RuntimeException("确认订单失败", e);
 		}
 	}
 	

@@ -15,4 +15,7 @@ public interface CoachDao extends CrudRepository<Coach, Integer>, JpaSpecificati
 	@Query("select u from Coach as u  where u.clubid = ?1")
 	public List<Coach> findByClubId(int clubId);
 	
+	@Query("select u from Coach as u  where u.phone = ?1")
+	public List<Coach> findByPhone(String phone);
+	
 }

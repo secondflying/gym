@@ -3,6 +3,7 @@ package com.gym.order.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -22,5 +23,17 @@ public interface UserOrderDao  extends CrudRepository<UserOrder, Integer>, JpaSp
 	
 	@Query("select u from UserOrder as u where u.coachId = ?1 and u.comment <> null and u.status = 0  order by createtime desc")
 	public List<UserOrder> findOrderHasComment(int coachId);
+	
+	@Query("select u from UserOrder as u where u.coachId = ?1 and u.state = ?2 and u.status = 0  order by createtime desc")
+	public List<UserOrder> findOrderByCidAndState(Pageable pageable, int coachId, int state);
+	
+	@Query("select count(u) from UserOrder u  where u.coachId = ?1 and u.state = ?2 and u.status = 0")
+	public int countByCidAndState(int coachId, int state);
+	
+	@Query("select u from UserOrder as u where u.coachId = ?1 and u.status = 0  order by createtime desc")
+	public List<UserOrder> findOrderByCid(Pageable pageable, int coachId);
+	
+	@Query("select count(u) from UserOrder u  where u.coachId = ?1 and u.status = 0")
+	public int countByCid(int coachId);
 	
 }

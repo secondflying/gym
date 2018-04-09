@@ -67,6 +67,9 @@ public class CoachController {
 	@ResponseBody
 	public BaseResponse save(HttpServletRequest request, Coach coach) {
 		try {
+			if(service.checkExsit(coach.getPhone())) {
+				throw new IllegalArgumentException("手机号码已注册");
+			}
 			service.save(coach);
 			return BaseResponse.buildSuccessResponse();
 		} catch (Exception ex) {

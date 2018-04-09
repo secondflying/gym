@@ -1,10 +1,12 @@
 package com.gym.user.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,13 @@ import com.gym.order.entity.UserOrder;
 import com.gym.support.QueryParamUtil;
 import com.gym.support.QuerySpecification;
 import com.gym.user.dao.CoachDao;
+import com.gym.user.dao.CoachInfoDao;
 import com.gym.user.dao.CoachLeaveDao;
 import com.gym.user.dto.CoachDto;
 import com.gym.user.dto.LeaveTime;
 import com.gym.user.dto.TimeSlot;
 import com.gym.user.entity.Coach;
+import com.gym.user.entity.CoachInfo;
 import com.gym.user.entity.CoachLeave;
 import com.gym.user.entity.UserInfo;
 import com.gym.util.DateUtil;
@@ -41,6 +45,9 @@ public class CoachService {
 	private CoachDao dao;
 	
 	@Autowired
+	private CoachInfoDao infoDao;
+	
+	@Autowired
 	private ImageDao imagedao;
 	
 	@Autowired
@@ -53,6 +60,15 @@ public class CoachService {
 	private CoachLeaveDao leaveDao;
 
 	private static final String ImageCate = "coach";
+	
+	public boolean checkExsit(String phone){
+		List<Coach> list = dao.findByPhone(phone);
+		if(list.size() > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	public Coach register(CoachDto dto) {
 		try {
@@ -258,6 +274,95 @@ public class CoachService {
 			throw new RuntimeException("教练请假失败", e);
 		}
 	}
+	
+	/**
+	 * 判断教练是否审核通
+	 * 
+	 * */
+	public boolean checkPhone(String phone) {
+		List<Coach> list = dao.findByPhone(phone);
+		if(list.size() > 0) {
+			int state = list.get(0).getState();
+			if(state == 1) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 存储临时手机登录验证码
+	 * 
+	 * */
+	public void saveCode(String phone, String code) {
+		List<Coach> list = dao.findByPhone(phone);
+		Coach coach = list.get(0);
+		coach.setCtime(new Date());
+		coach.setCode(code);
+		dao.save(coach);
+	}
+	
+	/**
+	 * 查验证码是否正确和过期，五分钟时间限制
+	 * 
+	 * */
+	public boolean checkCode(String phone, String code) {
+		try {
+			boolean status = true;
+			List<Coach> list = dao.findByPhone(phone);
+			Coach coach = list.get(0);
+			if(!coach.getCode().equals(code)) {
+				status = false;
+			}else{
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date d = new Date();
+				String currentTime = df.format(d);
+				Date time = coach.getCtime();
+				String codeTime = df.format(time);
+				long time1 = df.parse(currentTime).getTime();  
+				long time2 = df.parse(codeTime).getTime();
+				int minutes = (int) ((time1 - time2)/(1000 * 60)); 
+				if(minutes > 5) {
+					status = false;
+				}
+			}
+			return status;
+		} catch (Exception e) {
+			logger.error("教练登录异常", e);
+			throw new RuntimeException("教练登录异常", e);
+		}
+	}
+	
+	public CoachInfo getByPhone(String phone) {
+		List<CoachInfo> list = infoDao.findByPhone(phone);
+		CoachInfo coach = list.get(0);
+		coach.setImages(imagedao.getOfImages(coach.getId(), ImageCate));
+		return coach;
+	}
+	
+	public List<UserOrder> orders(int id, String state, int page, int size){
+		List<UserOrder> list = null;
+		if(StringUtils.isEmpty(state)) {
+			list = userOrderDao.findOrderByCid(new PageRequest(page, size), id);
+		}else {
+			int ste = Integer.valueOf(state);
+			list = userOrderDao.findOrderByCidAndState(new PageRequest(page, size), id, ste);
+		}
+		return list;
+	}
+	
+	public int ordersCount(int id, String state){
+		if(StringUtils.isEmpty(state)) {
+			return userOrderDao.countByCid(id);
+		}else {
+			int ste = Integer.valueOf(state);
+			return userOrderDao.countByCidAndState(id, ste);
+		}
+	}
+	
 	
 	public Page<Coach> queryListFilter(String filterParam, String sortParam, int start, int limit) {
 		Page<Coach> results = dao.findAll(new QuerySpecification<Coach>(filterParam),

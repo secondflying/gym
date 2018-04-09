@@ -19,19 +19,16 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gym.club.entity.Club;
 import com.gym.common.entity.Image;
-import com.gym.order.entity.UserOrder;
-import com.gym.user.dto.TimeSlot;
 
 /**
- * 教练表
+ * 教练表，简单对象
  * 
  * */
 @Entity
 @Table(name = "coach")
-public class Coach implements Serializable {
+public class CoachInfo implements Serializable {
 
 	private static final long serialVersionUID = 6617897682424252818L;
 
@@ -69,23 +66,8 @@ public class Coach implements Serializable {
 	private Date time;
 	
 	@XmlElement
-	@Column(name = "status")
-	@JsonIgnore
-	private int status;
-	
-	@XmlElement
 	@Column(name = "phone")
 	private String phone;
-	
-	@Column(name = "ctime")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@JsonIgnore
-	private Date ctime;
-	
-	@XmlElement
-	@Column(name = "code")
-	@JsonIgnore
-	private String code;
 	
 	@XmlElement
 	@Column(name = "clubid")
@@ -96,38 +78,13 @@ public class Coach implements Serializable {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private Club club;
 	
-	/**
-	 * 审核状态
-	 * 0未审核、1审核通过、-1审核不通过
-	 * 
-	 * */
-	@XmlElement
-	@Column(name = "state")
-	private int state;
-	
-	@XmlElement
-	@Column(name = "reason")
-	private String reason;
-	
 	@XmlElement
 	@Column(name = "hourcost")
 	private String hourcost;
 	
 	@Transient
 	private List<Image> images;
-	
-	@Transient
-	private List<TimeSlot> today;
-	
-	@Transient
-	private List<TimeSlot> tomorrow;
-	
-	@Transient
-	private List<TimeSlot> after;
-	
-	@Transient
-	private List<UserOrder> orders;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -184,12 +141,12 @@ public class Coach implements Serializable {
 		this.weight = weight;
 	}
 
-	public int getStatus() {
-		return status;
+	public Date getTime() {
+		return time;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 	public String getPhone() {
@@ -198,14 +155,6 @@ public class Coach implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public List<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(List<Image> images) {
-		this.images = images;
 	}
 
 	public int getClubid() {
@@ -223,46 +172,6 @@ public class Coach implements Serializable {
 	public void setClub(Club club) {
 		this.club = club;
 	}
-	
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
-	public String getReason() {
-		return reason;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
-
-	public List<TimeSlot> getToday() {
-		return today;
-	}
-
-	public void setToday(List<TimeSlot> today) {
-		this.today = today;
-	}
-
-	public List<TimeSlot> getTomorrow() {
-		return tomorrow;
-	}
-
-	public void setTomorrow(List<TimeSlot> tomorrow) {
-		this.tomorrow = tomorrow;
-	}
 
 	public String getHourcost() {
 		return hourcost;
@@ -272,36 +181,12 @@ public class Coach implements Serializable {
 		this.hourcost = hourcost;
 	}
 
-	public List<UserOrder> getOrders() {
-		return orders;
+	public List<Image> getImages() {
+		return images;
 	}
 
-	public void setOrders(List<UserOrder> orders) {
-		this.orders = orders;
-	}
-
-	public List<TimeSlot> getAfter() {
-		return after;
-	}
-
-	public void setAfter(List<TimeSlot> after) {
-		this.after = after;
-	}
-
-	public Date getCtime() {
-		return ctime;
-	}
-
-	public void setCtime(Date ctime) {
-		this.ctime = ctime;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 	
 }
