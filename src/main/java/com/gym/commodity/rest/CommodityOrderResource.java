@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gym.commodity.entity.CommodityOrder;
 import com.gym.commodity.service.CommodityOrderService;
 import com.gym.common.dto.BaseResponse;
+import com.gym.common.dto.BaseResultResponse;
 import com.gym.common.dto.BaseResultsResponse;
 
 @Controller
@@ -111,6 +112,17 @@ public class CommodityOrderResource {
 			List<CommodityOrder> results = service.commentedList(userId, page, size);
 			int totalCount = service.commentedCount(userId);
 			return new BaseResultsResponse(totalCount, results);
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	@RequestMapping(value = "/detail", method = { RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse detail(@RequestParam(required = false) int id){
+		try {
+			CommodityOrder order = service.getById(id);
+			return new BaseResultResponse(order);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
 		}

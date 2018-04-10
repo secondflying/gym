@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.hibernate.annotations.NotFound;
@@ -18,6 +19,7 @@ import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gym.user.entity.CoachInfo;
 import com.gym.user.entity.UserInfo;
 
 @Entity
@@ -82,6 +84,9 @@ public class UserOrder implements Serializable {
 	@Column(name = "state")
 	@JsonIgnore
 	private Integer state;
+	
+	@Transient
+	private CoachInfo coach;
 
 	public Integer getId() {
 		return id;
@@ -177,6 +182,14 @@ public class UserOrder implements Serializable {
 
 	public void setState(Integer state) {
 		this.state = state;
+	}
+
+	public CoachInfo getCoach() {
+		return coach;
+	}
+
+	public void setCoach(CoachInfo coach) {
+		this.coach = coach;
 	}
 	
 }

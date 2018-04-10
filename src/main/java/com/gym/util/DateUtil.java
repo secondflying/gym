@@ -81,5 +81,19 @@ public class DateUtil {
 	    calendar.setTime(date);
 	    return calendar.getTimeInMillis();
 	}
+	
+	/**
+	 * 返回当天结束的时间
+	 * 
+	 * 
+	 * */
+	public static Date getEndTime() {
+		Calendar todayEnd = Calendar.getInstance();  
+        todayEnd.set(Calendar.HOUR, 23);  
+        todayEnd.set(Calendar.MINUTE, 59);  
+        todayEnd.set(Calendar.SECOND, 59);  
+        todayEnd.set(Calendar.MILLISECOND, 999);  
+        return todayEnd.getTime();  
+	}
 
 }

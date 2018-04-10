@@ -24,6 +24,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.gym.common.dto.BaseResponse;
+import com.gym.common.dto.BaseResultResponse;
 import com.gym.common.dto.BaseResultsResponse;
 import com.gym.order.entity.UserOrder;
 import com.gym.order.service.UserOrderService;
@@ -40,12 +41,39 @@ public class UserOrderResource {
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public BaseResponse list(@RequestParam(required = true) int userId,
-			@RequestParam(required = false,defaultValue = "0") int state,
 			@RequestParam(required = false, defaultValue = "0") int page,
 			@RequestParam(required = false, defaultValue = "20") int size){
 		try {
-			List<UserOrder> results = service.list(userId, state ,page, size);
-			int count = service.getCount(userId, state);
+			List<UserOrder> results = service.list(userId, page, size);
+			int count = service.getCount(userId);
+			return new BaseResultsResponse(count, results);
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	@RequestMapping(value = "/list/unexecute", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse undo(@RequestParam(required = true) int userId,
+			@RequestParam(required = false, defaultValue = "0") int page,
+			@RequestParam(required = false, defaultValue = "20") int size){
+		try {
+			List<UserOrder> results = service.listOfState(userId, 0 ,page, size);
+			int count = service.getCountOfState(userId, 0);
+			return new BaseResultsResponse(count, results);
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	@RequestMapping(value = "/list/execute", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse execute(@RequestParam(required = true) int userId,
+			@RequestParam(required = false, defaultValue = "0") int page,
+			@RequestParam(required = false, defaultValue = "20") int size){
+		try {
+			List<UserOrder> results = service.listOfState(userId, 1 ,page, size);
+			int count = service.getCountOfState(userId, 1);
 			return new BaseResultsResponse(count, results);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
@@ -58,8 +86,21 @@ public class UserOrderResource {
 			@RequestParam(required = true) String startTime, @RequestParam(required = true) String endTime,
 			@RequestParam(required = false) String content){
 		try {
+			//检查教练是否已约或者已请假
+			service.checkCoachTime(coachId, startTime, endTime);
 			service.neworder(userId, coachId, startTime, endTime, content);
 			return BaseResponse.buildSuccessResponse();
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	@RequestMapping(value = "/detail", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse detail(@RequestParam(required = true) int id){
+		try {
+			UserOrder order = service.detail(id);
+			return new BaseResultResponse(order);
 		} catch (Exception e) {
 			return BaseResponse.buildErrorResponse(e);
 		}

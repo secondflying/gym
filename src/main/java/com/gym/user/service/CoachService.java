@@ -241,9 +241,15 @@ public class CoachService {
 		List<LeaveTime> lts = gson.fromJson(times, new TypeToken<List<LeaveTime>>(){}.getType());
 		for(LeaveTime lt: lts) {
 			Date start = lt.getStartTime();
-			Date end = lt.getEndTime();
-			int o = end.compareTo(start);
+			Date endTime = DateUtil.getEndTime();
+			int o = start.compareTo(endTime);
 			if(o < 0) {
+				logger.error("对不起，当天不能请假或请假时间已过期");
+				throw new RuntimeException("对不起，当天不能请假或请假时间已过期");
+			}
+			Date end = lt.getEndTime();
+			int o1 = end.compareTo(start);
+			if(o1 < 0) {
 				logger.error("请假结束时间必须必开始时间大");
 				throw new RuntimeException("请假结束时间必须必开始时间大");
 			}
