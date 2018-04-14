@@ -97,6 +97,14 @@ public class UserOrderService {
 		}
 	}
 	
+	public void startCheck(int id, int coachId) {
+		UserOrder userOrder = dao.findOne(id);
+		if(userOrder.getCoachId() != coachId) {
+			logger.error("教练id不正确，请检查");
+			throw new RuntimeException("教练id不正确，请检查");
+		}
+	}
+	
 	public void start(int id) {
 		try {
 			UserOrder userOrder = dao.findOne(id);
