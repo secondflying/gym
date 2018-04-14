@@ -40,7 +40,7 @@ public class CommodityOrder implements Serializable {
 	private Integer id;
 	
 	@Column(name = "userid")
-	private int userId;
+	private Integer userId;
 	
 	@OneToOne()
 	@JoinColumn(name = "userid", insertable = false, updatable = false)
@@ -48,7 +48,7 @@ public class CommodityOrder implements Serializable {
 	private User user;
 	
 	@Column(name = "cid")
-	private int cid;
+	private Integer cid;
 	
 	@OneToOne()
 	@JoinColumn(name = "cid", insertable = false, updatable = false)
@@ -63,11 +63,11 @@ public class CommodityOrder implements Serializable {
 	private String comment;
 	
 	@Column(name = "level")
-	private int level;
+	private Integer level;
 	
 	@Column(name = "status")
 	@JsonIgnore
-	private int status;
+	private Integer status;
 	
 	/**
 	 * 订单状态
@@ -75,10 +75,10 @@ public class CommodityOrder implements Serializable {
 	 * 
 	 * */
 	@Column(name = "state")
-	private int state;
+	private Integer state;
 	
 	@Column(name = "num")
-	private int num;
+	private Integer num;
 
 	public Integer getId() {
 		return id;
@@ -88,19 +88,19 @@ public class CommodityOrder implements Serializable {
 		this.id = id;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	public int getCid() {
+	public Integer getCid() {
 		return cid;
 	}
 
-	public void setCid(int cid) {
+	public void setCid(Integer cid) {
 		this.cid = cid;
 	}
 
@@ -120,27 +120,27 @@ public class CommodityOrder implements Serializable {
 		this.comment = comment;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
-	public int getState() {
+	public Integer getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(Integer state) {
 		this.state = state;
 	}
 
-	public int getLevel() {
+	public Integer getLevel() {
 		return level;
 	}
 
-	public void setLevel(int level) {
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
 
@@ -160,11 +160,11 @@ public class CommodityOrder implements Serializable {
 		this.commodity = commodity;
 	}
 
-	public int getNum() {
+	public Integer getNum() {
 		return num;
 	}
 
-	public void setNum(int num) {
+	public void setNum(Integer num) {
 		this.num = num;
 	}
 	

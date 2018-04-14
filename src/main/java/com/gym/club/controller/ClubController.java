@@ -33,6 +33,12 @@ public class ClubController {
 		ModelAndView view = new ModelAndView("/club/index");
 		return view;
 	}
+	
+	@RequestMapping(value = "/coachManager", method = RequestMethod.GET)
+	public ModelAndView coachManager(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView("/club/coachManager");
+		return view;
+	}
 
 	@RequestMapping(value = "/save", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody

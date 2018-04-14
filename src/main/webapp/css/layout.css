@@ -178,3 +178,6 @@
 #imgList{padding: 0 10px 6px 10px;}
 #imgList ul li{float: left;padding: 3px;position: relative;}
 #imgList ul li i{position: absolute;z-index: 100;height: 24px;width: 24px;cursor: pointer;right: 1px;top: 1px;background: url("../images/center/remove.png") center no-repeat;display: none;}
+
+.linkof{color: #4384db;}
+.linkof:hover{text-decoration: underline;cursor: pointer;}

@@ -1,0 +1,32 @@
+<div id="levelDlg" class="easyui-dialog" data-options="iconCls:'icon-save',closed:true" style="padding:5px;">
+	<form id="levelForm"  method="post" enctype="multipart/form-data">
+	    <input type="hidden" id="levelForm-id" name="id">
+	    <table class="dlgForm">
+            <tr>
+				<td>星级：</td>
+				<td>
+					<input name="level" class="easyui-combobox" data-options="
+						valueField: 'label',
+						textField: 'value',
+						editable: false,
+						data: [{
+							label: '1',
+							value: '1星'
+						},{
+							label: '2',
+							value: '2星'
+						},{
+							label: '3',
+							value: '3星'
+						},{
+							label: '4',
+							value: '4星'
+						},{
+							label: '5',
+							value: '5星'
+						}]"/>
+				</td>
+            </tr>         
+        </table>
+   	</form>
+</div>

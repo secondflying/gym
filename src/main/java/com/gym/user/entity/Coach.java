@@ -46,7 +46,7 @@ public class Coach implements Serializable {
 	
 	@XmlElement
 	@Column(name = "age")
-	private int age;
+	private Integer age;
 	
 	@XmlElement
 	@Column(name = "sex")
@@ -71,7 +71,7 @@ public class Coach implements Serializable {
 	@XmlElement
 	@Column(name = "status")
 	@JsonIgnore
-	private int status;
+	private Integer status;
 	
 	@XmlElement
 	@Column(name = "phone")
@@ -88,8 +88,12 @@ public class Coach implements Serializable {
 	private String code;
 	
 	@XmlElement
+	@Column(name = "level")
+	private Integer level;
+	
+	@XmlElement
 	@Column(name = "clubid")
-	private int clubid;
+	private Integer clubid;
 	
 	@ManyToOne()
 	@JoinColumn(name = "clubid", insertable = false, updatable = false)
@@ -103,7 +107,7 @@ public class Coach implements Serializable {
 	 * */
 	@XmlElement
 	@Column(name = "state")
-	private int state;
+	private Integer state;
 	
 	@XmlElement
 	@Column(name = "reason")
@@ -144,11 +148,11 @@ public class Coach implements Serializable {
 		this.name = name;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 
@@ -184,11 +188,11 @@ public class Coach implements Serializable {
 		this.weight = weight;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -208,11 +212,11 @@ public class Coach implements Serializable {
 		this.images = images;
 	}
 
-	public int getClubid() {
+	public Integer getClubid() {
 		return clubid;
 	}
 
-	public void setClubid(int clubid) {
+	public void setClubid(Integer clubid) {
 		this.clubid = clubid;
 	}
 
@@ -224,11 +228,11 @@ public class Coach implements Serializable {
 		this.club = club;
 	}
 	
-	public int getState() {
+	public Integer getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(Integer state) {
 		this.state = state;
 	}
 
@@ -302,6 +306,14 @@ public class Coach implements Serializable {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 	
 }

@@ -32,10 +32,18 @@ define(function(require, exports, module){
 					{field:'age',title:'年龄',width:100,align:'center'},
 					{field:'sex',title:'性别',width:100,align:'center'},
 					{field:'weight',title:'体重',width:100,align:'center',formatter:function(value,row,index){
-						return value + "kg";
+						if(value){
+							return value + "kg";
+						}else{
+							return "--";
+						}
 			        }},
 					{field:'height',title:'身高',width:100,align:'center',formatter:function(value,row,index){
-						return value + "cm";
+						if(value){
+							return value + "cm";
+						}else{
+							return "--";
+						}
 			        }},
 			        {field:'state',title:'审核状态',width:100,align:'center',formatter:function(value,row,index){
 						if(value == 0){
@@ -54,7 +62,7 @@ define(function(require, exports, module){
 						}
 			        }},
 			        {field:'level',title:'星级',width:150,align:'center',formatter:function(value,row,index){
-						if(row.level != 0){
+						if(row.level){
 							return row.level + "星";
 						}else{
 							return "--"

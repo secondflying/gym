@@ -63,7 +63,9 @@ define(function(require, exports, module){
 				    $(".o-coach").off("click");
 				    $(".o-coach").on("click",function(){
 						 var id = $(this).parent().attr("id");
-						 that.bindCoach(id);
+						 //that.bindCoach(id);
+						 var url = GYM.ContextRoot + "/manager/club/coachManager?id="+id;
+						 window.location.href = url;
 					});
 				    
 				    $(".o-img").off("click");

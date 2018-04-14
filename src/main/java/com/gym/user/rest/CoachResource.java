@@ -100,6 +100,29 @@ public class CoachResource {
 	}
 	
 	/**
+	 * 教练注册
+	 * 
+	 * */
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json;charset=UTF-8", consumes = "application/json")
+	@ResponseBody
+	public BaseResponse update(@RequestBody CoachDto dto) throws IllegalStateException, IOException,
+			ServletException {
+		try {
+			if (StringUtils.isEmpty(dto.getPhone()))
+				throw new IllegalArgumentException("手机号码不得为空");
+			if (StringUtils.isEmpty(dto.getName()))
+				throw new IllegalArgumentException("名称不得为空");
+			if(service.checkExsit(dto.getPhone())) {
+				throw new IllegalArgumentException("手机号码已注册");
+			}
+			Coach result = service.update(dto);
+			return new BaseResultResponse(result);
+		} catch (Exception e) {
+			return BaseResponse.buildErrorResponse(e);
+		}
+	}
+	
+	/**
 	 * 教练详情
 	 * 
 	 * */

@@ -67,10 +67,21 @@ public class CoachController {
 	@ResponseBody
 	public BaseResponse save(HttpServletRequest request, Coach coach) {
 		try {
-			if(service.checkExsit(coach.getPhone())) {
+			if((coach.getId() == null) && service.checkExsit(coach.getPhone())) {
 				throw new IllegalArgumentException("手机号码已注册");
 			}
 			service.save(coach);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
+	
+	@RequestMapping(value = "/updateLevel", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse updateLevel(HttpServletRequest request, Coach coach) {
+		try {
+			service.updateLevel(coach);
 			return BaseResponse.buildSuccessResponse();
 		} catch (Exception ex) {
 			return BaseResponse.buildErrorResponse(ex);
@@ -106,6 +117,28 @@ public class CoachController {
 	public BaseResponse coachsToClub(HttpServletRequest request, int clubId, String coachIds) {
 		try {
 			service.coachsToClub(clubId, coachIds);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
+	
+	@RequestMapping(value = "/coachToClub", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse coachToClub(HttpServletRequest request, int clubId, int coachId) {
+		try {
+			service.coachToClub(clubId, coachId);
+			return BaseResponse.buildSuccessResponse();
+		} catch (Exception ex) {
+			return BaseResponse.buildErrorResponse(ex);
+		}
+	}
+	
+	@RequestMapping(value = "/coachOffClub", method = { RequestMethod.POST}, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public BaseResponse coachOffClub(HttpServletRequest request, int coachId) {
+		try {
+			service.coachOffClub(coachId);
 			return BaseResponse.buildSuccessResponse();
 		} catch (Exception ex) {
 			return BaseResponse.buildErrorResponse(ex);

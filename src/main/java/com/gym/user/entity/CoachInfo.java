@@ -43,7 +43,7 @@ public class CoachInfo implements Serializable {
 	
 	@XmlElement
 	@Column(name = "age")
-	private int age;
+	private Integer age;
 	
 	@XmlElement
 	@Column(name = "sex")
@@ -71,7 +71,7 @@ public class CoachInfo implements Serializable {
 	
 	@XmlElement
 	@Column(name = "clubid")
-	private int clubid;
+	private Integer clubid;
 	
 	@ManyToOne()
 	@JoinColumn(name = "clubid", insertable = false, updatable = false)
@@ -81,6 +81,10 @@ public class CoachInfo implements Serializable {
 	@XmlElement
 	@Column(name = "hourcost")
 	private String hourcost;
+	
+	@XmlElement
+	@Column(name = "level")
+	private Integer level;
 	
 	@Transient
 	private List<Image> images;
@@ -101,11 +105,11 @@ public class CoachInfo implements Serializable {
 		this.name = name;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 
@@ -157,11 +161,11 @@ public class CoachInfo implements Serializable {
 		this.phone = phone;
 	}
 
-	public int getClubid() {
+	public Integer getClubid() {
 		return clubid;
 	}
 
-	public void setClubid(int clubid) {
+	public void setClubid(Integer clubid) {
 		this.clubid = clubid;
 	}
 
@@ -187,6 +191,14 @@ public class CoachInfo implements Serializable {
 
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 	
 }

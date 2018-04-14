@@ -34,7 +34,7 @@ public class UserAddress implements Serializable {
 	
 	@XmlElement
 	@Column(name = "userid")
-	private int userId;
+	private Integer userId;
 	
 	@XmlElement
 	@Column(name = "address")
@@ -55,7 +55,7 @@ public class UserAddress implements Serializable {
 	@XmlElement
 	@Column(name = "status")
 	@JsonIgnore
-	private int status;
+	private Integer status;
 
 	public Integer getId() {
 		return id;
@@ -65,11 +65,11 @@ public class UserAddress implements Serializable {
 		this.id = id;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -105,11 +105,11 @@ public class UserAddress implements Serializable {
 		this.receiveName = receiveName;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

@@ -44,7 +44,7 @@ public class UserInfo implements Serializable {
 	
 	@XmlElement
 	@Column(name = "age")
-	private int age;
+	private Integer age;
 	
 	@XmlElement
 	@Column(name = "sex")
@@ -98,11 +98,11 @@ public class UserInfo implements Serializable {
 		this.nickname = nickname;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 

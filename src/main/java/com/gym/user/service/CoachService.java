@@ -91,6 +91,24 @@ public class CoachService {
 		}
 	}
 	
+	public Coach update(CoachDto dto) {
+		try {
+			Coach coach = dao.findOne(dto.getId());
+			coach.setName(dto.getName());
+			coach.setAge(dto.getAge());
+			coach.setPhone(dto.getPhone());
+			coach.setHeight(dto.getHeight());
+			coach.setBrief(dto.getBrief());
+			coach.setSex(dto.getSex());
+			coach.setHourcost(dto.getHourcost());
+			coach.setTime(new Date());
+			return dao.save(coach);
+		} catch (Exception e) {
+			logger.error("注册教练失败", e);
+			throw new RuntimeException("注册教练失败", e);
+		}
+	}
+	
 	public void save(Coach coach) {
 		try {
 			coach.setStatus(0);
@@ -101,6 +119,17 @@ public class CoachService {
 		} catch (Exception e) {
 			logger.error("新增教练失败", e);
 			throw new RuntimeException("新增教练失败", e);
+		}
+	}
+	
+	public void updateLevel(Coach coach) {
+		try {
+			Coach c = dao.findOne(coach.getId());
+			c.setLevel(coach.getLevel());
+			dao.save(c);
+		} catch (Exception e) {
+			logger.error("编辑星级失败", e);
+			throw new RuntimeException("编辑星级失败", e);
 		}
 	}
 	
@@ -407,6 +436,28 @@ public class CoachService {
 		} catch (NumberFormatException e) {
 			logger.error("分配教练到健身房失败", e);
 			throw new RuntimeException("分配教练到健身房失败", e);
+		}
+	}
+	
+	public void coachToClub(int clubId, int coachId) {
+		try {
+			Coach coach = dao.findOne(coachId);
+			coach.setClubid(clubId);
+			dao.save(coach);
+		} catch (Exception e) {
+			logger.error("分配教练到健身房失败", e);
+			throw new RuntimeException("分配教练到健身房失败", e);
+		}
+	}
+	
+	public void coachOffClub(int coachId) {
+		try {
+			Coach coach = dao.findOne(coachId);
+			coach.setClubid(-1);
+			dao.save(coach);
+		} catch (Exception e) {
+			logger.error("健身房移除教练失败", e);
+			throw new RuntimeException("健身房移除教练失败", e);
 		}
 	}
 	

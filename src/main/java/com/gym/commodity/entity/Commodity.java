@@ -47,11 +47,11 @@ public class Commodity implements Serializable {
 	private double nowprice;
 	
 	@Column(name = "type")
-	private int type;
+	private Integer type;
 	
 	@Column(name = "status")
 	@JsonIgnore
-	private int status;
+	private Integer status;
 	
 	@Column(name = "createtime")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -103,19 +103,19 @@ public class Commodity implements Serializable {
 		this.nowprice = nowprice;
 	}
 
-	public int getType() {
+	public Integer getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

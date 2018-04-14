@@ -30,7 +30,7 @@ public class CoachLeave implements Serializable {
 	
 	@XmlElement
 	@Column(name = "coachid")
-	private int coachId;
+	private Integer coachId;
 	
 	@XmlElement
 	@Column(name = "reason")
@@ -56,11 +56,11 @@ public class CoachLeave implements Serializable {
 		this.id = id;
 	}
 
-	public int getCoachId() {
+	public Integer getCoachId() {
 		return coachId;
 	}
 
-	public void setCoachId(int coachId) {
+	public void setCoachId(Integer coachId) {
 		this.coachId = coachId;
 	}
 
