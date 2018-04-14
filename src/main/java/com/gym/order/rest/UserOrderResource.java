@@ -125,7 +125,6 @@ public class UserOrderResource {
 	@RequestMapping(value = "/getQRCode", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public BaseResponse getQRCode(HttpServletResponse response, @RequestParam(required = true) String id, 
-			@RequestParam(required = true) String coachId,
 			@RequestParam(required = false, defaultValue = "300") int width,
 			@RequestParam(required = false, defaultValue = "300") int height) throws IOException{
 		if (StringUtils.isEmpty(id))
@@ -134,7 +133,7 @@ public class UserOrderResource {
 		hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 		OutputStream stream = null;
 		try {
-			BitMatrix bitMatrix = new MultiFormatWriter().encode(id + "," + coachId, BarcodeFormat.QR_CODE, width, height);
+			BitMatrix bitMatrix = new MultiFormatWriter().encode(id, BarcodeFormat.QR_CODE, width, height);
 			stream = response.getOutputStream();
 			MatrixToImageWriter.writeToStream(bitMatrix, "png", stream);
 			return BaseResponse.buildSuccessResponse();
